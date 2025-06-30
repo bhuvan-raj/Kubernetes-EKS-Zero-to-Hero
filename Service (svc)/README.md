@@ -1,3 +1,32 @@
+# 📘 Table of Contents
+
+- [1. Introduction](#1-introduction)
+- [2. The Challenge: Ephemeral Pods](#2-the-challenge-ephemeral-pods)
+- [3. What is a Kubernetes Service?](#3-what-is-a-kubernetes-service)
+- [4. Core Functions and Benefits](#4-core-functions-and-benefits)
+- [5. How Services Work: The Core Mechanism](#5-how-services-work-the-core-mechanism)
+  - [5.1. Selectors](#selectors)
+  - [5.2. Endpoints Object](#endpoints-object)
+  - [5.3. Kube-Proxy: The Network Enforcer](#kube-proxy-the-network-enforcer)
+- [6. Types of Kubernetes Services (Overview)](#7-types-of-kubernetes-services-overview)
+- [7. ClusterIP](#1cluster-ip)
+  - [7.1. Primary Purpose](#primary-purpose)
+  - [7.2. Characteristics & Key Properties](#2-characteristics--key-properties)
+    - [7.2.1 Internal Accessibility Only](#internal-accessibility-only)
+    - [7.2.2 Stable IP Address for Service Lifetime](#stable-ip-address-for-service-lifetime)
+    - [7.2.3 DNS Resolution within the Cluster](#dns-resolution-within-the-cluster)
+    - [7.2.4 Internal Load Balancing](#internal-load-balancing)
+    - [7.2.5 Decoupling of Client from Pods](#decoupling-of-client-from-pods)
+  - [7.3. How ClusterIP Works (Deep Dive)](#how-clusterip-works-deep-dive-into-mechanisms)
+    - [7.3.1 Role of kube-controller-manager](#31-role-of-kube-controller-manager)
+    - [7.3.2 Role of kube-proxy](#32-role-of-kube-proxy)
+      - [iptables Mode](#321-iptables-mode-default-and-most-common)
+      - [IPVS Mode](#322-ipvs-mode-ip-virtual-server)
+    - [7.3.3 Endpoints Object: The Backend List](#33-endpoints-object-the-backend-list)
+    - [7.3.4 Service Discovery via DNS](#34-service-discovery-via-dns)
+- [📚 Official Documentation](#official-kubernetes-documentation-reference)
+
+
 # Service in Kubernetes
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/service.gif" alt="Banner" />
@@ -78,6 +107,9 @@ Kubernetes offers different Service types to cater to various exposure requireme
 - LoadBalancer: Exposes the Service externally using a cloud provider's load balancer. This type is typically used in cloud environments (AWS, GCP, Azure, etc.) to provision a dedicated external IP and load balancer for your application.
 
 - ExternalName: Maps the Service to an arbitrary external DNS name. No proxying is involved; it simply returns a CNAME record. Useful for accessing external services from within your cluster.
+
+[**Official kubernetes Documentation Reference**](https://kubernetes.io/docs/concepts/services-networking/)
+
 
 
 # 1.Cluster IP
