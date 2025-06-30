@@ -1,5 +1,7 @@
 # Service in Kubernetes
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/service.gif" alt="Banner" />
+
 ## 1. Introduction
 
 In the world of Kubernetes, applications are deployed as Pods. While Pods are excellent for running containers, they are inherently ephemeral and dynamic. Their IP addresses can change frequently due to scaling, rolling updates, crashes, or rescheduling. This presents a fundamental challenge: how do other parts of your application, or even external users, consistently find and communicate with these ever-changing Pods?
