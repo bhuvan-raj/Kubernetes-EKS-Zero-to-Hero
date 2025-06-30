@@ -82,6 +82,8 @@ Kubernetes offers different Service types to cater to various exposure requireme
 
 # 1.Cluster IP
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/service1.png" alt="Banner" />
+
 The ClusterIP Service is the default and most fundamental Kubernetes Service type. It exposes a logical set of Pods on an internal IP address that is only reachable from within the Kubernetes cluster.
 
 **Primary Purpose**
