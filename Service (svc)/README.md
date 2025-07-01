@@ -266,6 +266,9 @@ Subsets:
 
 # 2. Introduction to NodePort Service
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/svc.png" alt="Banner" />
+
+
 ## Definition 
 
 A NodePort Service is a Kubernetes Service type that exposes your application on a static port on every Node's IP address in the cluster. This allows external traffic to reach your application by directing requests to any Node's IP address, on that specific NodePort.
