@@ -1,30 +1,36 @@
-# 📘 Table of Contents
+## 📚 Table of Contents
 
-- [1. Introduction](#1-introduction)
-- [2. The Challenge: Ephemeral Pods](#2-the-challenge-ephemeral-pods)
-- [3. What is a Kubernetes Service?](#3-what-is-a-kubernetes-service)
-- [4. Core Functions and Benefits](#4-core-functions-and-benefits)
-- [5. How Services Work: The Core Mechanism](#5-how-services-work-the-core-mechanism)
-  - [5.1. Selectors](#selectors)
-  - [5.2. Endpoints Object](#endpoints-object)
-  - [5.3. Kube-Proxy: The Network Enforcer](#kube-proxy-the-network-enforcer)
-- [6. Types of Kubernetes Services (Overview)](#7-types-of-kubernetes-services-overview)
-- [7. ClusterIP](#1cluster-ip)
-  - [7.1. Primary Purpose](#primary-purpose)
-  - [7.2. Characteristics & Key Properties](#2-characteristics--key-properties)
-    - [7.2.1 Internal Accessibility Only](#internal-accessibility-only)
-    - [7.2.2 Stable IP Address for Service Lifetime](#stable-ip-address-for-service-lifetime)
-    - [7.2.3 DNS Resolution within the Cluster](#dns-resolution-within-the-cluster)
-    - [7.2.4 Internal Load Balancing](#internal-load-balancing)
-    - [7.2.5 Decoupling of Client from Pods](#decoupling-of-client-from-pods)
-  - [7.3. How ClusterIP Works (Deep Dive)](#how-clusterip-works-deep-dive-into-mechanisms)
-    - [7.3.1 Role of kube-controller-manager](#31-role-of-kube-controller-manager)
-    - [7.3.2 Role of kube-proxy](#32-role-of-kube-proxy)
-      - [iptables Mode](#321-iptables-mode-default-and-most-common)
-      - [IPVS Mode](#322-ipvs-mode-ip-virtual-server)
-    - [7.3.3 Endpoints Object: The Backend List](#33-endpoints-object-the-backend-list)
-    - [7.3.4 Service Discovery via DNS](#34-service-discovery-via-dns)
-- [📚 Official Documentation](#official-kubernetes-documentation-reference)
+1. [Introduction](#1-introduction)
+2. [The Challenge: Ephemeral Pods](#2-the-challenge-ephemeral-pods)
+3. [What is a Kubernetes Service?](#3-what-is-a-kubernetes-service)
+4. [Core Functions and Benefits](#4-core-functions-and-benefits)
+5. [How Services Work: The Core Mechanism](#5-how-services-work-the-core-mechanism)
+
+   * [Selectors](#selectors)
+   * [Endpoints Object](#endpoints-object)
+   * [Kube-Proxy: The Network Enforcer](#kube-proxy-the-network-enforcer)
+6. [Types of Kubernetes Services (Overview)](#7-types-of-kubernetes-services-overview)
+7. [ClusterIP Service](#1cluster-ip)
+
+   * [Characteristics & Key Properties](#characteristics--key-properties)
+   * [How ClusterIP Works (Deep Dive)](#how-clusterip-works-deep-dive-into-mechanisms)
+
+     * [Role of kube-controller-manager](#31-role-of-kube-controller-manager)
+     * [Role of kube-proxy](#role-of-kube-proxy)
+     * [iptables Mode](#iptables-mode-default-and-most-common)
+     * [IPVS Mode](#ipvs-mode-ip-virtual-server)
+     * [Endpoints Object](#33-endpoints-object-the-backend-list)
+     * [Service Discovery via DNS](#34-service-discovery-via-dns)
+8. [NodePort Service](#2-introduction-to-nodeport-service)
+
+   * [Definition](#definition)
+   * [Purpose](#purpose)
+   * [Characteristics & Key Properties](#characteristics--key-properties-1)
+   * [How NodePort Works (Deep Dive)](#how-nodeport-works-deep-dive-into-mechanisms)
+   * [Illustrative Traffic Flow](#illustrative-traffic-flow)
+   * [Limitations & Disadvantages](#limitations--disadvantages)
+
+---
 
 
 # Service in Kubernetes
@@ -337,17 +343,17 @@ kube-proxy (running on every Node) is critical for NodePort functionality:
 This means that even if the Pod is running on Node B, and the external traffic hits Node A, kube-proxy on Node A will redirect it across the cluster network to Node B and then to the Pod.
 
 
-Limitations & Disadvantages
+## Limitations & Disadvantages
 
-Port Conflicts: Only one Service can use a given NodePort across the entire cluster. If two Services try to claim the same NodePort, the second one will fail.
+- Port Conflicts: Only one Service can use a given NodePort across the entire cluster. If two Services try to claim the same NodePort, the second one will fail.
 
-Reliance on Node IPs: External clients must know the IP address of at least one of your Nodes. If Nodes are transient or their IPs change (e.g., in cloud environments), this can break connectivity. This often requires an additional external load balancer in front of the Nodes.
+- Reliance on Node IPs: External clients must know the IP address of at least one of your Nodes. If Nodes are transient or their IPs change (e.g., in cloud environments), this can break connectivity. This often requires an additional external load balancer in front of the Nodes.
 
-Single Point of Failure (Conceptual): While the NodePort is open on all Nodes, if you only publish one Node's IP to your users and that Node goes down, your service becomes unreachable for them, even if other Nodes are healthy.
+- Single Point of Failure (Conceptual): While the NodePort is open on all Nodes, if you only publish one Node's IP to your users and that Node goes down, your service becomes unreachable for them, even if other Nodes are healthy.
 
-Security Concerns: Opening a port on every Node in your cluster can potentially expose your Nodes to unnecessary attack surfaces if not properly secured with firewalls.
+- Security Concerns: Opening a port on every Node in your cluster can potentially expose your Nodes to unnecessary attack surfaces if not properly secured with firewalls.
 
-Not a "True" Load Balancer: NodePort itself doesn't provide advanced load balancing features (like SSL termination, content-based routing, sticky sessions) that dedicated cloud LoadBalancer or Ingress solutions offer. It simply forwards traffic.
+- Not a "True" Load Balancer: NodePort itself doesn't provide advanced load balancing features (like SSL termination, content-based routing, sticky sessions) that dedicated cloud LoadBalancer or Ingress solutions offer. It simply forwards traffic.
 
 
 
