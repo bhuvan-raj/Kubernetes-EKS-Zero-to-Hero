@@ -29,9 +29,14 @@
    * [How NodePort Works (Deep Dive)](#how-nodeport-works-deep-dive-into-mechanisms)
    * [Illustrative Traffic Flow](#illustrative-traffic-flow)
    * [Limitations & Disadvantages](#limitations--disadvantages)
+9. [LoadBalancer Service](#loadbalancer-service)
+
+   * [How it Works](#how-it-works)
+   * [When to Use LoadBalancer](#when-to-use-loadbalancer)
+   * [Prerequisites for LoadBalancer Service](#prerequisites-for-loadbalancer-service)
+   * [What Happens When You Apply the LoadBalancer.yaml](#what-happens-when-you-apply-the-loadbalanceryaml)
 
 ---
-
 
 # Service in Kubernetes
 
