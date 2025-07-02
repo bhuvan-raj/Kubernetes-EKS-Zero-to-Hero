@@ -358,6 +358,10 @@ This means that even if the Pod is running on Node B, and the external traffic h
 
 # LoadBalancer Service
 
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/svc3.png" alt="Banner" />
+
+
 The LoadBalancer Service type is specifically designed to expose your application to the external internet by provisioning a dedicated load balancer from the underlying cloud provider where your Kubernetes cluster is running.
 
 **How it Works**
