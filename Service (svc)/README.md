@@ -433,6 +433,89 @@ You cannot demonstrate a true LoadBalancer service (where a new external IP is a
             "...and from the ClusterIP, load-balance it to one of the healthy Pods that match the service's selector."
 
 
+#  Headless Service
+
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/svc4.png" alt="Banner" />
+
+
+## 📌 What is a Headless Service?
+
+A **Headless Service** in Kubernetes is a type of service **without a ClusterIP**, allowing clients to interact directly with the individual pods that match a selector.
+
+In a standard service, Kubernetes assigns a virtual IP (ClusterIP) and load balances traffic across multiple pods. However, in a **headless service**, Kubernetes **returns the IP addresses of individual pods** without load balancing, enabling more fine-grained control.
+
+---
+
+## 🔍 Why Use a Headless Service?
+
+| Use Case                  | Description                                                                                   |
+| ------------------------- | --------------------------------------------------------------------------------------------- |
+| **Stateful Applications** | Apps like Cassandra, Kafka, MySQL, and Elasticsearch require stable network IDs for each pod. |
+| **Service Discovery**     | Enables custom service discovery and direct access to pods.                                   |
+
+---
+
+## ⚙️ How to Create a Headless Service
+
+You define a Headless Service by setting:
+
+```yaml
+spec:
+  clusterIP: None
+```
+
+This disables the default virtual IP assignment.
+
+---
+
+## 🌐 How DNS Works with Headless Services
+
+Eg-using a statefulset of nginx
+
+For the `nginx` StatefulSet with 3 replicas, each pod gets a **stable DNS name**:
+
+* `nginx-0.nginx-headless.default.svc.cluster.local`
+* `nginx-1.nginx-headless.default.svc.cluster.local`
+* `nginx-2.nginx-headless.default.svc.cluster.local`
+
+Pods can use these DNS names to communicate directly.
+
+---
+
+## 🔎 Verify Headless Behavior
+
+After applying the manifests:
+
+```bash
+kubectl apply -f nginx-headless-svc.yaml
+kubectl apply -f nginx-statefulset.yaml
+```
+
+Check the pods:
+
+```bash
+kubectl get pods -l app=nginx -o wide
+```
+
+Check the DNS resolution from inside another pod:
+
+```bash
+kubectl run -i --tty busybox --image=busybox --restart=Never -- sh
+# nslookup nginx-headless
+```
+
+You should see multiple A records — one for each pod.
+
+---
+
+##  Key Takeaways
+
+* **Headless Services** return individual pod IPs via DNS.
+* Perfect for **StatefulSets** and **custom service discovery**.
+* Use with `clusterIP: None` in your YAML.
+* Enables **stable DNS entries** for pod-to-pod communication.
+
 
 
 
