@@ -1,7 +1,3 @@
-Sure Bubu! Based on your beautifully structured and detailed content, here's the **updated Table of Contents** reflecting the newly added **Headless Service** section as well:
-
----
-
 ## 📚 Table of Contents
 
 1. [Introduction](#1-introduction)
@@ -39,17 +35,24 @@ Sure Bubu! Based on your beautifully structured and detailed content, here's the
    * [When to Use LoadBalancer](#when-to-use-loadbalancer)
    * [Prerequisites for LoadBalancer Service](#prerequisites-for-loadbalancer-service)
    * [What Happens When You Apply the LoadBalancer.yaml](#what-happens-when-you-apply-the-loadbalanceryaml)
-
-
 10. [What is a Headless Service?](#what-is-a-headless-service)
-    
-  * [Why Use a Headless Service?](#why-use-a-headless-service)
-  * [How to Create a Headless Service](#how-to-create-a-headless-service)
-  * [How DNS Works with Headless Services](#how-dns-works-with-headless-services)
-  * [Verify Headless Behavior](#verify-headless-behavior)
-  * [Key Takeaways](#key-takeaways)
 
----
+    * [Why Use a Headless Service?](#why-use-a-headless-service)
+    * [How to Create a Headless Service](#how-to-create-a-headless-service)
+    * [How DNS Works with Headless Services](#how-dns-works-with-headless-services)
+    * [Verify Headless Behavior](#verify-headless-behavior)
+    * [Key Takeaways](#key-takeaways)
+11. [Kubernetes ExternalName Service](#kubernetes-externalname-service)
+
+    * [What is an ExternalName Service?](#what-is-an-externalname-service)
+    * [Why Use ExternalName?](#why-use-externalname)
+    * [How Does It Work?](#how-does-it-work)
+    * [Traffic Flow Explained](#traffic-flow-explained)
+    * [What ExternalName Service Is NOT](#what-externalname-service-is-not)
+    * [Example Test](#example-test)
+    * [Summary](#summary)
+    * [Official Reference](#official-reference)
+
 
 
 # Service in Kubernetes
