@@ -1,3 +1,7 @@
+Sure Bubu! Based on your beautifully structured and detailed content, here's the **updated Table of Contents** reflecting the newly added **Headless Service** section as well:
+
+---
+
 ## 📚 Table of Contents
 
 1. [Introduction](#1-introduction)
@@ -9,7 +13,7 @@
    * [Selectors](#selectors)
    * [Endpoints Object](#endpoints-object)
    * [Kube-Proxy: The Network Enforcer](#kube-proxy-the-network-enforcer)
-6. [Types of Kubernetes Services (Overview)](#7-types-of-kubernetes-services-overview)
+6. [Types of Kubernetes Services (Overview)](#6-types-of-kubernetes-services-overview)
 7. [ClusterIP Service](#1cluster-ip)
 
    * [Characteristics & Key Properties](#characteristics--key-properties)
@@ -35,6 +39,14 @@
    * [When to Use LoadBalancer](#when-to-use-loadbalancer)
    * [Prerequisites for LoadBalancer Service](#prerequisites-for-loadbalancer-service)
    * [What Happens When You Apply the LoadBalancer.yaml](#what-happens-when-you-apply-the-loadbalanceryaml)
+10. [Headless Service](#headless-service)
+
+    * [What is a Headless Service?](#📌-what-is-a-headless-service)
+    * [Why Use a Headless Service?](#🔍-why-use-a-headless-service)
+    * [How to Create a Headless Service](#⚙️-how-to-create-a-headless-service)
+    * [How DNS Works with Headless Services](#🌐-how-dns-works-with-headless-services)
+    * [Verify Headless Behavior](#🔎-verify-headless-behavior)
+    * [Key Takeaways](#-key-takeaways)
 
 ---
 
