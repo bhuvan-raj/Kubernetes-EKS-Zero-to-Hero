@@ -39,16 +39,18 @@ Sure Bubu! Based on your beautifully structured and detailed content, here's the
    * [When to Use LoadBalancer](#when-to-use-loadbalancer)
    * [Prerequisites for LoadBalancer Service](#prerequisites-for-loadbalancer-service)
    * [What Happens When You Apply the LoadBalancer.yaml](#what-happens-when-you-apply-the-loadbalanceryaml)
-10. [Headless Service](#headless-service)
 
-    * [What is a Headless Service?](#📌-what-is-a-headless-service)
-    * [Why Use a Headless Service?](#🔍-why-use-a-headless-service)
-    * [How to Create a Headless Service](#⚙️-how-to-create-a-headless-service)
-    * [How DNS Works with Headless Services](#🌐-how-dns-works-with-headless-services)
-    * [Verify Headless Behavior](#🔎-verify-headless-behavior)
-    * [Key Takeaways](#-key-takeaways)
+
+10. [What is a Headless Service?](#what-is-a-headless-service)
+    
+  * [Why Use a Headless Service?](#why-use-a-headless-service)
+  * [How to Create a Headless Service](#how-to-create-a-headless-service)
+  * [How DNS Works with Headless Services](#how-dns-works-with-headless-services)
+  * [Verify Headless Behavior](#verify-headless-behavior)
+  * [Key Takeaways](#key-takeaways)
 
 ---
+
 
 # Service in Kubernetes
 
@@ -451,7 +453,7 @@ You cannot demonstrate a true LoadBalancer service (where a new external IP is a
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/svc4.png" alt="Banner" />
 
 
-## 📌 What is a Headless Service?
+## What is a Headless Service?
 
 A **Headless Service** in Kubernetes is a type of service **without a ClusterIP**, allowing clients to interact directly with the individual pods that match a selector.
 
@@ -459,7 +461,7 @@ In a standard service, Kubernetes assigns a virtual IP (ClusterIP) and load bala
 
 ---
 
-## 🔍 Why Use a Headless Service?
+## Why Use a Headless Service?
 
 | Use Case                  | Description                                                                                   |
 | ------------------------- | --------------------------------------------------------------------------------------------- |
@@ -468,7 +470,7 @@ In a standard service, Kubernetes assigns a virtual IP (ClusterIP) and load bala
 
 ---
 
-## ⚙️ How to Create a Headless Service
+## How to Create a Headless Service
 
 You define a Headless Service by setting:
 
@@ -481,7 +483,7 @@ This disables the default virtual IP assignment.
 
 ---
 
-## 🌐 How DNS Works with Headless Services
+## How DNS Works with Headless Services
 
 Eg-using a statefulset of nginx
 
@@ -495,7 +497,7 @@ Pods can use these DNS names to communicate directly.
 
 ---
 
-## 🔎 Verify Headless Behavior
+## Verify Headless Behavior
 
 After applying the manifests:
 
