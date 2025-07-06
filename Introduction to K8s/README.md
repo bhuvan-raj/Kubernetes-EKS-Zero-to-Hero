@@ -57,6 +57,8 @@ This distributed nature is key to its power:
 
 ## The Architecture of Kubernetes
 
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Introduction%20to%20K8s/assets/k8s1.png" alt="Banner" />
 A Kubernetes cluster typically consists of two main types of nodes:
 
 1.  **Control Plane (Master Node):** The "brain" of the cluster. It manages the worker nodes and the Pods running on them. There's usually at least one, but often multiple for high availability.
