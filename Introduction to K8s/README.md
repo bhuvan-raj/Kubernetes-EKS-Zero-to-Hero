@@ -58,7 +58,7 @@ This distributed nature is key to its power:
 ## The Architecture of Kubernetes
 
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Introduction%20to%20K8s/assets/k8s1.png" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Introduction%20to%20K8s/assets/k8s1.svg" alt="Banner" />
 
 
 A Kubernetes cluster typically consists of two main types of nodes:
