@@ -537,6 +537,9 @@ You should see multiple A records — one for each pod.
 
 # Kubernetes ExternalName Service
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Service%20(svc)/assets/k8s.webp" alt="Banner" />
+
+
 Kubernetes offers different types of Services to expose applications and enable communication across Pods. Among these, the **ExternalName** Service is a special kind used not for routing traffic inside the cluster, but for allowing Pods to access **external services** using internal DNS names.
 
 ---
