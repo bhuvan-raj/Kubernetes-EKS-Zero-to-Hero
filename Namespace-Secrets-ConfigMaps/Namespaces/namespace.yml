@@ -1,0 +1,9 @@
+apiVersion: v1 # The API version for core Kubernetes objects
+kind: Namespace # The type of Kubernetes resource you want to create
+metadata:
+  name: my-new-namespace # The unique name for your namespace
+  labels:
+    environment: development # Optional: Add labels for better organization or selection
+    project: awesome-app     # for policies.
+  annotations:
+    description: "Namespace for the development environment of the Awesome App." # Optional: Add annotations for descriptive info
