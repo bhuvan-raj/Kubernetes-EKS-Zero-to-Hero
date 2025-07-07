@@ -633,7 +633,9 @@ kubectl run -i --tty tester --image=busybox --restart=Never -- sh
 # Inside the pod
 ```
 nslookup test-external.default.svc.cluster.local
-wget test-external.default.svc.cluster.local
+```
+```
+wget --header="Host: example.com" http://test-external.default.svc.cluster.local
 ```
 
 ---
