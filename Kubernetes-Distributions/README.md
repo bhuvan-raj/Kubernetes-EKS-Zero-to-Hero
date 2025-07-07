@@ -1,6 +1,9 @@
 
 # Kubernetes Distributions: A Detailed Overview
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Kubernetes-Distributions/assets/k8s.png" alt="Banner" />
+
+
 Kubernetes, being open-source, can be deployed and managed in various ways. These different deployment methods, often referred to as "distributions" or "flavors," cater to diverse needs, from individual learning to large-scale enterprise production environments. Understanding these categories is crucial for choosing the right path for your specific project or organizational requirements.
 
 We can broadly categorize Kubernetes distributions into three main types: **Cloud-Managed Services**, **Enterprise/On-Premises Solutions**, and **Local/Study Environments**.
