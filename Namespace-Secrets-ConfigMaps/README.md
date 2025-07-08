@@ -187,4 +187,311 @@ kubectl delete namespace my-new-app
 Namespaces are a fundamental concept for organizing your Kubernetes cluster effectively. Mastering them is essential for building scalable, secure, and manageable containerized applications.
 
 ---
+# ConfigMaps and Secrets
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Namespace-Secrets-ConfigMaps/assets/k8s1.png" alt="Banner" />
+
+
+## 1\. Introduction: Why Externalize Configuration?
+
+In containerized applications, especially in a microservices architecture, it's crucial to separate configuration data from application code and container images. Hardcoding configuration leads to:
+
+  * **Lack of Portability:** Images become environment-specific.
+  * **Difficult Updates:** Any config change requires a new build and deploy.
+  * **Security Risks:** Sensitive data can be exposed.
+
+Kubernetes addresses this by providing **ConfigMaps** for non-sensitive data and **Secrets** for sensitive data, allowing you to inject configuration into your Pods at runtime.
+
+-----
+
+## 2\. Kubernetes ConfigMaps
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Namespace-Secrets-ConfigMaps/assets/k8s.jpg" alt="Banner" />
+
+
+### What is a ConfigMap?
+
+A ConfigMap is a Kubernetes object used to store **non-sensitive configuration data** as key-value pairs.
+
+  * **Purpose:** Store general application settings, environment-specific values, or entire configuration files.
+  * **Storage:** Data is stored in plain text in `etcd` (Kubernetes' backing store).
+  * **Characteristics:** Plain text, key-value pairs, easily consumed by Pods.
+
+### When to Use ConfigMaps
+
+  * **Environment Variables:** `API_URL`, `LOG_LEVEL`, `DEBUG_MODE`.
+  * **Application Settings:** Database connection strings (non-sensitive parts), feature flags.
+  * **Configuration Files:** `nginx.conf`, `application.properties`, `log4j.xml`.
+
+### Creating a ConfigMap
+
+You can create ConfigMaps using `kubectl` from literals, files, or, ideally, declaratively using YAML.
+
+**1. From Literal Values:**
+
+```bash
+kubectl create configmap my-app-config \
+  --from-literal=APP_ENV=production \
+  --from-literal=MAX_CONNECTIONS=100
+```
+
+**2. From a File:**
+(Assumes `config/app.conf` exists)
+
+```bash
+kubectl create configmap app-conf --from-file=config/app.conf
+```
+
+**3. Using a YAML Manifest (Recommended):**
+
+```yaml
+# my-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config
+data:
+  # Key-value pairs
+  APP_MESSAGE: "Welcome to production!"
+  # Multi-line data (e.g., a config file)
+  server.properties: |
+    server.port=8080
+    database.url=jdbc:mysql://prod-db:3306/appdb
+```
+
+```bash
+kubectl apply -f my-configmap.yaml
+```
+
+### Consuming a ConfigMap in Pods
+
+ConfigMaps can be consumed in two primary ways:
+
+**1. As Environment Variables:**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-config-pod
+spec:
+  containers:
+  - name: my-container
+    image: busybox
+    command: ["sh", "-c", "echo App message: $APP_MSG"]
+    env:
+    - name: APP_MSG
+      valueFrom:
+        configMapKeyRef:
+          name: my-app-config # Name of the ConfigMap
+          key: APP_MESSAGE   # Key from the ConfigMap
+    envFrom: # Inject all key-value pairs as environment variables
+    - configMapRef:
+        name: my-app-config
+```
+
+**2. As Mounted Volumes (Files):**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-config-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx:alpine
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/nginx/conf.d # Directory where files will be mounted
+      readOnly: true
+  volumes:
+  - name: config-volume
+    configMap:
+      name: my-app-config # ConfigMap containing 'server.properties' etc.
+      items: # Optional: selectively mount specific keys as files
+      - key: server.properties
+        path: custom-server.conf # Mount 'server.properties' as 'custom-server.conf'
+```
+
+  * Files will appear at `/etc/nginx/conf.d/custom-server.conf` inside the container.
+
+### Updating ConfigMaps
+
+  * **Environment Variables:** Pods **do not** automatically update environment variables when the ConfigMap changes. You must restart or redeploy the Pods.
+  * **Mounted Volumes:** Files in mounted volumes **are updated automatically** by Kubelet (typically within 60 seconds). Applications can monitor these files for dynamic updates. For robust updates, a rolling update of the Deployment is often recommended.
+
+To update, `kubectl edit configmap <name>` or `kubectl apply -f <your-configmap.yaml>`.
+
+### ConfigMap Best Practices
+
+  * **Version Control:** Store ConfigMap YAMLs in Git.
+  * **Immutability:** For critical, unchanging configs, use `immutable: true` (Kubernetes 1.18+).
+  * **Size Limits:** Be aware of the 1MB size limit per ConfigMap.
+  * **Organize:** Group related data logically.
+
+-----
+
+## 3\. Kubernetes Secrets
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Namespace-Secrets-ConfigMaps/assets/secrets.png" alt="Banner" />
+
+
+### What is a Secret?
+
+A Secret is a Kubernetes object specifically designed to store and manage **sensitive information**.
+
+  * **Purpose:** Store passwords, API keys, OAuth tokens, TLS certificates, SSH keys.
+  * **Encoding:** Data is **base64-encoded** for transport/storage. **This is NOT encryption.**
+  * **Encryption at Rest:** For true security, the underlying `etcd` database of your Kubernetes cluster **MUST have encryption at rest enabled**.
+  * **Access Control:** Access to Secrets should be strictly controlled via RBAC.
+
+### When to Use Secrets
+
+Any time you have data that, if exposed, could lead to a security breach.
+
+  * Database passwords.
+  * External API keys.
+  * TLS/SSL certificates and private keys.
+  * SSH private keys.
+
+### Understanding Secret Security
+
+It's critical to understand that **base64 encoding is not encryption**. Anyone with read access to a Secret can easily decode its contents. The true security of Secrets relies on:
+
+1.  **Encryption at Rest for `etcd`:** This encrypts the data before it's written to Kubernetes' database. Your cluster administrator or cloud provider must enable this.
+2.  **Strict RBAC:** Limit who can read, create, or modify Secrets.
+
+### Creating a Secret
+
+`kubectl` handles base64 encoding automatically for `--from-literal` and `--from-file`. When defining in YAML, use `stringData` for plain text values; Kubernetes will encode them.
+
+**1. From Literal Values:**
+
+```bash
+kubectl create secret generic my-db-secret \
+  --from-literal=username=appuser \
+  --from-literal=password='S3cur3P@ssw0rd!'
+```
+
+**2. From a File:**
+(Assumes `credentials/api_key.txt` exists)
+
+```bash
+kubectl create secret generic api-key-secret --from-file=credentials/api_key.txt
+```
+
+**3. Using a YAML Manifest (Recommended):**
+
+```yaml
+# my-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-app-secret
+type: Opaque # Default type, for general-purpose secrets
+stringData: # Use this for plain text; Kubernetes will base64 encode
+  DB_USERNAME: "prod_user"
+  DB_PASSWORD: "Sup3rS3cr3t!"
+  API_TOKEN: "sk_live_xyz_123abc"
+```
+
+```bash
+kubectl apply -f my-secret.yaml
+```
+
+### Consuming a Secret in Pods
+
+Secrets are consumed similarly to ConfigMaps:
+
+**1. As Environment Variables:**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-secret-pod
+spec:
+  containers:
+  - name: my-secure-container
+    image: my-app-image
+    env:
+    - name: DB_USER
+      valueFrom:
+        secretKeyRef:
+          name: my-app-secret
+          key: DB_USERNAME
+    - name: DB_PASS
+      valueFrom:
+        secretKeyRef:
+          name: my-app-secret
+          key: DB_PASSWORD
+```
+
+**2. As Mounted Volumes (Files - Recommended for Secrets):**
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-secret-pod
+spec:
+  containers:
+  - name: my-secure-container
+    image: my-app-image
+    volumeMounts:
+    - name: secret-volume
+      mountPath: "/etc/app-secrets" # Directory where secret files will appear
+      readOnly: true # Always mount secrets as read-only!
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: my-app-secret
+      # Optional: set defaultMode for file permissions (e.g., 0400 for read-only by owner)
+      defaultMode: 0400
+```
+
+  * Files like `/etc/app-secrets/DB_USERNAME` and `/etc/app-secrets/DB_PASSWORD` will exist inside the container.
+
+### Updating Secrets
+
+  * **Environment Variables:** Pods **do not** automatically update environment variables. Requires a Pod restart/rolling update.
+  * **Mounted Volumes:** Files in mounted volumes **are updated automatically** by Kubelet. However, for most applications, a rolling update is the safest way to ensure all instances pick up the new Secret.
+
+To update, `kubectl edit secret <name>` or `kubectl apply -f <your-secret.yaml>`.
+
+### Secret Security Best Practices (CRITICAL)
+
+1.  **Enable `etcd` Encryption at Rest:** This is the most crucial step for securing your Secrets. Consult your Kubernetes distribution or cloud provider documentation.
+2.  **Strict RBAC:** Limit `get`, `list`, `watch` permissions on Secrets to only the ServiceAccounts and users that absolutely need them.
+3.  **Use Volume Mounts over Environment Variables:** Secrets mounted as files are generally more secure, as they are not easily discoverable via `ps` commands or process introspection, and their permissions can be controlled.
+4.  **Read-Only Mounts:** Always mount Secret volumes with `readOnly: true`.
+5.  **Audit Logs:** Monitor Kubernetes audit logs for Secret access.
+6.  **Secret Rotation:** Implement a strategy for regularly rotating (changing) sensitive credentials.
+7.  **External Secret Management:** For advanced needs (e.g., centralized management, automatic rotation, stricter access), consider integrating with solutions like HashiCorp Vault, cloud provider secret managers (AWS Secrets Manager, Azure Key Vault, GCP Secret Manager), or the External Secrets Operator.
+8.  **Avoid Hardcoding:** Never hardcode secrets in code, Dockerfiles, or unencrypted YAMLs.
+9.  **Immutable Secrets:** Consider `immutable: true` for Secrets that should not be changed after creation (Kubernetes 1.18+).
+
+-----
+
+## 4\. ConfigMaps vs. Secrets: Key Differences
+
+| Feature             | ConfigMap                                       | Secret                                                      |
+| :------------------ | :---------------------------------------------- | :---------------------------------------------------------- |
+| **Purpose** | Non-sensitive configuration data.               | Sensitive data (passwords, keys, certs).                    |
+| **Data Encoding** | Plain text.                                     | Base64 encoded (obfuscation, NOT encryption).               |
+| **Encryption** | No built-in encryption.                         | Requires `etcd` encryption at rest for true security.       |
+| **Access Control** | Standard RBAC.                                  | Critical to apply strict RBAC for restricted access.        |
+| **Visibility** | Easily readable in plain text via `kubectl get`. | Base64-encoded via `kubectl get`, requires decoding.        |
+| **Use Cases** | Environment variables, URLs, feature flags, config files. | Passwords, API keys, TLS certs, SSH keys, registry credentials. |
+
+-----
+
+## 5\. Further Learning
+
+  * [Kubernetes Documentation: ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
+  * [Kubernetes Documentation: Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+  * [Kubernetes Documentation: Encryption at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+  * [Kubernetes Documentation: RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+
+-----
