@@ -362,6 +362,44 @@ It's critical to understand that **base64 encoding is not encryption**. Anyone w
 1.  **Encryption at Rest for `etcd`:** This encrypts the data before it's written to Kubernetes' database. Your cluster administrator or cloud provider must enable this.
 2.  **Strict RBAC:** Limit who can read, create, or modify Secrets.
 
+## Different types of secrets
+
+- Opaque (default) - eneric key-value pairs (base64 encoded)
+- kubernetes.io/dockerconfigjson - Used to authenticate with private container registries (like Docker Hub, ECR, etc).
+  Stores a .docker/config.json file.
+```
+  type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: <base64>
+```
+Used with imagePullSecrets in Pod specs.
+
+- kubernetes.io/basic-auth
+  Stores a username and password pair
+  Useful for basic HTTP authentication.
+```
+  type: kubernetes.io/basic-auth
+data:
+  username: <base64>
+  password: <base64>
+```
+- kubernetes.io/ssh-auth
+  Stores an SSH private key
+```
+  type: kubernetes.io/ssh-auth
+data:
+  ssh-privatekey: <base64>
+```
+- kubernetes.io/tls
+  Used for TLS certificates and keys
+```
+  type: kubernetes.io/tls
+data:
+  tls.crt: <base64>
+  tls.key: <base64>
+```
+
+
 ### Creating a Secret
 
 `kubectl` handles base64 encoding automatically for `--from-literal` and `--from-file`. When defining in YAML, use `stringData` for plain text values; Kubernetes will encode them.
