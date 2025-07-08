@@ -1,25 +1,5 @@
 # Kubernetes ConfigMaps & Secrets Lab
 
-## Table of Contents
-
-1.  [Project Overview](#project-overview)
-2.  [Features](#features)
-3.  [Prerequisites](#prerequisites)
-4.  [Project Structure](#project-structure)
-5.  [Getting Started](#getting-started)
-    * [1. Clone the Repository](#1-clone-the-repository)
-    * [2. Build & Push Docker Image](#2-build--push-docker-image)
-    * [3. Create Kubernetes ConfigMap](#3-create-kubernetes-configmap)
-    * [4. Create Kubernetes Secret](#4-create-kubernetes-secret)
-    * [5. Deploy Application](#5-deploy-application)
-    * [6. Access the Application](#6-access-the-application)
-6.  [Observing Updates](#observing-updates)
-    * [Updating ConfigMap](#updating-configmap)
-    * [Updating Secret](#updating-secret)
-7.  [Cleanup](#cleanup)
-8.  [Important Security Note on Secrets](#important-security-note-on-secrets)
-9.  [Contributing](#contributing)
-10. [License](#license)
 
 ## Project Overview
 
@@ -67,10 +47,9 @@ mkdir k8s-config-secret-lab
 ```
 cd k8s-config-secret-lab
 ```
-# Now, create each file manually as provided in the instructions above
-# Or copy paste the contents from the files provided inside this folder
+Now, create each file manually as provided in the instructions above Or copy paste the contents from the files provided inside this folder
 
-2. Build & Push Docker Image
+## 2. Build & Push Docker Image
 
 You need to build the Docker image for the Flask application and push it to a container registry that your Kubernetes cluster can access (e.g., Docker Hub, Google Container Registry, GitHub Container Registry).
 
