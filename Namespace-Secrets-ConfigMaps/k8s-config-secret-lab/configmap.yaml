@@ -1,0 +1,12 @@
+# k8s-config-secret-lab/configmap.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: default # Ensure this matches your deployment namespace
+data:
+  APP_TITLE: "My K8s Config Demo App"
+  WELCOME_MESSAGE: "Hello Kubernetes Students! Configuration is Fun!"
+  APP_LOG_LEVEL: "DEBUG"
+  NEW_CONFIG_VALUE: "This is the initial config value."
