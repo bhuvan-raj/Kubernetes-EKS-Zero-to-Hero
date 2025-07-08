@@ -406,6 +406,8 @@ data:
 
 **1. From Literal Values:**
 
+This flag is used to directly specify key-value pairs inline.
+
 ```bash
 kubectl create secret generic my-db-secret \
   --from-literal=username=appuser \
@@ -413,6 +415,9 @@ kubectl create secret generic my-db-secret \
 ```
 
 **2. From a File:**
+
+This flag is used to load values from files (or multiple files). The file content becomes the value, and the filename becomes the key (unless otherwise specified).
+
 (Assumes `credentials/api_key.txt` exists)
 
 ```bash
