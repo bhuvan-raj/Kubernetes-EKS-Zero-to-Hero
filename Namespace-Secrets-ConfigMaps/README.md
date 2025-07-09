@@ -1,3 +1,39 @@
+## 📚 Table of Contents
+
+1. [Understanding Kubernetes Namespaces: Logical Isolation and Organization](#understanding-kubernetes-namespaces-logical-isolation-and-organization)
+
+   * [What is a Kubernetes Namespace?](#what-is-a-kubernetes-namespace)
+   * [Why Use Namespaces?](#why-use-namespaces-core-problems-they-solve)
+   * [Key Characteristics and Properties](#key-characteristics-and-properties)
+   * [Common Use Cases for Namespaces](#common-use-cases-for-namespaces)
+   * [Working with Namespaces (Basic Commands)](#working-with-namespaces-basic-commands)
+   * [Best Practices for Namespaces](#best-practices-for-namespaces)
+
+2. [ConfigMaps and Secrets](#configmaps-and-secrets)
+
+   * [1. Introduction: Why Externalize Configuration?](#1-introduction-why-externalize-configuration)
+   * [2. Kubernetes ConfigMaps](#2-kubernetes-configmaps)
+
+     * [What is a ConfigMap?](#what-is-a-configmap)
+     * [When to Use ConfigMaps](#when-to-use-configmaps)
+     * [Creating a ConfigMap](#creating-a-configmap)
+     * [Consuming a ConfigMap in Pods](#consuming-a-configmap-in-pods)
+     * [Updating ConfigMaps](#updating-configmaps)
+     * [ConfigMap Best Practices](#configmap-best-practices)
+   * [3. Kubernetes Secrets](#3-kubernetes-secrets)
+
+     * [What is a Secret?](#what-is-a-secret)
+     * [When to Use Secrets](#when-to-use-secrets)
+     * [Understanding Secret Security](#understanding-secret-security)
+     * [Different Types of Secrets](#different-types-of-secrets)
+     * [Creating a Secret](#creating-a-secret)
+     * [Consuming a Secret in Pods](#consuming-a-secret-in-pods)
+     * [Updating Secrets](#updating-secrets)
+     * [Secret Security Best Practices](#secret-security-best-practices-critical)
+   * [4. ConfigMaps vs. Secrets: Key Differences](#4-configmaps-vs-secrets-key-differences)
+   * [5. Further Learning](#5-further-learning)
+
+
 # Understanding Kubernetes Namespaces: Logical Isolation and Organization
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Namespace-Secrets-ConfigMaps/assets/ns.png" alt="Banner" />
