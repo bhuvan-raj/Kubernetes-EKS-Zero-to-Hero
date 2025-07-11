@@ -11,7 +11,7 @@ This repository is meticulously organized into key sections, progressing from br
 
 ### 1. Kubernetes-Distributions
 * **Description:** Dive into different Kubernetes distributions, with a particular focus on Amazon EKS (Elastic Kubernetes Service) and Red Hat OpenShift. This section explores how these managed services and platforms extend or implement Kubernetes.
-* **Explore:** Navigate to [Kubernetes-Distributions](./Kubernetes-Distributions/README.md) for detailed information.
+* **Explore:** Navigate to [Kubernetes-Distributions](./Kubernetes-Distributions/) for detailed information.
 
 ### 2. Introduction to K8s
 * **Description:** This section serves as a foundational guide to Kubernetes, covering its core concepts, architecture, and fundamental components. It's an ideal starting point for anyone new to Kubernetes.
