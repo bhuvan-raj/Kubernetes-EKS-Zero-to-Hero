@@ -52,9 +52,6 @@ It's crucial to understand that an Ingress setup involves two main components wo
 
 2.  **Ingress Controller (The Enforcer):**
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Ingress%20Resource/assets/ingress2.png" alt="Banner"/>
-
-
-
       * This is a running application (a daemon or set of Pods) that lives *within* your Kubernetes cluster.
       * Its sole purpose is to constantly **watch the Kubernetes API Server for new or updated Ingress resources**.
       * When it finds an Ingress resource, the Controller reads the rules defined within it and then **configures an actual load balancer or reverse proxy** to implement those rules.
@@ -67,8 +64,6 @@ It's crucial to understand that an Ingress setup involves two main components wo
               * **AWS ALB Ingress Controller:** Provisions and configures an AWS Application Load Balancer.
           * **Service Mesh Ingress:** Solutions like Istio or Linkerd can also act as Ingress controllers.
           * **Kong, HAProxy, Envoy-based controllers, etc.**
-
------
 
 ## 3\. How Ingress Works: The Traffic Flow Step-by-Step
 
