@@ -1,3 +1,30 @@
+## 📘 Table of Contents
+
+1. [What is a Kubernetes Pod?](#1-what-is-a-kubernetes-pod)
+
+   * [Key Characteristics](#key-characteristics)
+2. [Why Does Kubernetes Manage Pods (Not Just Containers)?](#2-why-does-kubernetes-manage-pods-not-just-containers)
+3. [How is a Pod Created in Kubernetes? (In-depth Lifecycle)](#3-how-is-a-pod-created-in-kubernetes-in-depth-lifecycle)
+4. [Example: A Simple Nginx Pod](#example-a-simple-nginx-pod)
+5. [Understanding Kubernetes Networking: The Invisible Connective Tissue](#understanding-kubernetes-networking-the-invisible-connective-tissue)
+
+   * [The Core Principle: Every Pod Gets Its Own IP](#1-the-core-principle-every-pod-gets-its-own-ip)
+   * [Key Networking Components in Kubernetes](#2-key-networking-components-in-kubernetes)
+
+     * [Container Network Interface (CNI) Plugin](#21-container-network-interface-cni-plugin-the-pod-network-creator)
+     * [Kube-Proxy](#22-kube-proxy-the-service-enabler)
+     * [DNS Service](#23-dns-service-service-discovery)
+   * [How Pods Communicate: The Scenarios](#3-how-pods-communicate-the-scenarios)
+
+     * [Container-to-Container (Same Pod)](#31-container-to-container-communication-within-the-same-pod)
+     * [Pod-to-Pod (Same Node)](#32-pod-to-pod-communication-same-node)
+     * [Pod-to-Pod (Different Nodes)](#33-pod-to-pod-communication-across-different-nodes)
+     * [Pod-to-Service Communication](#34-pod-to-service-communication-within-the-cluster)
+     * [Pod-to-Pod Across Namespaces](#35-pod-to-pod-communication-across-namespaces)
+     * [External-to-Service Communication](#36-external-to-service-communication-exposing-to-the-outside-world)
+6. [Network Policy (Controlling Traffic Flow)](#4-network-policy-controlling-traffic-flow)
+7. [Conclusion](#conclusion)
+
 #  Pods: The Smallest Deployable Unit
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Pods%20and%20Cluster%20Networking/assets/pod.webp" alt="Banner"/>
