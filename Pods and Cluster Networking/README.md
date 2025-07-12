@@ -1,7 +1,5 @@
 #  Pods: The Smallest Deployable Unit
 
-This `README.md` delves into the fundamental concept of a Kubernetes Pod, explaining why it's the core building block for running applications in your cluster, how it's managed, and the lifecycle of its creation.
-
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Pods%20and%20Cluster%20Networking/assets/pod.webp" alt="Banner"/>
 
 ## 1\. What is a Kubernetes Pod?
