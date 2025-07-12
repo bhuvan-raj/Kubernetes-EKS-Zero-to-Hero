@@ -51,7 +51,6 @@ It's crucial to understand that an Ingress setup involves two main components wo
       * The Ingress resource itself **does not do any traffic routing**. It's just a set of instructions.
 
 2.  **Ingress Controller (The Enforcer):**
-<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Ingress%20Resource/assets/ingress2.png" alt="Banner"/>
 - This is a running application (a daemon or set of Pods) that lives *within* your Kubernetes cluster.
 - - Its sole purpose is to constantly **watch the Kubernetes API Server for new or updated Ingress resources**.
     -  When it finds an Ingress resource, the Controller reads the rules defined within it and then **configures an actual load balancer or reverse proxy** to implement those rules.
