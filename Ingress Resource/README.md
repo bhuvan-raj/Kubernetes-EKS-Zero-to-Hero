@@ -1,3 +1,15 @@
+## 📚 Table of Contents
+
+1. [The Challenge: Why Ingress? (Limitations of Services)](#1-the-challenge-why-ingress-limitations-of-services)
+2. [What is Kubernetes Ingress? The Smart Traffic Cop](#2-what-is-kubernetes-ingress-the-smart-traffic-cop)
+3. [How Ingress Works: The Traffic Flow Step-by-Step](#3-how-ingress-works-the-traffic-flow-step-by-step)
+4. [Key Features & Powerful Use Cases of Ingress](#4-key-features--powerful-use-cases-of-ingress)
+5. [Example: `my-app-ingress.yml` (A Practical Application)](#5-example-my-app-ingressyml-a-practical-application)
+6. [What Happens When You Execute `kubectl apply -f my-app-ingress.yml`? (Deep Dive)](#6-what-happens-when-you-execute-kubectl-apply--f-my-app-ingressyml-deep-dive)
+7. [Important Considerations for Ingress](#7-important-considerations-for-ingress)
+
+---
+
 # Kubernetes Ingress: Exposing Applications to the World (The Smart Way)
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Ingress%20Resource/assets/ingress.png" alt="Banner" />
 
@@ -262,12 +274,5 @@ The deployment process for an Ingress is similar to a Pod or Service, but with a
   * **DNS Management:** Remember that managing your DNS records to point to your Ingress Controller's external IP/hostname is a crucial step outside of Kubernetes itself (though some tools automate this).
   * **HTTP vs. HTTPS:** Always aim for HTTPS in production using TLS termination at the Ingress. Tools like `cert-manager` greatly simplify certificate lifecycle management.
   * **PathType:** Be mindful of `pathType` (`Exact`, `Prefix`, `ImplementationSpecific`) as it significantly impacts how your URLs are matched. `Prefix` is most common for general routing, while `Exact` is for specific endpoints.
-
------
-
-## Further Exploration
-
-  * **[Link to your "Service (svc)" README.md]**: Understand how Services provide the stable internal endpoint that Ingress routes to.
-  * **[Link to your "Pods and Cluster Networking" README.md]**: Deep dive into the network foundation that Pods operate on.
 
 -----
