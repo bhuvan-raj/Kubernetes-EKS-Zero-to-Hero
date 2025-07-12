@@ -52,8 +52,8 @@ It's crucial to understand that an Ingress setup involves two main components wo
 
 2.  **Ingress Controller (The Enforcer):**
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Ingress%20Resource/assets/ingress2.png" alt="Banner"/>
-    - This is a running application (a daemon or set of Pods) that lives *within* your Kubernetes cluster.
-    - Its sole purpose is to constantly **watch the Kubernetes API Server for new or updated Ingress resources**.
+- This is a running application (a daemon or set of Pods) that lives *within* your Kubernetes cluster.
+- - Its sole purpose is to constantly **watch the Kubernetes API Server for new or updated Ingress resources**.
     -  When it finds an Ingress resource, the Controller reads the rules defined within it and then **configures an actual load balancer or reverse proxy** to implement those rules.
     -  **Without an Ingress Controller, an Ingress resource is useless\!** It's like having a blueprint for a house without any builders.
 
