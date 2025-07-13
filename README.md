@@ -25,15 +25,15 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** This section focuses on ReplicaSets, the Kubernetes controller responsible for ensuring a specified number of identical Pod replicas are always running. It also introduces how ReplicaSets relate to Deployments and how they help achieve high availability and scalability.
 * **Explore:** Navigate to [Replicasets](./Replicasets/)  for detailed information.
 
-### 4. Service (svc)
+### 5. Service (svc)
 * **Description:** Understand how applications are made discoverable and accessible within the cluster, and the different ways to expose them for internal or controlled external access.
 * **Explore:** Navigate to [Service (svc)](./Service%20(svc)/) for detailed information.
 
-### 5. Namespace-Secrets-ConfigMaps
+### 6. Namespace-Secrets-ConfigMaps
 * **Description:** This folder focuses on crucial Kubernetes objects for organizing and configuring your applications within the cluster.
 * **Explore:** Navigate to [Namespace-Secrets-ConfigMaps](./Namespace-Secrets-ConfigMaps/) for detailed information.
 
-### 6. Ingress Resource
+### 7. Ingress Resource
 * **Description:** This section covers Kubernetes Ingress, the advanced mechanism for exposing HTTP and HTTPS services to the outside world with sophisticated routing, SSL/TLS termination, and host/path-based rules.
 * **Explore:** Navigate to [Ingress Resource](./Ingress%20Resource/) for detailed information.
 
