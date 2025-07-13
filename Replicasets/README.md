@@ -1,10 +1,7 @@
-Okay, let's create an in-depth `README.md` for teaching your students about Kubernetes ReplicaSets, including their purpose, how they work, and a comparison with the older ReplicationControllers. This will likely fit well in your `03-deployments-and-scaling` (or similar) folder.
-
------
-
 # Kubernetes ReplicaSet: Ensuring Application Availability
 
-This `README.md` explores the **ReplicaSet** Kubernetes resource, a crucial component for ensuring your applications remain available and at the desired scale. We'll cover its purpose, how it manages Pods, and contrast it with its predecessor, the ReplicationController.
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Replicasets/assets/rs.png" alt="Banner" />
+
 
 -----
 
@@ -71,12 +68,10 @@ spec:
   selector: # VERY IMPORTANT: How the ReplicaSet finds its Pods
     matchLabels:
       app: my-app
-      tier: frontend # Matches pods with both these labels
   template: # This is the blueprint for new Pods the ReplicaSet creates
     metadata:
       labels:
         app: my-app
-        tier: frontend # These labels MUST match the selector above!
     spec:
       containers:
       - name: my-app-container
@@ -116,10 +111,6 @@ ReplicaSet's more expressive selector syntax provided greater flexibility, espec
 
   * You **rarely create ReplicaSets directly** anymore.
   * Instead, you use a **Deployment** (`kind: Deployment`). A Deployment is a higher-level abstraction that *manages* ReplicaSets.
-  * Deployments provide declarative updates for Pods and ReplicaSets (e.g., rolling updates, rollbacks), making application lifecycle management much easier. When you update a Deployment, it creates a *new* ReplicaSet for the new version of your Pods, gradually scales up the new one, and scales down the old one.
-
-**So, while you'll mostly interact with Deployments, it's critical to understand that ReplicaSets are the underlying mechanism Deployments use to guarantee the desired number of Pods.**
-
 -----
 
 ## 5\. Summary: ReplicaSet's Place in the Ecosystem
