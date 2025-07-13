@@ -21,6 +21,10 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** This crucial section delves into Kubernetes Pods, the smallest deployable units, and how they interact within the cluster's internal network. It explains the core concepts of Pod networking and how Pods communicate.
 * **Explore:** Navigate to [Pods and Cluster Networking](./Pods%20and%20Cluster%20Networking/) for detailed information.
 
+### 4. Replicasets
+* **Description:** This section focuses on ReplicaSets, the Kubernetes controller responsible for ensuring a specified number of identical Pod replicas are always running. It also introduces how ReplicaSets relate to Deployments and how they help achieve high availability and scalability.
+* **Explore:** Navigate to [Replicasets](./Replicasets/)  for detailed information.
+
 ### 4. Service (svc)
 * **Description:** Understand how applications are made discoverable and accessible within the cluster, and the different ways to expose them for internal or controlled external access.
 * **Explore:** Navigate to [Service (svc)](./Service%20(svc)/) for detailed information.
