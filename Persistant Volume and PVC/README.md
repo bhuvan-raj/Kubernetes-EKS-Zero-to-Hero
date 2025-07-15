@@ -70,6 +70,14 @@ A **Persistent Volume (PV)** is an **API object that represents a real piece of 
 | `Released`  | The PVC was deleted, but the **underlying volume still contains data**.        |
 | `Failed`    | The PV has **an error** and cannot be used. Usually seen during provisioning.  |
 
+### What Happens If You Use Access Modes Other Than ReadWriteOnce for EBS?
+ If You Use Invalid Access Modes (like ReadWriteMany or ReadOnlyMany):
+ -  The PV will be created, but it will stay in the Available state.
+ -  The PVC will not bind, and your pod will stay in Pending state.
+ -  You will see events like:
+  ```
+Warning  ProvisioningFailed  ...  accessMode "ReadWriteMany" not supported by provisioner "ebs.csi.aws.com"
+````
 
 ### 2.2 Example PV Definition (using `hostPath` for local testing)
 
