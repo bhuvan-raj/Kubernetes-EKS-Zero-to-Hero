@@ -1,0 +1,19 @@
+# efs-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: efs-app
+spec:
+  containers:
+    - name: app
+      image: amazonlinux
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do echo 'hello from EFS' >> /data/out.txt; sleep 5; done"]
+      volumeMounts:
+        - name: efs-storage
+          mountPath: /data
+  volumes:
+    - name: efs-storage
+      persistentVolumeClaim:
+        claimName: efs-pvc
+
