@@ -1,5 +1,8 @@
 # Understanding Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) in Kubernetes 💾
 
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Persistant%20Volume%20and%20PVC/ pv.png" alt="Banner" />
+
 This README provides an in-depth guide to Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) in Kubernetes, fundamental concepts for managing stateful applications.
 
 -----
