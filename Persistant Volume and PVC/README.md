@@ -60,6 +60,16 @@ A **Persistent Volume (PV)** is an **API object that represents a real piece of 
       * `storageClassName`: A label that links this PV to a specific `StorageClass` object. This is used for both static and dynamic provisioning to categorize different types of storage.
       * `nodeAffinity`: (Advanced) Constraints that limit which nodes a PV can be accessed from. Useful for "local" storage that's physically tied to a specific server.
       * `mountOptions`: (Optional) Specific options to use when mounting the volume (e.g., `hard`, `nfsvers=4.1`).
+   
+### PersistentVolume(PV) states in kubernetes
+
+| PV Phase    | Description                                                                    |
+| ----------- | ------------------------------------------------------------------------------ |
+| `Available` | The PV is **created** and **ready to be claimed**, but no PVC has bound to it. |
+| `Bound`     | The PV is **successfully bound** to a PersistentVolumeClaim (PVC).             |
+| `Released`  | The PVC was deleted, but the **underlying volume still contains data**.        |
+| `Failed`    | The PV has **an error** and cannot be used. Usually seen during provisioning.  |
+
 
 ### 2.2 Example PV Definition (using `hostPath` for local testing)
 
