@@ -37,6 +37,10 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** This section covers Kubernetes Ingress, the advanced mechanism for exposing HTTP and HTTPS services to the outside world with sophisticated routing, SSL/TLS termination, and host/path-based rules.
 * **Explore:** Navigate to [Ingress Resource](./Ingress%20Resource/) for detailed information.
 
+### 8. PV,PVC and Storageclass
+* **Description:** This section covers PV and PVC, the mechanism for persistent storage and automatic provisioning of such persistent volumes.
+* **Explore:** Navigate to [**PV and PVC**](./Persistant%20Volume%20and%20PVC/) for detailed information.
+
 ---
 
 ## Getting Started
