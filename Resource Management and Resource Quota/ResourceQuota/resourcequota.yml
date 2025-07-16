@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-team-quota
+  namespace: dev-namespace # This quota applies to 'dev-namespace'
+spec:
+  hard:
+    pods: "10"             # Max 10 pods in this namespace
+    requests.cpu: "2"      # Total CPU requests for all pods cannot exceed 2 cores
+    requests.memory: "4Gi" # Total memory requests for all pods cannot exceed 4 GiB
+    limits.cpu: "4"        # Total CPU limits for all pods cannot exceed 4 cores
+    limits.memory: "8Gi"   # Total memory limits for all pods cannot exceed 8 GiB
+    configmaps: "50"       # Max 50 ConfigMaps
+    secrets: "10"          # Max 10 Secrets

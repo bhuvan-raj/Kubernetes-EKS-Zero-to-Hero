@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-resource-intensive-pod
+spec:
+  containers:
+  - name: my-container
+    image: nginx
+    resources:
+      requests:
+        memory: "256Mi"  # Guarantee 256 MiB of memory
+        cpu: "250m"      # Guarantee 0.25 CPU cores
+      limits:
+        memory: "512Mi"  # Cap memory at 512 MiB (OOM kill if exceeded)
+        cpu: "500m"      # Throttle CPU at 0.5 CPU cores
