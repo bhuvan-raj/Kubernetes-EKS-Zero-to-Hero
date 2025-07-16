@@ -19,7 +19,7 @@
 
 #  Kubernetes Resource Management: Requests, Limits, and Quotas
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Resource%20Management%20and%20Resource%20Quota/assets/resource.svc" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-Openshift/blob/main/Resource%20Management%20and%20Resource%20Quota/assets/resource.svc" alt="Banner" />
 
 his Readme is designed to provide you with a clear and comprehensive understanding of how compute resources like **CPU** and **Memory** are allocated, controlled, and governed within a Kubernetes cluster. Mastering these concepts is crucial for building efficient, stable, and cost-effective applications on Kubernetes.
 
