@@ -7,10 +7,10 @@
    - 1.4 [Quality of Service (QoS) Classes](#quality-of-service-qos-classes)
 
 3. [🛡️ Resource Quotas in Kubernetes: Limiting Consumption](#️-2-resource-quotas-in-kubernetes-limiting-consumption)
-   2.1 [What Resource Quotas Can Limit](#what-resource-quotas-can-limit)
-   2.2 [How Resource Quotas Work](#how-resource-quotas-work)
-   2.3 [ResourceQuota Example](#example-resourcequota-manifest)
-   2.4 [ResourceQuota vs LimitRange](#resourcequota-vs-limitrange)
+   - 2.1 [What Resource Quotas Can Limit](#what-resource-quotas-can-limit)
+   - 2.2 [How Resource Quotas Work](#how-resource-quotas-work)
+   - 2.3 [ResourceQuota Example](#example-resourcequota-manifest)
+   - 2.4 [ResourceQuota vs LimitRange](#resourcequota-vs-limitrange)
 
 4. [🌟 Best Practices for Resource Management in Kubernetes](#-3-best-practices-for-resource-management-in-kubernetes)
 
