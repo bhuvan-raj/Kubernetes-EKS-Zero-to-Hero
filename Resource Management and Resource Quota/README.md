@@ -1,20 +1,27 @@
-I can definitely help you craft a `README.md` for this in-depth study note on Kubernetes Resource Quotas and Resource Management. I'll make sure it's clear, engaging, and well-structured for your students.
+## 📚 Table of Contents
 
------
+1. [📊 Resource Management in Kubernetes: Requests and Limits](#-1-resource-management-in-kubernetes-requests-and-limits)
+   1.1 [Resource Requests (Guaranteed Resources)](#resource-requests-guaranteed-resources)
+   1.2 [Resource Limits (Hard Ceilings)](#resource-limits-hard-ceilings)
+   1.3 [Pod Example with Requests and Limits](#example-pod-definition-with-requests-and-limits)
+   1.4 [Quality of Service (QoS) Classes](#quality-of-service-qos-classes)
 
-# ☸️ Kubernetes Resource Management: Requests, Limits, and Quotas
+2. [🛡️ Resource Quotas in Kubernetes: Limiting Consumption](#️-2-resource-quotas-in-kubernetes-limiting-consumption)
+   2.1 [What Resource Quotas Can Limit](#what-resource-quotas-can-limit)
+   2.2 [How Resource Quotas Work](#how-resource-quotas-work)
+   2.3 [ResourceQuota Example](#example-resourcequota-manifest)
+   2.4 [ResourceQuota vs LimitRange](#resourcequota-vs-limitrange)
 
-Welcome to this in-depth study note on **Resource Management** in Kubernetes\! This document is designed to provide you with a clear and comprehensive understanding of how compute resources like **CPU** and **Memory** are allocated, controlled, and governed within a Kubernetes cluster. Mastering these concepts is crucial for building efficient, stable, and cost-effective applications on Kubernetes.
+3. [🌟 Best Practices for Resource Management in Kubernetes](#-3-best-practices-for-resource-management-in-kubernetes)
 
-## 🌟 What You'll Learn
+4. [✅ Conclusion](#conclusion)
 
-In this study note, we'll dive into the core mechanisms Kubernetes uses to manage resources, moving from individual container controls to cluster-wide governance:
 
-  * **Understanding Resource Requests and Limits:** Learn how to define guaranteed minimums and hard maximums for your container's CPU and Memory usage.
-  * **Quality of Service (QoS) Classes:** Discover how Kubernetes prioritizes your pods based on their resource definitions.
-  * **Implementing Resource Quotas:** Understand how to set aggregate limits on resource consumption within a Kubernetes namespace to prevent resource exhaustion and ensure fair sharing.
-  * **Differentiating ResourceQuota and LimitRange:** Clarify the distinct roles of these two important Kubernetes objects.
-  * **Best Practices for Resource Management:** Gain insights into optimizing your resource configurations for performance, stability, and cost efficiency.
+#  Kubernetes Resource Management: Requests, Limits, and Quotas
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Resource%20Management%20and%20Resource%20Quota/assets/k8s.gif" alt="Banner" />
+
+his Readme is designed to provide you with a clear and comprehensive understanding of how compute resources like **CPU** and **Memory** are allocated, controlled, and governed within a Kubernetes cluster. Mastering these concepts is crucial for building efficient, stable, and cost-effective applications on Kubernetes.
 
 ## 📊 1. Resource Management in Kubernetes: Requests and Limits
 
@@ -182,5 +189,3 @@ Implementing effective resource management is key to a healthy and efficient Kub
 ## Conclusion
 
 Understanding **Kubernetes resource management**, particularly **requests, limits, and resource quotas**, is a critical skill for anyone working with containerized applications and Kubernetes. These mechanisms form the backbone of efficient, stable, and cost-effective cluster operations, ensuring that applications get the resources they need while preventing any single workload from jeopardizing the entire system.
-
-Ready to put this knowledge into practice? Let's explore some hands-on labs\!
