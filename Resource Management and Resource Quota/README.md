@@ -1,25 +1,25 @@
 ## 📚 Table of Contents
 
 1. [📊 Resource Management in Kubernetes: Requests and Limits](#-1-resource-management-in-kubernetes-requests-and-limits)
-   1.1 [Resource Requests (Guaranteed Resources)](#resource-requests-guaranteed-resources)
-   1.2 [Resource Limits (Hard Ceilings)](#resource-limits-hard-ceilings)
-   1.3 [Pod Example with Requests and Limits](#example-pod-definition-with-requests-and-limits)
-   1.4 [Quality of Service (QoS) Classes](#quality-of-service-qos-classes)
+   - 1.1 [Resource Requests (Guaranteed Resources)](#resource-requests-guaranteed-resources)
+   - 1.2 [Resource Limits (Hard Ceilings)](#resource-limits-hard-ceilings)
+   - 1.3 [Pod Example with Requests and Limits](#example-pod-definition-with-requests-and-limits)
+   - 1.4 [Quality of Service (QoS) Classes](#quality-of-service-qos-classes)
 
-2. [🛡️ Resource Quotas in Kubernetes: Limiting Consumption](#️-2-resource-quotas-in-kubernetes-limiting-consumption)
+3. [🛡️ Resource Quotas in Kubernetes: Limiting Consumption](#️-2-resource-quotas-in-kubernetes-limiting-consumption)
    2.1 [What Resource Quotas Can Limit](#what-resource-quotas-can-limit)
    2.2 [How Resource Quotas Work](#how-resource-quotas-work)
    2.3 [ResourceQuota Example](#example-resourcequota-manifest)
    2.4 [ResourceQuota vs LimitRange](#resourcequota-vs-limitrange)
 
-3. [🌟 Best Practices for Resource Management in Kubernetes](#-3-best-practices-for-resource-management-in-kubernetes)
+4. [🌟 Best Practices for Resource Management in Kubernetes](#-3-best-practices-for-resource-management-in-kubernetes)
 
-4. [✅ Conclusion](#conclusion)
+5. [✅ Conclusion](#conclusion)
 
 
 #  Kubernetes Resource Management: Requests, Limits, and Quotas
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Resource%20Management%20and%20Resource%20Quota/assets/k8s.gif" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Resource%20Management%20and%20Resource%20Quota/assets/resource.svc" alt="Banner" />
 
 his Readme is designed to provide you with a clear and comprehensive understanding of how compute resources like **CPU** and **Memory** are allocated, controlled, and governed within a Kubernetes cluster. Mastering these concepts is crucial for building efficient, stable, and cost-effective applications on Kubernetes.
 
