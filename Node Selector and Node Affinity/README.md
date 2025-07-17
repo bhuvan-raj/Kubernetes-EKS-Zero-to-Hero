@@ -63,6 +63,20 @@ This Pod `my-web-app` will **only** be scheduled on a node that has *both* the l
   * **Strict Equality Only:** No "OR" logic, no "NOT IN" logic. It's an exact match for *all* specified labels.
   * **No Preferences:** You can't say "prefer this node, but if not available, try that."
 
+
+## How to Label a Node
+
+The basic syntax for labeling a node is:
+```
+kubectl label nodes <node-name> <label-key>=<label-value>
+```
+
+## Verifying Node Labels
+
+```
+kubectl get nodes --show-labels
+```
+
 -----
 
 ## ✨ Node Affinity: The Advanced Matchmaker
