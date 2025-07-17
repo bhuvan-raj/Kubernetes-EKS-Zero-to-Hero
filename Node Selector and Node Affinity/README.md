@@ -1,7 +1,3 @@
-Of course\! Here's a `README.md` on Node Affinity and Node Selector in Kubernetes, designed for teaching your students.
-
------
-
 # Kubernetes Pod Placement: Node Selector vs. Node Affinity 🚀
 
 Welcome\! This `README.md` will guide you through two crucial concepts in Kubernetes: **Node Selector** and **Node Affinity**. These mechanisms empower you to control *where* your Pods run within your cluster, ensuring they land on nodes that meet specific requirements.
@@ -22,6 +18,9 @@ Without proper placement controls, Kubernetes might schedule your high-performan
 -----
 
 ## 🔑 Node Selector: The Simple Matchmaker
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Node%20Selector%20and%20Node%20Affinity/assets/node.png" alt="Banner" />
+
 
 `Node Selector` is the **most basic and direct** way to constrain Pods to nodes. It works like a simple, strict filter.
 
@@ -67,6 +66,7 @@ This Pod `my-web-app` will **only** be scheduled on a node that has *both* the l
 -----
 
 ## ✨ Node Affinity: The Advanced Matchmaker
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Node%20Selector%20and%20Node%20Affinity/assets/affinity.png" alt="Banner" />
 
 `Node Affinity` is a **more powerful and flexible** way to constrain Pods. It offers richer matching logic, including "soft" preferences and various operators. It's defined under the `affinity` field in your Pod's `spec`.
 
