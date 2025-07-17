@@ -30,26 +30,32 @@ This repository is meticulously organized into key sections, progressing from br
 * **Explore:** Navigate to [Deployments](./Deployment/)  for detailed information.
 
 
-### 5. Service (svc)
+### 6. Service (svc)
 * **Description:** Understand how applications are made discoverable and accessible within the cluster, and the different ways to expose them for internal or controlled external access.
 * **Explore:** Navigate to [Service (svc)](./Service%20(svc)/) for detailed information.
 
-### 6. Namespace-Secrets-ConfigMaps
+### 7. Namespace-Secrets-ConfigMaps
 * **Description:** This folder focuses on crucial Kubernetes objects for organizing and configuring your applications within the cluster.
 * **Explore:** Navigate to [Namespace-Secrets-ConfigMaps](./Namespace-Secrets-ConfigMaps/) for detailed information.
 
-### 7. Ingress Resource
+### 8. Ingress Resource
 * **Description:** This section covers Kubernetes Ingress, the advanced mechanism for exposing HTTP and HTTPS services to the outside world with sophisticated routing, SSL/TLS termination, and host/path-based rules.
 * **Explore:** Navigate to [Ingress Resource](./Ingress%20Resource/) for detailed information.
 
-### 8. PV,PVC and Storageclass
+### 9. PV,PVC and Storageclass
 * **Description:** This section covers PV and PVC, the mechanism for persistent storage and automatic provisioning of such persistent volumes.
 * **Explore:** Navigate to [**PV and PVC**](./Persistant%20Volume%20and%20PVC/) for detailed information.
 
-### 9. Resource Management and RequestQuota
+### 10. Resource Management and RequestQuota
 * **Description:** This section covers Resource Management and ResourceQuota, the mechanism for limiting and controlling pod resource usage and the overall namespace resource allocation
 * **Explore:** Navigate to [**Resource Management and ResourceQuota**](./Resource%20Management%20and%20Resource%20Quota/) for detailed information.
 
+### 11. Node Selector and Node Affinity
+* **Description:** These mechanisms empower you to control where your Pods run within your cluster, ensuring they land on nodes that meet specific requirements.
+* **Explore:** Navigate to [**Node Selector and Node Affinity**](./Node%20Selector%20and%20Node%20Affinity/) for detailed information.
+
+
+These mechanisms empower you to control where your Pods run within your cluster, ensuring they land on nodes that meet specific requirements.
 
 ---
 
