@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-web-app
+spec:
+  # The nodeSelector field
+  nodeSelector:
+    disktype: ssd        # Node must have label 'disktype: ssd'
+    environment: prod    # Node must have label 'environment: prod'
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
