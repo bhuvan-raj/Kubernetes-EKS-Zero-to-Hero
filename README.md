@@ -27,7 +27,7 @@ This repository is meticulously organized into key sections, progressing from br
 
 ### 5. Deployments
 * **Description:** This section focuses on Deployment, The object which helps in managing roll-out and roll-back for stateless applications
-* **Explore:** Navigate to [Deployments](./Deployments/)  for detailed information.
+* **Explore:** Navigate to [Deployments](./Deployment/)  for detailed information.
 
 
 ### 5. Service (svc)
