@@ -25,6 +25,11 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** This section focuses on ReplicaSets, the Kubernetes controller responsible for ensuring a specified number of identical Pod replicas are always running. It also introduces how ReplicaSets relate to Deployments and how they help achieve high availability and scalability.
 * **Explore:** Navigate to [Replicasets](./Replicasets/)  for detailed information.
 
+### 5. Deployments
+* **Description:** This section focuses on Deployment, The object which helps in managing roll-out and roll-back for stateless applications
+* **Explore:** Navigate to [Deployments](./Deployments/)  for detailed information.
+
+
 ### 5. Service (svc)
 * **Description:** Understand how applications are made discoverable and accessible within the cluster, and the different ways to expose them for internal or controlled external access.
 * **Explore:** Navigate to [Service (svc)](./Service%20(svc)/) for detailed information.
