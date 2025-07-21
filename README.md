@@ -56,7 +56,7 @@ This repository is meticulously organized into key sections, progressing from br
 
 ### 12. Taint and Tolerations
 * **Description:** used for advanced controlling the nodes - placement of pods inside the nodes, ensuring they land on nodes that meet specific tolerations.
-* **Explore:** Navigate to [**Taint and Tolerations**](./Taint%20and&20Tolerations/) for detailed information.
+* **Explore:** Navigate to [**Taint and Tolerations**](./Taint%20and%20Tolerations/) for detailed information.
 
 
 
