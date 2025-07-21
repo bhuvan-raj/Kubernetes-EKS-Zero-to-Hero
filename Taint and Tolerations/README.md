@@ -1,8 +1,9 @@
 # ⛔ Taints and Tolerations: Advanced Node Control in Kubernetes ✅
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Taint%20and%20Tolerations/assets/taint.png" alt="Banner" />
+
 Taints and Tolerations are powerful Kubernetes mechanisms that allow you to influence the scheduling of pods onto nodes, acting as a counterpart to Node Selectors and Node Affinity. While selectors and affinity define where pods *want* to go, **taints define which pods nodes *don't want* to host**, and **tolerations allow specific pods to bypass those restrictions.**
 
------
 
 ## 🎯 What Problem Do They Solve?
 
