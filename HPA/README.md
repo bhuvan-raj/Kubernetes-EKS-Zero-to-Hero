@@ -1,25 +1,12 @@
 # Kubernetes Horizontal Pod Autoscaler (HPA) Study Notes 🚀
 
-This repository contains in-depth study notes on the **Horizontal Pod Autoscaler (HPA)** in Kubernetes. HPA is a crucial component that allows your applications to dynamically adjust to varying workloads by automatically changing the number of running pods.
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/HPA/assets/hpa.jpg" alt="Banner" />
 
------
 
-## Table of Contents
 
-  * [Understanding HPA: How It Works](https://www.google.com/search?q=%23understanding-hpa-how-it-works)
-      * [Metric Collection](https://www.google.com/search?q=%23metric-collection)
-      * [Evaluation and Desired Replicas Calculation](https://www.google.com/search?q=%23evaluation-and-desired-replicas-calculation)
-      * [Scaling Decision](https://www.google.com/search?q=%23scaling-decision)
-      * [Action](https://www.google.com/search?q=%23action)
-  * [How to Set Up HPA](https://www.google.com/search?q=%23how-to-set-up-hpa)
-      * [Prerequisites](https://www.google.com/search?q=%23prerequisites)
-      * [Steps to Configure HPA](https://www.google.com/search?q=%23steps-to-configure-hpa)
-  * [HPA Metrics Types](https://www.google.com/search?q=%23hpa-metrics-types)
-  * [HPA Configuration Parameters (v2 API)](https://www.google.com/search?q=%23hpa-configuration-parameters-v2-api)
-  * [Advanced HPA: The `behavior` Field](https://www.google.com/search?q=%23advanced-hpa-the-behavior-field)
-  * [Conclusion](https://www.google.com/search?q=%23conclusion)
+This Readme contains in-depth study notes on the **Horizontal Pod Autoscaler (HPA)** in Kubernetes. HPA is a crucial component that allows your applications to dynamically adjust to varying workloads by automatically changing the number of running pods.
 
------
+
 
 ## Understanding HPA: How It Works
 
