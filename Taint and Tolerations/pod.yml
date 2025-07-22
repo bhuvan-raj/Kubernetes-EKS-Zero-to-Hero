@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-dev-app-pod # Name of your pod
+  labels:
+    app: my-dev-app    # Labels for identification
+spec:
+  containers:
+  - name: my-app-container # Name of the container
+    image: nginx:latest    # Example image (you can use any image)
+    ports:
+    - containerPort: 80
+  tolerations:
+  - key: "env"         # Matches the taint key 'env'
+    operator: "Equal"  # Ensures the value must be equal
+    value: "dev"       # Matches the taint value 'dev'
+    # effect: "NoSchedule" # Optional: Add this if the node taint has a specific effect you want to match
