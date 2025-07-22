@@ -114,6 +114,16 @@ A **Toleration** is a property applied to a **Pod** (within its `.spec.toleratio
           operator: "Equal"
           value: "teamA" # Only matches "dedicated=teamA:NoExecute"
         ```
+
+     * **Toleration with Exists and no key or value (matches all taints):**
+   ```
+       tolerations:
+       - operator: "Exists"
+  # No key specified, no value specified
+  ```
+This pod will match any taint on a node. This is the broadest possible toleration and is typically used by Kubernetes' own system pods or in very specific cases where a pod truly needs to be able to run anywhere.
+
+
   * **`value`**: Required only if `operator` is `Equal`. Must match the `value` of the taint.
   * **`effect` (Optional):** If specified, it must match the `effect` of the taint. If omitted, the toleration matches taints with the specified `key` (and `value` if `Equal` operator) regardless of their effect. This is usually omitted unless you want to tolerate only specific effects.
     ```yaml
