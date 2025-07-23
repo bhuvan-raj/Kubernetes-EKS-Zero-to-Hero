@@ -62,7 +62,9 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** used for scaling the pods horizontally whenever a certain threshold breaches, such as CPU , MEMMORY , REQUESTS etc.
 * **Explore:** Navigate to [**HPA**](./HPA/) for detailed information.
 
-
+### 13. Vertical Pod Autoscaler
+* **Description:** used for scaling the pods vertically  whenever a certain threshold breaches, such as CPU , MEMMORY , REQUESTS etc.
+* **Explore:** Navigate to [**VPA**](./VPA/) for detailed information.
 
 
 
