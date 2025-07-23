@@ -1,5 +1,8 @@
 # 🚀 Kubernetes Vertical Pod Autoscaler (VPA) - Your Guide to Right-Sizing Pods\!
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/VPA/assets/vpa.png" alt="Banner" />
+
+
 This README provides an in-depth look into the **Vertical Pod Autoscaler (VPA)** in Kubernetes. It's designed to help you understand how VPA works, its benefits, limitations, and practical applications for optimizing your cluster's resource utilization.
 
 -----
@@ -102,24 +105,4 @@ spec:
   * **Reducing Over-provisioning:** For applications that were initially given too many resources "just in case," VPA can reclaim that waste.
   * **Simplifying Resource Management:** Great for development teams who want to avoid manual resource tuning.
   * **Optimizing Batch Jobs and CronJobs:** VPA can recommend optimal resources based on past runs, improving efficiency and preventing failures.
-
------
-
-## 🆚 VPA vs. HPA (Horizontal Pod Autoscaler)
-
-It's crucial to differentiate these two powerful autoscalers:
-
-| Feature           | Vertical Pod Autoscaler (VPA)                                | Horizontal Pod Autoscaler (HPA)                                  |
-| :---------------- | :----------------------------------------------------------- | :--------------------------------------------------------------- |
-| **Scaling Method** | Adjusts CPU and memory **requests and limits** for individual Pods. | Scales the **number of Pod replicas** (adds or removes Pods).      |
-| **Scaling Direction** | "Up" or "down" a single Pod's resources.                   | "Out" (more Pods) or "in" (fewer Pods).                          |
-| **Trigger** | Historical CPU/memory usage patterns of a Pod.             | Current CPU/memory utilization or custom/external metrics across a set of Pods. |
-| **Impact on Pods** | May require Pod **restarts** to apply changes.               | Generally seamless, adds/removes Pods without restarting existing ones. |
-| **Primary Goal** | Optimize resource allocation *within* Pods to prevent waste or throttling. | Handle fluctuating workload demand by adjusting **concurrency**.     |
-| **Best For** | Workloads with stable Pod counts but varying per-Pod resource needs, resource-intensive applications (e.g., databases). | Stateless applications or those designed to scale horizontally based on load. |
-
-While HPA and VPA can conflict if they use the same metrics, they can also complement each other. For instance, VPA can establish the optimal **baseline resource requests** for your Pods, and then HPA can scale the *number* of those optimized Pods based on other metrics like request rates or queue lengths.
-
------
-
 
