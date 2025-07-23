@@ -1,5 +1,8 @@
 # 🖥️ Kubernetes DaemonSets - Ensuring Pod Presence on Every Node
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Daemonsets/assets/ds.png" alt="Banner" />
+
+
 This README provides a comprehensive overview of **DaemonSets** in Kubernetes, explaining their purpose, how they operate, configuration details, and their crucial role in managing cluster-wide services.
 
 -----
