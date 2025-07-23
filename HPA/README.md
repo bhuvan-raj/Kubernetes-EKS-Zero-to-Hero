@@ -58,7 +58,7 @@ Setting up HPA involves a few critical steps:
     kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
     ```
     Verify with: `kubectl get apiservices | grep metrics`
-3.  **Resource Requests and Limits**: Your application's pods **must have CPU resource requests defined** for CPU-based HPA to function correctly.
+3.  **Resource Requests**: Your application's pods **must have CPU resource requests defined** for CPU-based HPA to function correctly.
 
 ### Steps to Configure HPA
 
