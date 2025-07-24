@@ -28,17 +28,22 @@ The VPA system comprises three main components working in harmony:
   * **Analyzes:** Uses historical usage data, prioritizing recent information, to predict optimal CPU and memory requests and limits for the containers within your Pods. Think of it like a smart analyst crunching numbers\! 📊
   * **Stores:** Saves these recommendations in the VPA object's status field for other components to use.
 
+This component is the "brain" of the VPA. It continuously monitors the actual CPU and memory consumption of your running Pods. It then analyzes this historical data, giving more weight to recent usage, to predict and recommend optimal CPU and memory requests and limits for the containers within those Pods. These recommendations are stored in the VPA object's status field
+
 ### 2\. VPA Updater
 
   * **Compares:** Regularly checks if a running Pod's resource allocation matches the Recommender's advice.
   * **Evicts:** If there's a significant mismatch, the Updater will **evict** (terminate) the Pod. Why? Because Kubernetes currently doesn't allow in-place resizing of running Pods' resources.
   * **Recreates:** Once evicted, Kubernetes (via its controllers like Deployments) will recreate the Pod, allowing the **Admission Controller** to apply the new, optimized resource settings.
 
+The Updater's job is to ensure that running Pods are using the resource allocations recommended by the Recommender. It regularly compares a running Pod's current resource settings with the Recommender's advice. If there's a significant difference, the Updater will "evict" (terminate) the Pod. This eviction is necessary because Kubernetes does not allow you to change the resource allocations of a Pod while it's running. After the eviction, Kubernetes' standard controllers (like Deployments) will recreate the Pod.
+
 ### 3\. VPA Admission Controller
 
   * **Intercepts:** Acts as a gatekeeper, intercepting all new Pod creation requests.
   * **Injects:** If the incoming Pod is managed by a VPA, the Admission Controller modifies its Pod specification to include the CPU and memory requests and limits recommended by the VPA Recommender. This ensures new Pods start "right-sized" from the get-go\!
 
+This acts as a "gatekeeper" during the Pod creation process. When a new Pod creation request comes in, the Admission Controller intercepts it. If the Pod is managed by a VPA, the Admission Controller modifies the Pod's specification before it's created. It injects the CPU and memory requests and limits recommended by the VPA Recommender directly into the Pod's definition. This ensures that new Pods are launched with the "right-sized" resource allocations from the very beginning.
 -----
 
 ## 🛠️ VPA Configuration & Modes
