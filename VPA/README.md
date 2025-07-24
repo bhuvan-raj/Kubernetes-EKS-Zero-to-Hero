@@ -44,7 +44,8 @@ The Updater's job is to ensure that running Pods are using the resource allocati
   * **Injects:** If the incoming Pod is managed by a VPA, the Admission Controller modifies its Pod specification to include the CPU and memory requests and limits recommended by the VPA Recommender. This ensures new Pods start "right-sized" from the get-go\!
 
 This acts as a "gatekeeper" during the Pod creation process. When a new Pod creation request comes in, the Admission Controller intercepts it. If the Pod is managed by a VPA, the Admission Controller modifies the Pod's specification before it's created. It injects the CPU and memory requests and limits recommended by the VPA Recommender directly into the Pod's definition. This ensures that new Pods are launched with the "right-sized" resource allocations from the very beginning.
------
+
+---
 
 ## 🛠️ VPA Configuration & Modes
 
