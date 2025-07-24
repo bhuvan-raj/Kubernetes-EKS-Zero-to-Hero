@@ -33,7 +33,33 @@ The DaemonSet controller works behind the scenes to maintain the desired state:
 
 ## 🛠️ DaemonSet Configuration
 
-A DaemonSet YAML definition looks similar to a Deployment, but with specific DaemonSet fields.
+
+** Basic DaemonSet manifest **
+```
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-test-daemonset
+  labels:
+    app: nginx-test
+spec:
+  selector:
+    matchLabels:
+      app: nginx-test
+  template:
+    metadata:
+      labels:
+        app: nginx-test
+    spec:
+      containers:
+      - name: nginx-test-container
+        image: nginx:latest # Latest Nginx image
+        ports:
+        - containerPort: 80
+          name: http-web
+```
+
+
 
 **Example DaemonSet Manifest (for a log collector):**
 
