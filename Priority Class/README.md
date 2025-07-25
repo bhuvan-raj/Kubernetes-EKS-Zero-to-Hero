@@ -1,4 +1,7 @@
-# Kubernetes `PriorityClass` - Study Notes
+# Kubernetes `PriorityClass`
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Priority%20Class/assets/priority.png" alt="Banner" />
+
 
 ## 📌 1. Introduction to PriorityClass
 
