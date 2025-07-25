@@ -1,7 +1,6 @@
-# Kubernetes `PriorityClass`
+# Kubernetes `PriorityClass` - Study Notes
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Priority%20Class/assets/priority.png" alt="Banner" />
-
 
 ## 📌 1. Introduction to PriorityClass
 
@@ -52,14 +51,23 @@ description: <string> # Optional
 * `value`: Priority level
 * `globalDefault`: Used for Pods without a `priorityClassName`
 
-## 🔧 5. Built-in PriorityClasses
+  * If set to `true`, all Pods that do **not** specify `priorityClassName` will inherit this class.
+  * Only **one** PriorityClass should have `globalDefault: true` at any time.
+
+## 🗂️ 5. Scope of PriorityClass
+
+* `PriorityClass` is a **cluster-level** resource.
+* It is **not** namespace-scoped.
+* A PriorityClass can be referenced by Pods in **any namespace**.
+
+## 🔧 6. Built-in PriorityClasses
 
 | Name                      | Priority Value | Use Case                         |
 | ------------------------- | -------------- | -------------------------------- |
 | `system-node-critical`    | 2000000000     | Essential node-level components  |
 | `system-cluster-critical` | 1000000000     | Cluster-wide critical components |
 
-## 🛠️ 6. Creating PriorityClasses
+## 🛠️ 7. Creating PriorityClasses
 
 ### Example: High Priority
 
@@ -85,7 +93,7 @@ globalDefault: true
 description: "Default for non-critical workloads."
 ```
 
-## 🚀 7. Using PriorityClass in Pods
+## 🚀 8. Using PriorityClass in Pods
 
 ### Example: Pod with High Priority
 
@@ -103,27 +111,33 @@ spec:
       priorityClassName: low-priority
 ```
 
-## 🔄 8. Preemption: Choosing Victims
+## 🔄 9. Preemption: Choosing Victims
 
 * **Lowest priority** Pods are evicted first
 * Evict **largest consumers** next
 * Follow QoS class: BestEffort < Burstable < Guaranteed
 * PodDisruptionBudget (PDB) is respected
+* **Pods with the same priority are not preempted**
+* **Pods created earlier are scheduled first** if all other conditions are the same
 
-## ✅ 9. Best Practices
+## ✅ 10. Best Practices
 
 * Use `globalDefault: true` on low-priority classes
 * Leave gaps in `value` to add intermediate classes later
 * Don’t assign high priority to all Pods
 * Simulate preemption in test environments
+* Avoid overusing high-priority classes — reserve them for truly critical workloads
 
-## ⚠️ 10. Limitations
+## ⚠️ 11. Limitations
 
 * **No extra resources:** Priority doesn't create capacity
 * **Eviction delay:** Grace period may slow scheduling
 * **Complexity:** Adds overhead to scheduling logic
 * **Non-preemptable Pods:** Some daemon-level Pods can't be evicted
+* **Only one global default allowed** — others are ignored
 
 ---
 
 By understanding and applying `PriorityClass`, you can build more stable, fair, and intelligent Kubernetes scheduling policies for critical workloads.
+
+
