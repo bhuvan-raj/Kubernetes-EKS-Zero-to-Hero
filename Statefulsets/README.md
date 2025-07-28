@@ -1,6 +1,7 @@
+# Kubernetes StatefulSets
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Statefulsets/assets/statefulset.png" alt="Banner" />
 
-## In-depth Note on Kubernetes StatefulSets
 
 ### I. Introduction: The Need for StatefulSets
 
@@ -184,7 +185,3 @@ spec:
         requests:
           storage: 10Gi
 ```
-
------
-
-This note provides a comprehensive overview of Kubernetes StatefulSets, covering their purpose, key features, internal workings, common use cases, guarantees, and best practices. It should serve as an excellent foundation for teaching.
