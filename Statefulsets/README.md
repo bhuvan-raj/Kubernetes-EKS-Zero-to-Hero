@@ -67,13 +67,6 @@ A typical StatefulSet definition includes:
           * An array of PVC templates. For each entry, Kubernetes automatically creates a PVC for *each* Pod in the StatefulSet.
           * This is the primary way to provide stable, dedicated storage for each Pod.
           * Each PVC created from a template will be named `$(pvcName)-$(statefulset name)-$(ordinal)`.
-      * **`podManagementPolicy`**: Defines how Pods are created and deleted during scaling operations.
-          * **`OrderedReady` (Default):** Ensures strict ordering. Pods are created one by one, waiting for each to become `Running` and `Ready` before creating the next. Similarly, deletion is in reverse order, waiting for complete termination before deleting the next. This is crucial for applications with strong inter-pod dependencies.
-          * **`Parallel`**: Allows the StatefulSet controller to launch or terminate all Pods in parallel, without waiting for Pods to become `Running` and `Ready` or completely terminated. This only affects scaling operations, not updates. Use with caution for applications that can tolerate parallel creation/deletion.
-      * **`updateStrategy`**: Defines how updates to the StatefulSet's Pod template are rolled out.
-          * **`RollingUpdate` (Default):** The controller automatically deletes and recreates Pods with the new revision. Pods are updated in reverse ordinal order (e.g., `web-2`, then `web-1`, then `web-0`).
-              * **`partition`**: (Used with `RollingUpdate`) An optional field that allows for staged rollouts. If `partition` is set to `X`, all Pods with an ordinal greater than or equal to `X` will be updated, while those with ordinals less than `X` will remain at the old version. This enables canary deployments or phased rollouts.
-          * **`OnDelete`**: The controller will not automatically update its Pods. To apply changes, you must manually delete the Pods, and the StatefulSet controller will recreate them with the new configuration. This gives the user complete manual control over the update process, which can be useful for very sensitive stateful applications.
 
 ### IV. Use Cases for StatefulSets
 
