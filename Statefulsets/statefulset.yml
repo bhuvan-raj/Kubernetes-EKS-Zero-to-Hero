@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  serviceName: "my-app-headless" # Must match the name of the Headless Service
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-container
+        image: my-app-image:1.0.0
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: data-volume
+          mountPath: /var/lib/my-app/data
+      # Optional: Define update strategy (default is RollingUpdate)
+      updateStrategy:
+        type: RollingUpdate
+        rollingUpdate:
+          partition: 0 # All pods will be updated during a rolling update
+  volumeClaimTemplates:
+  - metadata:
+      name: data-volume # This name is referenced in volumeMounts
+    spec:
+      accessModes: [ "ReadWriteOnce" ] # Or ReadWriteMany/ReadOnlyMany depending on storage class
+      storageClassName: "standard" # Your StorageClass name
+      resources:
+        requests:
+          storage: 10Gi
