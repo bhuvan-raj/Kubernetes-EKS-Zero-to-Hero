@@ -66,11 +66,13 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** used for scaling the pods vertically  whenever a certain threshold breaches, such as CPU , MEMMORY , REQUESTS etc.
 * **Explore:** Navigate to [**VPA**](./VPA/) for detailed information.
 
-### 13. Daemonsets
+### 14. Daemonsets
 * **Description:** DaemonSets are a fundamental building block for a robust and observable Kubernetes cluster, ensuring that your essential background services are always running where they're needed.
 * **Explore:** Navigate to [**Daemonsets**](./Daemonsets/) for detailed information.
 
-
+### 15. Statefulsets
+* **Description:** StatefulSets are used to manage stateful applications in Kubernetes. Unlike Deployments, they provide each pod with a unique, stable identity and persistent storage, ensuring ordered deployment, scaling, and deletion.
+* **Explore:** Navigate to [**Statefulsets**](./Statefulsets/) for detailed information.
 
 ---
 
