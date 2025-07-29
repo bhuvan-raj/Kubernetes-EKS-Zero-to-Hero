@@ -46,7 +46,7 @@ A `Role` defines a set of permissions that are **scoped to a specific namespace*
             * `batch` for `Jobs`, `CronJobs`.
             * `*` for all API groups.
         * `resources`: The resource type(s) (e.g., `pods`, `deployments`, `secrets`, `*` for all resources in `apiGroups`).
-        * `verbs`: The allowed actions (e.g., `get`, `list`, `watch`, `create`, `update`, `delete`, `patch`, `*` for all verbs).
+        * `verbs`: The allowed actions (e.g., `get`, `list`, `watch`, `create`, `update`, `delete`, `patch`,`deletecollection`,`*` for all verbs).
         * `resourceNames`: (Optional) Restrict permission to specific named instances of a resource (e.g., `resourceNames: ["my-critical-secret"]`).
 
 * **Example: `dev-pod-reader-role.yaml`**
