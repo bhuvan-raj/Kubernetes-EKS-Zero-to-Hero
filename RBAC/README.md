@@ -41,8 +41,8 @@ A `Role` defines a set of permissions that are **scoped to a specific namespace*
     * `metadata.namespace`: **The namespace to which this Role applies.** (e.g., `development`).
     * `rules`: A list of permission sets. Each rule specifies:
         * `apiGroups`: The API group(s) the resources belong to.
-            * `""` (empty string) for core resources (e.g., `Pods`, `Services`).
-            * `apps` for `Deployments`, `StatefulSets`.
+            * `""` (empty string) for core resources (e.g., `Pods`, `Services`, `configmaps`, `secrets`,`namespaces`).
+            * `apps` for `Deployments`, `StatefulSets`, `Replicaset`, `daemonset`.
             * `batch` for `Jobs`, `CronJobs`.
             * `*` for all API groups.
         * `resources`: The resource type(s) (e.g., `pods`, `deployments`, `secrets`, `*` for all resources in `apiGroups`).
