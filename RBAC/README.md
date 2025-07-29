@@ -1,9 +1,6 @@
-Okay, here is the `README.md` file version of the comprehensive Kubernetes RBAC study note, ready for you to use with your students\!
-
------
-
-````markdown
 # Kubernetes RBAC (Role-Based Access Control) - A Comprehensive Study Note
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/RBAC/assets/rbac.png" alt="Banner" />
 
 ## 1. Introduction to RBAC: Securing Your Kubernetes Cluster
 
