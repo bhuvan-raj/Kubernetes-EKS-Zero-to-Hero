@@ -533,8 +533,19 @@ rules:
   verbs: ["impersonate"]
   resourceNames: ["developer-alice", "system:serviceaccount:default:my-app-sa"]
 ```
+How to use Impersonation with kubectl
 
-A user with this role could run `kubectl --as=developer-alice get pods`.
+Once a user (e.g., admin-user) is granted this impersonator ClusterRole via a ClusterRoleBinding, they can use kubectl's impersonation flags:
+
+**Impersonate a User:**
+```
+kubectl get pods --as=developer-alice -n my-namespace
+```
+**Impersonate a ServiceAccount:**
+```
+kubectl get deployments --as=system:serviceaccount:default:my-app-sa -n another-namespace
+```
+
 
 -----
 
