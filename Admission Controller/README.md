@@ -49,11 +49,9 @@ These are compiled directly into the `kube-apiserver` binary and are enabled/dis
 * `LimitRanger`: Enforces resource quotas (CPU, memory) on Pods/containers based on `LimitRange` objects.
 * `ServiceAccount`: Ensures Pods have a `ServiceAccount` and injects its credentials.
 * `AlwaysPullImages`: Forces `imagePullPolicy: Always` for all Pods.
-* `DenyEscalatingExec`: Prevents `exec`/`attach` to Pods if privilege escalation is possible.
 * `NodeRestriction`: Limits `kubelet`'s ability to modify resources to its own node/Pods.
 * `DefaultStorageClass`: Injects a default `StorageClass` into `PersistentVolumeClaim`s if none is specified.
 * `PodSecurityPolicy` (⭐ **DEPRECATED in 1.25+**): Previously enforced security policies for Pods. Replaced by `PodSecurityAdmission`.
-* `MutatingAdmissionWebhook` & `ValidatingAdmissionWebhook`: These are *meta-controllers* that enable the use of custom webhook controllers (explained next).
 
 **Enabling:** Configured via the `--enable-admission-plugins` flag on the `kube-apiserver`.
 
