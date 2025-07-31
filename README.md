@@ -74,6 +74,15 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** StatefulSets are used to manage stateful applications in Kubernetes. Unlike Deployments, they provide each pod with a unique, stable identity and persistent storage, ensuring ordered deployment, scaling, and deletion.
 * **Explore:** Navigate to [**Statefulsets**](./Statefulsets/) for detailed information.
 
+
+### 16. RBAC
+* **Description:** RBAC in Kubernetes is a method for regulating access to computer or network resources based on the roles of individual users within an enterprise. It allows administrators to define who can perform what actions on which resources in a cluster, or within specific namespaces.
+* **Explore:** Navigate to [**RBAC**](./RBAC/) for detailed information.
+
+### 16. Admission Controller
+* **Description:** Admission Controllers in Kubernetes are powerful components that intercept requests to the Kubernetes API server *after* authentication and authorization, but *before* the object is persisted in `etcd`. They act as "gatekeepers" to enforce policies and ensure that requests conform to specific rules, enhancing security, ensuring resource consistency, and automating configurations. 
+* **Explore:** Navigate to [**Admission Controllers**](./Admission%20Controller/) for detailed information.
+
 ---
 
 ## Getting Started
