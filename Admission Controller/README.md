@@ -2,45 +2,6 @@
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Admission%20Controller/assets/ac.jpg" alt="Banner" />
 
-## 🚀 Introduction
-
-Welcome to the deep dive into **Kubernetes Admission Controllers**! In the realm of cloud-native security and policy enforcement, these controllers are arguably one of the most powerful, yet often misunderstood, components of the Kubernetes control plane.
-
-You've already mastered **Role-Based Access Control (RBAC)**, which dictates *who* can do *what* in your cluster. Now, we're taking it a step further to understand *what actions are allowed*, regardless of user permissions, and *how objects behave* even before they are persisted. Admission Controllers act as the "gatekeepers" that ensure every operation aligns with your cluster's policies and security standards.
-
-This module will equip you with a fundamental understanding of what Admission Controllers are, why they are essential, how they function, and how you can leverage them to build more secure and compliant Kubernetes environments.
-
----
-
-## 🎯 Learning Objectives
-
-By the end of this module, you should be able to:
-
-* **Define** Kubernetes Admission Controllers and explain their core purpose.
-* **Differentiate** Admission Controllers from Authentication and Authorization (RBAC).
-* **Describe** the Admission Chain and where controllers fit in the API server's request lifecycle.
-* **Identify** and explain the role of common built-in Admission Controllers.
-* **Understand** the concept of Dynamic/Webhook Admission Controllers (Mutating and Validating).
-* **Explain** the workflow of a Webhook Admission Controller, including `AdmissionReview` requests and responses.
-* **List** common use cases for implementing Admission Controllers for security, policy enforcement, and automation.
-* **Discuss** best practices for configuring and operating Admission Controllers, particularly webhooks.
-* **Recognize** popular tools and frameworks that leverage Admission Controllers (e.g., OPA/Gatekeeper, Kyverno).
-
----
-
-## 📅 Prerequisites
-
-Before diving into this topic, ensure you have a solid understanding of:
-
-* **Kubernetes Basics:** Pods, Deployments, Services, Namespaces, API Server.
-* **Kubernetes API Objects:** How objects are defined in YAML and interacted with via `kubectl`.
-* **Role-Based Access Control (RBAC):** Users, Service Accounts, Roles, ClusterRoles, RoleBindings, ClusterRoleBindings.
-* **Basic Networking Concepts:** HTTP/HTTPS, TLS.
-
----
-
-## 📖 Module Content
-
 ### 1. What are Admission Controllers?
 
 Admission Controllers are pieces of code that **intercept requests to the Kubernetes API server** after authentication and authorization, but *before* the object is persisted in `etcd`. They act as policy enforcement points, allowing you to:
