@@ -1,5 +1,7 @@
 # Kubernetes Admission Controllers: The Cluster Gatekeepers
 
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/Admission%20Controller/assets/ac.jpg" alt="Banner" />
+
 ## 🚀 Introduction
 
 Welcome to the deep dive into **Kubernetes Admission Controllers**! In the realm of cloud-native security and policy enforcement, these controllers are arguably one of the most powerful, yet often misunderstood, components of the Kubernetes control plane.
