@@ -61,8 +61,9 @@ These are the most powerful and flexible type, allowing you to implement **custo
 
 **Key Components:**
 
-* **`MutatingWebhookConfiguration`**: Kubernetes API object that registers a custom mutating webhook. Defines rules (which resources/operations), endpoint, and failure policy.
-* **`ValidatingWebhookConfiguration`**: Registers a custom validating webhook, similar to mutating.
+* **`MutatingWebhookConfiguration`**: To allow external services (webhooks) to modify or inject data into Kubernetes objects before they are stored. Mutating webhooks are typically run before validating webhooks. This allows modifications to be made first, and then the (potentially modified) object is validated.
+* **`ValidatingWebhookConfiguration`**: To allow external services (webhooks) to veto or reject the creation, update, or deletion of Kubernetes objects based on custom business logic or security policies.
+
 * **Webhook Server**: An external service (typically a Pod in your cluster) that runs your custom logic and exposes an HTTPS endpoint.
 
 **Workflow of a Webhook:**
