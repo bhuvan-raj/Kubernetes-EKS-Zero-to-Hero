@@ -1,6 +1,6 @@
 # Helm in Kubernetes
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/HELM/helm.png" alt="Banner" />
+<img src="https://raw.githubusercontent.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/main/HELM/helm.png" alt="Helm Banner" width="800"/>
 
 ## 1\. Introduction to Helm
 
