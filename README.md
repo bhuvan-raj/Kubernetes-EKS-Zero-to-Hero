@@ -83,6 +83,13 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** Admission Controllers in Kubernetes are powerful components that intercept requests to the Kubernetes API server *after* authentication and authorization, but *before* the object is persisted in `etcd`. They act as "gatekeepers" to enforce policies and ensure that requests conform to specific rules, enhancing security, ensuring resource consistency, and automating configurations. 
 * **Explore:** Navigate to [**Admission Controllers**](./Admission%20Controller/) for detailed information.
 
+
+### 17. HELM
+* **Description:** Helm serves as the package manager for Kubernetes, simplifying the deployment and management of applications.
+* **Explore:** Navigate to [**HELM**](./HELM/) for detailed information.
+
+
+
 ---
 
 ## Getting Started
