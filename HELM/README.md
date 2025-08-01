@@ -1,8 +1,6 @@
-This study note provides a comprehensive overview of Helm in Kubernetes, suitable for teaching students. It covers core concepts, architecture, chart structure, templating, release management, dependencies, hooks, and security best practices.
+# Helm in Kubernetes
 
------
-
-# In-Depth Study Note: Helm in Kubernetes
+<img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/HELM/assets/helm.png" alt="Banner" />
 
 ## 1\. Introduction to Helm
 
