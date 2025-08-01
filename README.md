@@ -30,61 +30,66 @@ This repository is meticulously organized into key sections, progressing from br
 * **Explore:** Navigate to [Deployments](./Deployment/)  for detailed information.
 
 
-### 6. Service (svc)
+### 6. Probes
+* **Description:** Probes are health checks defined for containers within a Pod. The Kubelet uses these probes to determine the health and readiness of your application's containers, ensuring reliable operation.
+* **Explore:** Navigate to [Probes](./Probes/)  for detailed information.
+
+
+### 7. Service (svc)
 * **Description:** Understand how applications are made discoverable and accessible within the cluster, and the different ways to expose them for internal or controlled external access.
 * **Explore:** Navigate to [Service (svc)](./Service%20(svc)/) for detailed information.
 
-### 7. Namespace-Secrets-ConfigMaps
+### 8. Namespace-Secrets-ConfigMaps
 * **Description:** This folder focuses on crucial Kubernetes objects for organizing and configuring your applications within the cluster.
 * **Explore:** Navigate to [Namespace-Secrets-ConfigMaps](./Namespace-Secrets-ConfigMaps/) for detailed information.
 
-### 8. Ingress Resource
+### 9. Ingress Resource
 * **Description:** This section covers Kubernetes Ingress, the advanced mechanism for exposing HTTP and HTTPS services to the outside world with sophisticated routing, SSL/TLS termination, and host/path-based rules.
 * **Explore:** Navigate to [Ingress Resource](./Ingress%20Resource/) for detailed information.
 
-### 9. PV,PVC and Storageclass
+### 10. PV,PVC and Storageclass
 * **Description:** This section covers PV and PVC, the mechanism for persistent storage and automatic provisioning of such persistent volumes.
 * **Explore:** Navigate to [**PV and PVC**](./Persistant%20Volume%20and%20PVC/) for detailed information.
 
-### 10. Resource Management and RequestQuota
+### 11. Resource Management and RequestQuota
 * **Description:** This section covers Resource Management and ResourceQuota, the mechanism for limiting and controlling pod resource usage and the overall namespace resource allocation
 * **Explore:** Navigate to [**Resource Management and ResourceQuota**](./Resource%20Management%20and%20Resource%20Quota/) for detailed information.
 
-### 11. Node Selector and Node Affinity
+### 12. Node Selector and Node Affinity
 * **Description:** These mechanisms empower you to control where your Pods run within your cluster, ensuring they land on nodes that meet specific requirements.
 * **Explore:** Navigate to [**Node Selector and Node Affinity**](./Node%20Selector%20and%20Node%20Affinity/) for detailed information.
 
-### 12. Taint and Tolerations
+### 13. Taint and Tolerations
 * **Description:** used for advanced controlling the nodes - placement of pods inside the nodes, ensuring they land on nodes that meet specific tolerations.
 * **Explore:** Navigate to [**Taint and Tolerations**](./Taint%20and%20Tolerations/) for detailed information.
 
-### 12. Horizontal Pod Autoscaler
+### 14. Horizontal Pod Autoscaler
 * **Description:** used for scaling the pods horizontally whenever a certain threshold breaches, such as CPU , MEMMORY , REQUESTS etc.
 * **Explore:** Navigate to [**HPA**](./HPA/) for detailed information.
 
-### 13. Vertical Pod Autoscaler
+### 15. Vertical Pod Autoscaler
 * **Description:** used for scaling the pods vertically  whenever a certain threshold breaches, such as CPU , MEMMORY , REQUESTS etc.
 * **Explore:** Navigate to [**VPA**](./VPA/) for detailed information.
 
-### 14. Daemonsets
+### 16. Daemonsets
 * **Description:** DaemonSets are a fundamental building block for a robust and observable Kubernetes cluster, ensuring that your essential background services are always running where they're needed.
 * **Explore:** Navigate to [**Daemonsets**](./Daemonsets/) for detailed information.
 
-### 15. Statefulsets
+### 17. Statefulsets
 * **Description:** StatefulSets are used to manage stateful applications in Kubernetes. Unlike Deployments, they provide each pod with a unique, stable identity and persistent storage, ensuring ordered deployment, scaling, and deletion.
 * **Explore:** Navigate to [**Statefulsets**](./Statefulsets/) for detailed information.
 
 
-### 16. RBAC
+### 18. RBAC
 * **Description:** RBAC in Kubernetes is a method for regulating access to computer or network resources based on the roles of individual users within an enterprise. It allows administrators to define who can perform what actions on which resources in a cluster, or within specific namespaces.
 * **Explore:** Navigate to [**RBAC**](./RBAC/) for detailed information.
 
-### 16. Admission Controller
+### 19. Admission Controller
 * **Description:** Admission Controllers in Kubernetes are powerful components that intercept requests to the Kubernetes API server *after* authentication and authorization, but *before* the object is persisted in `etcd`. They act as "gatekeepers" to enforce policies and ensure that requests conform to specific rules, enhancing security, ensuring resource consistency, and automating configurations. 
 * **Explore:** Navigate to [**Admission Controllers**](./Admission%20Controller/) for detailed information.
 
 
-### 17. HELM
+### 20. HELM
 * **Description:** Helm serves as the package manager for Kubernetes, simplifying the deployment and management of applications.
 * **Explore:** Navigate to [**HELM**](./HELM/) for detailed information.
 
