@@ -41,127 +41,75 @@ Helm consists of two main components:
       * Managing Releases: Tracking the state and history of each deployment by storing release information as Kubernetes Secrets (or ConfigMaps/SQL, configurable via `HELM_DRIVER`).
       * Interfacing with Kubernetes: Sending the generated manifests to the Kubernetes API server to create or update resources in the cluster.
 
-## 3\. Helm Chart Structure
+## 📁 Helm Components
 
-A Helm Chart is a directory with a predefined structure. Here are the essential files and directories:
+### 1. **Chart**
+
+A **chart** is a package of pre-configured Kubernetes resources.
+
+**Structure of a Helm Chart:**
 
 ```
 mychart/
-  Chart.yaml          # A YAML file containing information about the chart
-  values.yaml         # The default configuration values for this chart
-  charts/             # A directory containing any dependent charts
-  templates/          # A directory of templates that will be rendered into Kubernetes manifest files
-    NOTES.txt         # Optional: Text file to be printed after a successful installation
-    _helpers.tpl      # Optional: Template partials/helpers
-    deployment.yaml   # Example: Kubernetes Deployment manifest
-    service.yaml      # Example: Kubernetes Service manifest
-    configmap.yaml    # Example: Kubernetes ConfigMap manifest
+├── Chart.yaml          # Chart metadata
+├── values.yaml         # Default configuration values
+├── charts/             # Dependencies
+├── templates/          # Kubernetes manifest templates
+│   └── deployment.yaml
+│   └── service.yaml
+├── .helmignore         # Patterns to ignore when packaging
 ```
 
-  * **`Chart.yaml`**: This file provides metadata about the Chart, including:
+### 2. **Chart.yaml**
 
-      * `apiVersion`: The API version of the chart.
-      * `name`: The name of the chart.
-      * `version`: The semantic version of the chart (e.g., `1.2.3`).
-      * `appVersion`: The version of the application itself.
-      * `description`: A brief description of the application.
-      * `dependencies`: (Optional) Lists dependent charts.
-
-  * **`values.yaml`**: This file defines the default configuration values for your application. These values can be overridden by users during installation or upgrade. This is where you externalize parameters like image tags, replica counts, resource limits, etc.
-
-  * **`charts/`**: This directory is where dependent charts (subcharts) are placed. Helm can automatically manage these dependencies if they are declared in `Chart.yaml`.
-
-  * **`templates/`**: This is the most crucial directory. It contains Kubernetes manifest files (YAML) that are written as Go templates. Helm's templating engine processes these files using the values from `values.yaml` (and any user-provided overrides) to generate the final Kubernetes YAML manifests.
-
-  * **`templates/NOTES.txt`**: An optional plain text file that gets printed to the console after a successful `helm install` or `helm upgrade`. It's often used to provide helpful instructions or next steps to the user (e.g., how to access the deployed application).
-
-  * **`templates/_helpers.tpl`**: An optional file (conventionally prefixed with `_`) that contains reusable template definitions (partials) or Go template functions. These helpers can be included in other templates to reduce redundancy and improve readability.
-
-## 4\. Helm Templating
-
-Helm leverages the Go templating language, extended with powerful Sprig functions and custom Helm functions, to dynamically generate Kubernetes manifests.
-
-**Key Templating Concepts:**
-
-  * **Variables:** Values from `values.yaml` are accessed using the `.Values` object (e.g., `{{ .Values.service.type }}`). Other built-in objects include:
-      * `.Release`: Information about the Release (e.g., `.Release.Name`, `.Release.Namespace`).
-      * `.Chart`: Information about the Chart (e.g., `.Chart.Name`, `.Chart.Version`).
-      * `.Capabilities`: Information about the Kubernetes cluster (e.g., `.Capabilities.KubeVersion`).
-  * **Functions:** Helm provides a rich set of functions for manipulating data, performing logic, and formatting output.
-      * **Common functions:** `quote`, `toYaml`, `indent`, `default`, `required`, `include`, `tpl`.
-      * **Pipelines:** Functions can be chained together using the `|` operator (e.g., `{{ .Values.myString | upper | quote }}`).
-  * **Control Flow:**
-      * **`if/else`:** Conditional rendering of resources or parts of templates.
-        ```yaml
-        {{ if .Values.ingress.enabled }}
-        apiVersion: networking.k8s.io/v1
-        kind: Ingress
-        ...
-        {{ end }}
-        ```
-      * **`range`:** Iterating over lists or maps to generate multiple resources.
-        ```yaml
-        {{ range .Values.ports }}
-        - port: {{ .port }}
-          targetPort: {{ .targetPort }}
-        {{ end }}
-        ```
-  * **Named Templates (Partials):** Reusable blocks of template code defined in `_helpers.tpl` or other files. They are invoked using `{{ include "templateName" . }}`. This is crucial for keeping your templates DRY (Don't Repeat Yourself).
-
-**Example `deployment.yaml` with templating:**
+Defines metadata:
 
 ```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "mychart.fullname" . }}
-  labels:
-    {{- include "mychart.labels" . | nindent 4 }}
-spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      {{- include "mychart.selectorLabels" . | nindent 6 }}
-  template:
-    metadata:
-      labels:
-        {{- include "mychart.selectorLabels" . | nindent 8 }}
-    spec:
-      containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.internalPort }}
-              protocol: TCP
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+apiVersion: v2
+name: mychart
+description: A sample Helm chart
+version: 0.1.0
+appVersion: "1.0"
 ```
 
-**Example `values.yaml`:**
+### 3. **values.yaml**
+
+Contains default values that can be overridden:
 
 ```yaml
-replicaCount: 1
-
+replicaCount: 2
 image:
   repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  # tag: "latest"
-
-service:
-  type: ClusterIP
-  internalPort: 80
-
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+  tag: stable
 ```
+
+### 4. **templates/**
+
+Templates use Go templating syntax and generate Kubernetes manifests dynamically:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ .Release.Name }}-pod
+spec:
+  containers:
+    - name: app
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+```
+
+## 🌀 Helm Release Lifecycle
+
+Helm maintains state about every installation called a **release**.
+
+### Lifecycle Steps:
+
+1. **helm install**: Deploys the chart as a release.
+2. **helm upgrade**: Modifies existing release with new values or chart version.
+3. **helm rollback**: Reverts to an earlier version.
+4. **helm uninstall**: Deletes a release but keeps history (optional).
+5. **helm history**: Shows the deployment timeline of a release.
+
 
 ## 5\. Helm Release Management
 
