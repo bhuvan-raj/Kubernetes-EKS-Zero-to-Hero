@@ -122,10 +122,6 @@ These are the most powerful and flexible type, allowing you to implement **custo
 * **`namespaceSelector`**: Filters requests based on labels on the namespace containing the resource.
 * **`objectSelector`**: Filters requests based on labels on the object itself (Kubernetes 1.15+).
 * **`failurePolicy`**: What happens if the webhook fails or is unreachable.
-    * `Fail` (Default, most secure): The API request is rejected.
-    * `Ignore`: The API request proceeds. Use with caution for non-critical policies.
-* **`sideEffects`**: Indicates if the webhook has external side effects. Important for `dry-run` requests.
-    * `None`, `NoneOnDryRun`, `Some`.
 * **`timeoutSeconds`**: Maximum time for the webhook to respond.
 
 #### c) Security and Operations
