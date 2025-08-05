@@ -1,0 +1,24 @@
+# templates/NOTES.txt
+Thank you for installing the {{ .Chart.Name }} chart.
+
+Your application has been deployed to the Kubernetes cluster.
+
+{{- if .Values.ingress.enabled }}
+To access your application via Ingress, visit:
+  http://{{ .Values.ingress.host }}
+{{- else if eq .Values.service.type "LoadBalancer" }}
+To access your application via LoadBalancer:
+  export SERVICE_IP=$(kubectl get svc {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  echo "http://$SERVICE_IP/"
+{{- else if eq .Values.service.type "NodePort" }}
+To access your application via NodePort:
+  export NODE_PORT=$(kubectl get service {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }} -o jsonpath="{.spec.ports[0].nodePort}")
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo "http://$NODE_IP:$NODE_PORT/"
+{{- else }}
+To access your application from within the cluster:
+  kubectl port-forward svc/{{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" }} {{ .Values.service.port }}:{{ .Values.service.port }}
+  echo "Visit http://127.0.0.1:{{ .Values.service.port }}"
+{{- end }}
+
+For more configuration options, refer to the values.yaml file.
