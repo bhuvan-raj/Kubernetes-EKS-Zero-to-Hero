@@ -48,16 +48,30 @@ A **chart** is a package of pre-configured Kubernetes resources.
 **Structure of a Helm Chart:**
 
 ```
-mychart/
-├── Chart.yaml          # Chart metadata
-├── values.yaml         # Default configuration values
-├── charts/             # Dependencies
-├── templates/          # Kubernetes manifest templates
-│   └── deployment.yaml
-│   └── service.yaml
+my-parent-chart/
+├── Chart.yaml                  # Main metadata for the parent chart
+├── values.yaml                 # Default configuration values for the parent chart and its subcharts
+├── templates/                  # Kubernetes manifest templates for the parent application
+│   ├── deployment.yaml         # Defines the main application Deployment
+│   └── service.yaml            # Defines the main application Service
+│   └── ...                     # Other parent chart specific resources (e.g., Ingress, ConfigMaps)
+└── charts/                     # Directory dedicated to housing subcharts
+├── my-subchart-1/          # First subchart directory
+│   ├── Chart.yaml          # Metadata for my-subchart-1
+│   ├── values.yaml         # Default configuration values for my-subchart-1
+│   └── templates/          # Kubernetes manifest templates for my-subchart-1
+│       ├── deployment.yaml
+│       ├── service.yaml
+│       └── ...
+└── my-subchart-2/          # Second subchart directory
+├── Chart.yaml          # Metadata for my-subchart-2
+├── values.yaml         # Default configuration values for my-subchart-2
+└── templates/          # Kubernetes manifest templates for my-subchart-2
+├── deployment.yaml
+├── service.yaml
 ├── .helmignore         # Patterns to ignore when packaging
+└── ...
 ```
-
 ### 2. **Chart.yaml**
 
 Defines metadata:
