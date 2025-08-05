@@ -94,7 +94,12 @@ image:
   repository: nginx
   tag: stable
 ```
-
+**To Override the values in values.yaml**
+```
+helm install my-nginx ./my-nginx-chart \
+  --set replicaCount=3 \
+  --set image.tag=1.2.3
+```
 ### 4. **templates/**
 
 Templates use Go templating syntax and generate Kubernetes manifests dynamically:
