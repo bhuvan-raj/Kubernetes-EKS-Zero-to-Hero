@@ -1,0 +1,66 @@
+# Chart.yaml
+# This file provides metadata about the Helm chart itself.
+
+apiVersion: v2 # Required. Specifies the chart API version. For Helm 3, this must be 'v2'.
+               # For Helm 2, it was 'v1'.
+
+name: my-web-app # Required. The name of the chart. This is how the chart is identified.
+                 # E.g., 'nginx', 'wordpress', 'my-custom-app'.
+
+version: 0.1.0 # Required. The semantic version of the chart. This version is for the chart itself,
+               # and changes when the chart's templates or structure are updated.
+               # It follows SemVer 2.0.0 (MAJOR.MINOR.PATCH).
+
+kubeVersion: ">= 1.19.0-0" # Optional. The version of Kubernetes required by the chart.
+                         # Helm will check this before installation. Useful for ensuring compatibility.
+                         # This example specifies Kubernetes 1.19.0 or newer.
+
+description: A Helm chart for deploying a simple Go web application # Optional. A brief, human-readable description of what the chart does.
+
+type: application # Optional. Specifies the chart type.
+                  # 'application' (default): A regular chart that deploys an application.
+                  # 'library': A chart that provides reusable templates/functions for other charts,
+                  #            but does not create any release artifacts itself.
+
+keywords: # Optional. A list of keywords associated with the chart, useful for searching.
+  - web
+  - go
+  - http
+  - microservice
+
+home: https://github.com/yourorg/my-web-app-chart # Optional. The URL of the chart's homepage.
+
+sources: # Optional. A list of URLs to the source code for this project.
+  - https://github.com/yourorg/my-web-app
+  - https://github.com/yourorg/my-web-app-chart
+
+maintainers: # Optional. A list of individuals or organizations maintaining the chart.
+  - name: Jane Doe
+    email: jane.doe@example.com
+  - name: Your Organization
+    url: https://yourorganization.com
+
+icon: https://example.com/icon.png # Optional. A URL to an SVG or PNG image to be used as an icon.
+
+appVersion: "1.0.0" # Optional. The version of the application that this chart deploys.
+                    # This helps distinguish between chart updates and application version updates.
+                    # E.g., if your chart deploys Nginx, this would be the Nginx version (e.g., "1.25.3").
+
+deprecated: false # Optional. Set to 'true' if the chart is deprecated.
+                   # Helps users identify charts that are no longer maintained or recommended.
+
+dependencies: # Optional. This section defines chart dependencies (subcharts) for Helm 3.
+              # In Helm 2, this was in a separate 'requirements.yaml' file.
+  - name: postgresql # The name of the dependent chart (as found in its Chart.yaml)
+    version: "12.x.x" # The version of the dependent chart to use.
+    repository: "https://charts.bitnami.com/bitnami" # The URL of the repository where the chart can be found.
+    condition: postgresql.enabled # Optional. A boolean value in values.yaml that, if false,
+                                  # will disable this subchart. (e.g., enable/disable PostgreSQL)
+    tags:
+      - database # Tags allow you to group dependencies and selectively enable/disable them.
+
+  - name: redis
+    version: "17.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+    # alias: my-redis-instance # Optional: You can provide an alias if you need multiple instances of the same chart.
