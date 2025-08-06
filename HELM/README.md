@@ -286,11 +286,7 @@ spec:
 
   * **Testing Charts (`helm test`):** Helm allows you to define test manifests (typically `Jobs`) within your chart that can be run after installation to verify the application's functionality. These are marked with the `helm.sh/hook: test` annotation.
 
-  * **Conditional Logic in Templates:** Use `if/else`, `with`, and `range` to create flexible and dynamic charts that adapt to different configurations.
 
-  * **Version Your Charts (SemVer2):** Strictly follow Semantic Versioning (Major.Minor.Patch) for your charts. This makes it easier to manage dependencies and ensures compatibility.
-
-  * **Separate `values.yaml` for Environments:** Maintain distinct `values.yaml` files (e.g., `values-dev.yaml`, `values-prod.yaml`) for different environments to manage environment-specific configurations without modifying the base chart.
 
   * **Secure your Helm Environment:**
 
