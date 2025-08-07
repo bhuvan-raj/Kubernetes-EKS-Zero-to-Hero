@@ -1,6 +1,6 @@
 # 🚀 Kubernetes Jobs: One-Time Tasks to Completion
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/jobs.png" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/jobs.png"  alt="Banner" width="900" height="350" /> 
 
 
 A **Kubernetes Job** is a controller that creates one or more Pods and ensures that a specified number of them successfully complete their tasks. Unlike a Deployment, which aims to keep a set of Pods running continuously, a Job's primary purpose is to run a task to completion and then terminate.
@@ -52,7 +52,7 @@ spec:
 
 ## ⏰ Kubernetes CronJobs: Scheduled Recurring Tasks
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/cronjobs.png" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/cronjob.png" alt="Banner" />
 
 
 A **Kubernetes CronJob** automates the creation of Jobs on a repeating schedule. It's akin to the `cron` utility found in Unix-like operating systems but integrated into Kubernetes, allowing you to schedule routine tasks within your cluster.
