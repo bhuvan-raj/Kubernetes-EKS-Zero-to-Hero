@@ -35,18 +35,26 @@ Jobs are ideal for:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: pi-calculator-job
+  name: my-first-job
 spec:
   template:
     spec:
       containers:
-      - name: pi-calculator
-        image: perl
-        command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      - name: busybox-container
+        image: busybox
+        command: ["sh", "-c", "echo 'Hello from my Kubernetes Job!'; sleep 10; echo 'Job finished.'"]
       restartPolicy: OnFailure
-  completions: 1  # Number of times the Job should run to completion
-  backoffLimit: 4 # Number of retries before marking the Job as failed
+  completions: 1
+  backoffLimit: 4
 ````
+
+**Job Scenarios: One-Time Completion Tasks**
+
+- Database Migrations: Running a script to update database schemas after application code changes.
+
+- Large Data Processing/ETL: Processing batch data from a source, transforming it, and loading it into a target.
+
+- One-Time Data Cleanup: Executing a script to fix malformed records or backfill new data for existing entries.
 
 -----
 
@@ -109,27 +117,28 @@ CronJobs are perfect for:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: daily-backup
+  name: my-first-cronjob
+  namespace: default
 spec:
-  schedule: "0 2 * * *" # Run daily at 2 AM
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
+  schedule: '*/1 * * * *'
   jobTemplate:
     spec:
+     completions: 1 
+     backoffLimit: 4
       template:
         spec:
           containers:
-          - name: backup-script
-            image: my-custom-backup-image:latest
-            command: ["/bin/sh", "-c", "mysqldump -u root -p$MYSQL_ROOT_PASSWORD --all-databases > /backups/all-databases-$(date +%Y%m%d).sql"]
-            env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-credentials
-                  key: password
+          - command:
+            - sh
+            - -c
+            - echo 'Hello from my Kubernetes CronJob!'; sleep 10; echo 'CronJob finished.'
+            image: busybox
+            name: busybox-container
           restartPolicy: OnFailure
-  concurrencyPolicy: Forbid # Do not run a new Job if the previous one is still running
-  successfulJobsHistoryLimit: 3 # Keep history of last 3 successful Jobs
-  failedJobsHistoryLimit: 1 # Keep history of last 1 failed Job
+  
 ```
 
 -----
@@ -188,7 +197,6 @@ You can interact with Jobs and CronJobs using `kubectl` commands:
   * Use a **Job** when you need a task to run once and ensure it completes successfully, even if Pods fail.
   * Use a **CronJob** when you need a task to run repeatedly on a specific schedule. The CronJob will create Jobs for each scheduled execution.
 
-<!-- end list -->
 
 ```
 ```
