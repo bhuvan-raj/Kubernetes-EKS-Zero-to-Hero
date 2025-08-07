@@ -1,6 +1,6 @@
 # 🚀 Kubernetes Jobs: One-Time Tasks to Completion
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/jobs.png"  alt="Banner" width="900" height="350" /> 
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/jobs.png"  alt="Banner" width="600" height="350" /> 
 
 
 A **Kubernetes Job** is a controller that creates one or more Pods and ensures that a specified number of them successfully complete their tasks. Unlike a Deployment, which aims to keep a set of Pods running continuously, a Job's primary purpose is to run a task to completion and then terminate.
