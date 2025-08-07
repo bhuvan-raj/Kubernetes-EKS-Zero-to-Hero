@@ -52,7 +52,7 @@ spec:
 
 ## ⏰ Kubernetes CronJobs: Scheduled Recurring Tasks
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/cronjob.png" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/Jobs%20and%20Cronjobs/assets/cron.png" alt="Banner" />
 
 
 A **Kubernetes CronJob** automates the creation of Jobs on a repeating schedule. It's akin to the `cron` utility found in Unix-like operating systems but integrated into Kubernetes, allowing you to schedule routine tasks within your cluster.
