@@ -120,7 +120,6 @@ metadata:
   name: my-first-cronjob
   namespace: default
 spec:
-  concurrencyPolicy: Allow
   failedJobsHistoryLimit: 1
   successfulJobsHistoryLimit: 3
   schedule: '*/1 * * * *'
