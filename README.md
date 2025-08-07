@@ -89,7 +89,12 @@ This repository is meticulously organized into key sections, progressing from br
 * **Explore:** Navigate to [**Admission Controllers**](./Admission%20Controller/) for detailed information.
 
 
-### 20. HELM
+### 20. Jobs and Cronjobs
+* **Description:** Kubernetes Jobs manage finite tasks that run to completion, ensuring a specified number of Pods successfully execute a task. CronJobs automate the creation of these Jobs on a recurring schedule, ideal for routine operations like backups or data cleanup within your cluster.
+* **Explore:** Navigate to [**Jobs and CronJobs**](./Jobs%20and%20Cronjobs/) for detailed information.
+
+
+### 21. HELM
 * **Description:** Helm serves as the package manager for Kubernetes, simplifying the deployment and management of applications.
 * **Explore:** Navigate to [**HELM**](./HELM/) for detailed information.
 
