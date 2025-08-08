@@ -1,9 +1,3 @@
-Okay, I'll integrate the information about creating EKS clusters through the AWS Management Console into your original README.
-
-Here's the updated README:
-
------
-
 # What is eksctl?
 
 `eksctl` is an **open-source command-line interface (CLI) tool for Amazon Elastic Kubernetes Service (EKS)** that simplifies the creation, management, and deletion of EKS clusters. Developed by Weaveworks and officially endorsed by AWS, `eksctl` streamlines the process of deploying Kubernetes on AWS, abstracting away many of the complex interactions with underlying AWS services like Amazon EC2, Amazon VPC, and AWS Identity and Access Management (IAM).
