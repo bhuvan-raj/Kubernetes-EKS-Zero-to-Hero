@@ -28,7 +28,7 @@ Before starting a lab, make sure you have:
 
 ## 📜 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](Kubernetes-EKS-FROM-SCRATCH/LICENSE) file for details.
 
 ---
 
