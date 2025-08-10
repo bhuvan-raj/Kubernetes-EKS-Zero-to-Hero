@@ -100,6 +100,15 @@ This repository is meticulously organized into key sections, progressing from br
 
 
 
+
+## EKS HANDS ON LABS INCLUDED 
+- **This repository includes hands-on labs on previously completed topics using AWS EKS**
+- **Explore:** Navigate to [**EKS HANDS ON**](./EKS%20HANDS-ON/) for detailed information.
+
+
+
+
+
 ---
 
 ## Getting Started
