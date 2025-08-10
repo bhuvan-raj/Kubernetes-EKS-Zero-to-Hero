@@ -45,21 +45,20 @@ kubectl create namespace my-app
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  namespace: my-app
+  name: glasmorphism-todo
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      app: glasmorphism-todo
   template:
     metadata:
       labels:
-        app: nginx
+        app: glasmorphism-todo
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
+      - name: glasmorphism-todo
+        image: 221082210129.dkr.ecr.us-east-1.amazonaws.com/glasmorphism-todo:latest
         ports:
         - containerPort: 80
 ```
@@ -80,16 +79,16 @@ Without annotations, a `LoadBalancer` Service in EKS creates a **Classic Load Ba
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-clb-service
-  namespace: my-app
+  name: glasmorphism-todo-service
 spec:
   type: LoadBalancer
   selector:
-    app: nginx
+    app: glasmorphism-todo
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
+
 ```
 
 ```bash
