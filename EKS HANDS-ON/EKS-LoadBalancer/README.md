@@ -1,27 +1,35 @@
-
 # **EKS LoadBalancer Service**
 
-This lab demonstrates how to deploy an application in an Amazon EKS cluster and expose it to the outside world using a **LoadBalancer Service**.
-We’ll also cover how to switch between **Classic Load Balancer (default)**, **Network Load Balancer (NLB)**, and **Application Load Balancer (ALB)**.
+This lab demonstrates how to deploy an application in Amazon EKS and expose it using different AWS load balancer types:
+
+* **Classic Load Balancer (CLB)** — default without AWS Load Balancer Controller
+* **Network Load Balancer (NLB)** — requires AWS Load Balancer Controller
+* **Application Load Balancer (ALB)** — requires AWS Load Balancer Controller
 
 ---
 
 ## **Prerequisites**
 
-* Amazon EKS cluster up and running
-* At least one **EC2 worker node group** attached to the cluster (Fargate-only clusters will not work for this basic LoadBalancer example)
-* `kubectl` configured to point to your EKS cluster:
+* An **Amazon EKS cluster** with at least one EC2 worker node group (Fargate-only clusters will not work for this example).
+* `kubectl` configured for your cluster:
 
   ```bash
   aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>
   ```
-* AWS CLI installed and configured with sufficient IAM permissions
+* AWS CLI installed with sufficient IAM permissions.
+* **IAM OIDC provider** associated with your EKS cluster:
+
+  ```bash
+  eksctl utils associate-iam-oidc-provider \
+    --region <your-region> \
+    --cluster <your-cluster-name> \
+    --approve
+  ```
+* **AWS Load Balancer Controller** installed (needed for NLB and ALB).
 
 ---
 
 ## **1. Create the Namespace**
-
-We will use a dedicated namespace `my-app` for this lab.
 
 ```bash
 kubectl create namespace my-app
@@ -30,8 +38,6 @@ kubectl create namespace my-app
 ---
 
 ## **2. Create the Deployment**
-
-We will deploy a simple **Nginx** web server with 2 replicas.
 
 **`nginx-deployment.yaml`**
 
@@ -58,33 +64,15 @@ spec:
         - containerPort: 80
 ```
 
-Apply the deployment:
-
 ```bash
 kubectl apply -f nginx-deployment.yaml
 ```
 
 ---
 
-## **3. Verify the Deployment**
+## **3. Classic Load Balancer (Default)**
 
-Check the status of the pods:
-
-```bash
-kubectl get pods -n my-app
-```
-
-Expected:
-
-```
-NAME                                READY   STATUS    RESTARTS   AGE
-nginx-deployment-xxxxxxx-xxxxx      1/1     Running   0          20s
-nginx-deployment-xxxxxxx-xxxxx      1/1     Running   0          20s
-```
-
----
-
-## **4. Create the LoadBalancer Service (Default CLB)**
+Without annotations, a `LoadBalancer` Service in EKS creates a **Classic Load Balancer**.
 
 **`nginx-service.yaml`**
 
@@ -92,7 +80,7 @@ nginx-deployment-xxxxxxx-xxxxx      1/1     Running   0          20s
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-lb-service
+  name: nginx-clb-service
   namespace: my-app
 spec:
   type: LoadBalancer
@@ -104,64 +92,56 @@ spec:
       targetPort: 80
 ```
 
-Apply the service:
-
 ```bash
 kubectl apply -f nginx-service.yaml
 ```
 
 ---
 
-## **5. Verify the LoadBalancer**
+## **4. AWS Load Balancer Controller Setup**
 
-Check the service:
+To create an **NLB** or **ALB**, you must install the AWS Load Balancer Controller:
 
-```bash
-kubectl get svc -n my-app
-```
+1. **Create IAM policy**
 
-Expected:
+   ```bash
+   curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 
-```
-NAME               TYPE           CLUSTER-IP      EXTERNAL-IP                           PORT(S)        AGE
-nginx-lb-service   LoadBalancer   10.100.22.177   a1b2c3d4e5f6.elb.amazonaws.com         80:32598/TCP   1m
-```
+   aws iam create-policy \
+     --policy-name AWSLoadBalancerControllerIAMPolicy \
+     --policy-document file://iam_policy.json
+   ```
 
-* **EXTERNAL-IP** is the DNS name of the AWS Elastic Load Balancer.
-* May take 1–2 minutes to become active.
+2. **Create service account with IAM role**
 
----
+   ```bash
+   eksctl create iamserviceaccount \
+     --cluster=<your-cluster-name> \
+     --namespace=kube-system \
+     --name=aws-load-balancer-controller \
+     --role-name AmazonEKSLoadBalancerControllerRole \
+     --attach-policy-arn=arn:aws:iam::<your-account-id>:policy/AWSLoadBalancerControllerIAMPolicy \
+     --approve
+   ```
 
-## **6. Test the Application**
+3. **Install the controller with Helm**
 
-Get the EXTERNAL-IP:
+   ```bash
+   helm repo add eks https://aws.github.io/eks-charts
+   helm repo update
 
-```bash
-kubectl get svc nginx-lb-service -n my-app -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
-```
-
-Test in browser or via curl:
-
-```bash
-curl http://<EXTERNAL-IP>
-```
-
-You should see **Welcome to nginx!**.
-
----
-
-## **7. View the Load Balancer in AWS Console**
-
-1. Go to **EC2 → Load Balancers** in AWS Console.
-2. Look for one starting with `k8s-myapp-nginxlb...`.
-3. Check listeners, target groups, and registered nodes.
+   helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+     -n kube-system \
+     --set clusterName=<your-cluster-name> \
+     --set serviceAccount.create=false \
+     --set serviceAccount.name=aws-load-balancer-controller
+   ```
 
 ---
 
-## **8. Using a Network Load Balancer (NLB)**
+## **5. Network Load Balancer (NLB)**
 
-By default, `LoadBalancer` in EKS provisions a **Classic Load Balancer**.
-To create an **NLB**, add an annotation:
+Once the AWS Load Balancer Controller is installed, create your NLB Service:
 
 **`nginx-nlb-service.yaml`**
 
@@ -172,7 +152,8 @@ metadata:
   name: nginx-nlb-service
   namespace: my-app
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
 spec:
   type: LoadBalancer
   selector:
@@ -183,25 +164,17 @@ spec:
       targetPort: 80
 ```
 
-Apply:
-
 ```bash
 kubectl apply -f nginx-nlb-service.yaml
 ```
 
 ---
 
-## **9. Using an Application Load Balancer (ALB)**
+## **6. Application Load Balancer (ALB)**
 
-An ALB is **not** created directly from a `Service`.
-Instead, you need the **AWS Load Balancer Controller** and an **Ingress** resource.
+For ALB, you need an Ingress:
 
-**High-level steps:**
-
-1. **Install AWS Load Balancer Controller** in your EKS cluster.
-2. Create an **Ingress** with `alb` annotations.
-
-Example Ingress:
+**`nginx-alb-ingress.yaml`**
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -220,16 +193,18 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: nginx-lb-service
+                name: nginx-clb-service
                 port:
                   number: 80
 ```
 
-The AWS Load Balancer Controller will then provision an ALB and configure rules to route traffic to your service.
+```bash
+kubectl apply -f nginx-alb-ingress.yaml
+```
 
 ---
 
-## **10. Clean Up**
+## **7. Clean Up**
 
 ```bash
 kubectl delete namespace my-app
@@ -239,8 +214,7 @@ kubectl delete namespace my-app
 
 ## **Key Learning Points**
 
-* **CLB** = default for `LoadBalancer` in EKS.
-* **NLB** = use annotation `service.beta.kubernetes.io/aws-load-balancer-type: "nlb"`.
-* **ALB** = requires AWS Load Balancer Controller + Ingress.
-* Always clean up to avoid AWS charges.
-
+* **CLB** = Default `LoadBalancer` type without AWS Load Balancer Controller.
+* **NLB** & **ALB** = Require AWS Load Balancer Controller.
+* Public subnets must be tagged with `kubernetes.io/role/elb=1`, private subnets with `kubernetes.io/role/internal-elb=1`.
+* Always clean up AWS resources to avoid charges.
