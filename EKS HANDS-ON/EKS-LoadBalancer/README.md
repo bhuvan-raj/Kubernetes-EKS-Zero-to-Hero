@@ -59,7 +59,7 @@ spec:
     spec:
       containers:
       - name: glasmorphism-todo
-        image: public.ecr.aws/v7i5d6x6/glasmorphism:latest
+        image: bhuvanraj123/glasmorphism-todo:latest
         ports:
         - containerPort: 80
 
