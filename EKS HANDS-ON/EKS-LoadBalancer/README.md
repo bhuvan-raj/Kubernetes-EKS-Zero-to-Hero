@@ -17,6 +17,7 @@ This lab demonstrates how to deploy an application in Amazon EKS and expose it u
   aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>
   ```
 * AWS CLI installed with sufficient IAM permissions.
+* EKSCTL installed
 * **IAM OIDC provider** associated with your EKS cluster:
 
   ```bash
@@ -39,7 +40,7 @@ kubectl create namespace my-app
 
 ## **2. Create the Deployment**
 
-**`nginx-deployment.yaml`**
+**`todoapp-deployment.yaml`**
 
 ```yaml
 apiVersion: apps/v1
@@ -58,13 +59,14 @@ spec:
     spec:
       containers:
       - name: glasmorphism-todo
-        image: 221082210129.dkr.ecr.us-east-1.amazonaws.com/glasmorphism-todo:latest
+        image: public.ecr.aws/v7i5d6x6/glasmorphism:latest
         ports:
         - containerPort: 80
+
 ```
 
 ```bash
-kubectl apply -f nginx-deployment.yaml
+kubectl apply -f todoapp-deployment.yaml
 ```
 
 ---
@@ -73,7 +75,7 @@ kubectl apply -f nginx-deployment.yaml
 
 Without annotations, a `LoadBalancer` Service in EKS creates a **Classic Load Balancer**.
 
-**`nginx-service.yaml`**
+**`todoapp-service.yaml`**
 
 ```yaml
 apiVersion: v1
