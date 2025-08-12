@@ -238,33 +238,26 @@ kind: Ingress
 metadata:
   name: app-alb-path-ingress
   annotations:
-    kubernetes.io/ingress.class: alb # Specifies that this Ingress should be handled by the AWS ALB Controller
+    # Optional: You can keep this annotation for older Kubernetes versions or for clarity,
+    # but the 'ingressClassName' field is the preferred method for K8s 1.19+
+    # kubernetes.io/ingress.class: alb
+
     alb.ingress.kubernetes.io/scheme: internet-facing # Creates an internet-facing ALB
     alb.ingress.kubernetes.io/target-type: ip # Directs traffic to pod IPs
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]' # Configure listener for HTTP on port 80
-    # IMPORTANT NOTE ON PATH REWRITING FOR ALB:
-    # ALB does not perform path rewriting automatically like NGINX Ingress does.
-    # If your applications (like the NGINX-based ones used here) expect to be served
-    # from the root path ("/") and you route to them using paths like "/app1" or "/app2",
-    # the backend application will receive the full path (e.g., "/app1").
-    # For this specific setup with simple NGINX containers serving static content from root,
-    # traffic to `<ALB_DNS_NAME>/app1` might not find `index.html` unless:
-    # 1. You configure the ALB to rewrite the path (more complex annotations needed).
-    # 2. Or, you configure your application to serve content from `/app1` or `/app2` paths.
-    # For simple demonstration, host-based routing is generally more straightforward
-    # with ALB Ingress if your apps always serve from root.
 spec:
+  ingressClassName: alb # <--- ADD THIS LINE! This tells Kubernetes which controller should manage this Ingress.
   rules:
   - http:
       paths:
-      - path: /app1 # Traffic to /app1 goes to app1-service
+      - path: /app1
         pathType: Prefix
         backend:
           service:
             name: app1-service
             port:
               number: 80
-      - path: /app2 # Traffic to /app2 goes to app2-service
+      - path: /app2
         pathType: Prefix
         backend:
           service:
