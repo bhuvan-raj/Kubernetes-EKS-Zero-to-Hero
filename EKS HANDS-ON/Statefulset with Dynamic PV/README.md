@@ -3,23 +3,7 @@
 # StatefulSet Lab: Persistent Applications on Amazon EKS with EBS Dynamic Provisioning 💾
 
 This lab demonstrates how to deploy and manage stateful applications using Kubernetes **StatefulSets** on an **Amazon EKS** cluster, leveraging **Amazon EBS** for dynamic Persistent Volume (PV) provisioning.
-
-## Table of Contents
-
-  * [Overview](https://www.google.com/search?q=%23overview)
-  * [Prerequisites](https://www.google.com/search?q=%23prerequisites)
-  * [Lab Steps](https://www.google.com/search?q=%23lab-steps)
-    1.  [Install the Amazon EBS CSI Driver](https://www.google.com/search?q=%231-install-the-amazon-ebs-csi-driver)
-    2.  [Create a StorageClass for EBS (GP3)](https://www.google.com/search?q=%232-create-a-storageclass-for-ebs-gp3)
-    3.  [Create a Headless Service](https://www.google.com/search?q=%233-create-a-headless-service)
-    4.  [Create a StatefulSet with Dynamic PV Provisioning](https://www.google.com/search?q=%234-create-a-statefulset-with-dynamic-pv-provisioning)
-    5.  [Verify Deployment and Dynamic Provisioning](https://www.google.com/search?q=%235-verify-deployment-and-dynamic-provisioning)
-    6.  [Test Persistence](https://www.google.com/search?q=%236-test-persistence)
-    7.  [Scaling a StatefulSet](https://www.google.com/search?q=%237-scaling-a-statefulset)
-  * [Cleanup](https://www.google.com/search?q=%23cleanup)
-  * [Troubleshooting](https://www.google.com/search?q=%23troubleshooting)
-
------
+-
 
 ## Overview
 
