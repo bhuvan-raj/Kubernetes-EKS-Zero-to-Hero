@@ -94,16 +94,16 @@ This JSON policy defines who (your EKS cluster's OIDC provider and the `ebs-csi-
  c.  **Create or Update the IAM Role:**
  
 If the role `AmazonEKS_EBS_CSI_DriverRole` doesn't exist, create it. If it exists, you'll need to update its trust policy using the AWS Console (as described in troubleshooting if `aws iam create-role` fails due to existence).
-        ```bash
+```bash
         aws iam create-role --role-name AmazonEKS_EBS_CSI_DriverRole --assume-role-policy-document file://ebs-csi-trust-policy.json
-        ```
+```
 This command will output the ARN of the role.
 
  d.  **Attach the Required Managed Policy:**
  This step attaches the `AmazonEBSCSIDriverPolicy` (an **AWS-managed policy**) to your new role. This policy grants the necessary permissions for the CSI driver to interact with EBS (e.g., `ec2:CreateVolume`, `ec2:AttachVolume`).
-        ```bash
+```
         aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy --role-name AmazonEKS_EBS_CSI_DriverRole
-        ```
+```
 
 3.  **Install/Update the EBS CSI Driver EKS Add-on:**
     This step ensures the EKS add-on for the EBS CSI driver is deployed or reconciled with the correct IAM role. We'll use `aws eks update-addon` with `resolve-conflicts OVERWRITE` to ensure the add-on's desired state is enforced, especially if it was previously in a `DEGRADED` state.
