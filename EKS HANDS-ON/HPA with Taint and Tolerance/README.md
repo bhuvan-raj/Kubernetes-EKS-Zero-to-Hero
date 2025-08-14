@@ -35,16 +35,7 @@ Before you begin, ensure you have the following tools installed and configured:
 We'll use `eksctl` to provision a new EKS cluster quickly.
 
 ```bash
-eksctl create cluster \
-  --name eks-hpa-taint-lab \
-  --region ap-south-1 \
-  --version 1.29 \
-  --node-type t3.medium \
-  --nodes 2 \
-  --nodes-min 1 \
-  --nodes-max 3 \
-  --with-oidc \
-  --managed
+eksctl create cluster --name your-clustername --region us-east-1
 ```
 
   * **`--name eks-hpa-taint-lab`**: Your cluster's name.
@@ -267,7 +258,7 @@ You should now see Nginx pods being scheduled on the tainted node.
 To avoid ongoing AWS charges, **always delete your EKS cluster** when you've finished the lab.
 
 ```bash
-eksctl delete cluster --name eks-hpa-taint-lab --region ap-south-1
+eksctl delete cluster --name your-clustername --region us-east-1
 ```
 
 This command will remove all associated AWS resources, including EC2 instances, security groups, and IAM roles. This process may also take several minutes.
