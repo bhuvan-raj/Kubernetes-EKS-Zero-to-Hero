@@ -44,7 +44,7 @@ The Amazon EBS CSI driver enables your EKS cluster to dynamically provision EBS 
 
     a.  **Get your Cluster's OIDC Issuer Details:**
         You need your AWS Account ID, your cluster's region, and the unique OIDC ID from your cluster's issuer URL.
-   ```bash
+   ```
         # Replace 'your-cluster-name' with your actual EKS cluster name
         EKS_CLUSTER_NAME="your-cluster-name"
 
@@ -67,8 +67,7 @@ The Amazon EBS CSI driver enables your EKS cluster to dynamically provision EBS 
 
  b.  **Create the IAM Trust Policy Document (`ebs-csi-trust-policy.json`):**
 This JSON policy defines who (your EKS cluster's OIDC provider and the `ebs-csi-controller-sa` service account) is allowed to **assume** this IAM role. **Ensure you replace the placeholders** with the actual values obtained in the previous step.
-
-        ```json
+```
         {
           "Version": "2012-10-17",
           "Statement": [
@@ -87,7 +86,7 @@ This JSON policy defines who (your EKS cluster's OIDC provider and the `ebs-csi-
             }
           ]
         }
-        ```
+```
         
  Save this content to a file named `ebs-csi-trust-policy.json`.
 
