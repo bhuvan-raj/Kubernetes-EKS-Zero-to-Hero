@@ -106,12 +106,16 @@ This command will output the ARN of the role.
 
 3.  **Install/Update the EBS CSI Driver EKS Add-on:**
     This step ensures the EKS add-on for the EBS CSI driver is deployed or reconciled with the correct IAM role. We'll use `aws eks update-addon` with `resolve-conflicts OVERWRITE` to ensure the add-on's desired state is enforced, especially if it was previously in a `DEGRADED` state.
-    ```bash
-    # Replace 'your-cluster-name' with your actual EKS cluster name
-    # Replace 'v1.47.0-eksbuild.1' with the exact version shown by `eksctl get addon --name aws-ebs-csi-driver --cluster your-cluster-name`
-    aws eks update-addon --cluster-name your-cluster-name --addon-name aws-ebs-csi-driver --addon-version v1.47.0-eksbuild.1 --service-account-role-arn arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/AmazonEKS_EBS_CSI_DriverRole --resolve-conflicts OVERWRITE
-    ```
-    *(Remember to replace `YOUR_AWS_ACCOUNT_ID` and `your-cluster-name`.)*
+```
+# Replace 'your-cluster-name' with your actual EKS cluster name
+# Replace 'v1.47.0-eksbuild.1' with the desired version of the EBS CSI driver
+# Replace 'YOUR_AWS_ACCOUNT_ID' with your actual AWS account ID
+
+aws eks create-addon --cluster-name your-cluster-name \
+    --addon-name aws-ebs-csi-driver \
+    --addon-version v1.47.0-eksbuild.1 \
+    --service-account-role-arn arn:aws:iam::YOUR_AWS_ACCOUNT_ID:role/AmazonEKS_EBS_CSI_DriverRole
+```
 
 4.  **Verify the driver components are running:**
     After the `aws eks update-addon` command completes, it may take a few minutes for Kubernetes to deploy the CSI controller and node pods. Monitor their status:
