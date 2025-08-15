@@ -163,7 +163,7 @@ To see HPA in action, simulate CPU load on your Nginx pods.
     ```
 2.  Exec into the pod and run a CPU-intensive command:
     ```bash
-    kubectl exec -it $NGINX_POD -- /bin/sh -c "while true; do true; done" &
+    kubectl exec -it $NGINX_POD -- /bin/sh -c "dd if=/dev/zero of=/dev/null"
     ```
     *(Remember to press `Ctrl+C` in the terminal where you ran `kubectl exec` to stop the load.)*
 3.  Monitor HPA scaling:
