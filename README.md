@@ -105,7 +105,16 @@ This repository is meticulously organized into key sections, progressing from br
 - **This repository includes hands-on labs on previously completed topics using AWS EKS**
 - **Explore:** Navigate to [**EKS HANDS ON**](./EKS%20HANDS-ON/) for detailed information.
 
+    **LAB INDEX**
 
+
+1. [**EKS-CLUSTER-SETUP**](./EKS%20HANDS-ON/EKS-CLUSTER-SETUP/)
+2. [**EKS-NODEPORT**](./EKS%20HANDS-ON/EKS-Nodeport/)
+3. [**EKS-CLASSICAL-LOADBALANCER-SERVICE**](./EKS%20HANDS-ON/Classical-LoadBalancer/)
+4. [**EKS-NETWORK-LOADBALANCER-SERVICE**](./EKS%20HANDS-ON/Network-LoadBalancer/)
+5. [**EKS-INGRESS-WITH-ALB**](./EKS%20HANDS-ON/INGRESS-ALB/)
+6. [**EKS-STATEFULSET-WITH-DYNAMIC-PV&PVC**](./EKS%20HANDS-ON/Statefulset%20with%20Dynamic&20PV/)
+7. [**EKS-HPA-WITH-TAINT&TOLERANCE**](./EKS%20HANDS-ON/HPA%20with%20Taint%20and%20Tolerance/)
 
 
 
