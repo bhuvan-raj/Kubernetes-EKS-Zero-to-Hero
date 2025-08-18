@@ -40,8 +40,7 @@ metadata:
 spec:
   # The nodeSelector field
   nodeSelector:
-    disktype: ssd        # Node must have label 'disktype: ssd'
-    environment: prod    # Node must have label 'environment: prod'
+     node: cpu
   containers:
     - name: nginx
       image: nginx:latest
