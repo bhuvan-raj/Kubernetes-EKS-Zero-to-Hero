@@ -105,7 +105,7 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms: # This is an OR condition
         - matchExpressions: # This is an AND condition
-          - key: kubernetes.io/arch
+          - key: cpu
             operator: In
             values:
             - amd64
