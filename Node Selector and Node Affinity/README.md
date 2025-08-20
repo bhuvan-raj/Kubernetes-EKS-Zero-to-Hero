@@ -211,6 +211,7 @@ spec:
             operator: In
             values:
             - "true"
+              "yes"
       - weight: 20 # Lower preference
         preference:
           matchExpressions:
@@ -218,6 +219,7 @@ spec:
             operator: In
             values:
             - us-east-1a
+              us-east-1b
   containers:
     - name: batch-processor
       image: batch-image:latest
