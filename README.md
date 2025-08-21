@@ -121,6 +121,13 @@ This repository is meticulously organized into key sections, progressing from br
 
 ---
 
+## MONITORING INTEGRATION WITH PROMETHEUS AND GRAFANA
+
+Implementing the advanced concept of monitoring through tools such as Prometheus and Building a custom dashboard using Grafana template for advanced visualisation
+
+**Checkout the Repo**
+[**Prometheus and Grafana**](https://github.com/bhuvan-raj/Prometheus-and-Grafana.git)
+
 ## Getting Started
 
 To explore the examples and concepts in this repository, you will need:
