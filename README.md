@@ -55,9 +55,10 @@ This repository is meticulously organized into key sections, progressing from br
 * **Description:** This section covers Resource Management and ResourceQuota, the mechanism for limiting and controlling pod resource usage and the overall namespace resource allocation
 * **Explore:** Navigate to [**Resource Management and ResourceQuota**](./Resource%20Management%20and%20Resource%20Quota/) for detailed information.
 
-### 12. Node Selector and Node Affinity
+### 12. Node Selector ,Node Affinity and Node AntiAffinity
 * **Description:** These mechanisms empower you to control where your Pods run within your cluster, ensuring they land on nodes that meet specific requirements.
 * **Explore:** Navigate to [**Node Selector and Node Affinity**](./Node%20Selector%20and%20Node%20Affinity/) for detailed information.
+* * **Explore:** Navigate to [**Node Anti-Affinity**](./Node%20Anti-Affinity/) for detailed information.
 
 ### 13. Taint and Tolerations
 * **Description:** used for advanced controlling the nodes - placement of pods inside the nodes, ensuring they land on nodes that meet specific tolerations.
