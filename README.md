@@ -58,7 +58,7 @@ This repository is meticulously organized into key sections, progressing from br
 ### 12. Node Selector ,Node Affinity and Node AntiAffinity
 * **Description:** These mechanisms empower you to control where your Pods run within your cluster, ensuring they land on nodes that meet specific requirements.
 * **Explore:** Navigate to [**Node Selector and Node Affinity**](./Node%20Selector%20and%20Node%20Affinity/) for detailed information.
-* * **Explore:** Navigate to [**Node Anti-Affinity**](./Node%20Anti-Affinity/) for detailed information.
+*  **Explore:** Navigate to [**Node Anti-Affinity**](./Node%20Anti-Affinity/) for detailed information.
 
 ### 13. Taint and Tolerations
 * **Description:** used for advanced controlling the nodes - placement of pods inside the nodes, ensuring they land on nodes that meet specific tolerations.
