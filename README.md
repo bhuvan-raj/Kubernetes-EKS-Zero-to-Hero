@@ -122,6 +122,7 @@ This repository is meticulously organized into key sections, progressing from br
 ---
 
 ## MONITORING INTEGRATION WITH PROMETHEUS AND GRAFANA
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/pg.png" width="400" height="150" alt="Banner" />
 
 Implementing the advanced concept of monitoring through tools such as Prometheus and Building a custom dashboard using Grafana template for advanced visualisation
 
