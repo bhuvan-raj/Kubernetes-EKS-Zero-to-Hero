@@ -4,17 +4,19 @@
 
 ## 1\. Introduction to Helm
 
-**What is Helm?**
+- **What is Helm?**
+- 
 Helm is often referred to as "the package manager for Kubernetes." Just as package managers like `apt` (Debian/Ubuntu) or `yum` (Red Hat/CentOS) simplify installing and managing software on operating systems, Helm simplifies the deployment and management of applications on Kubernetes clusters.
 
-**Why do we need Helm?**
+- **Why do we need Helm?**
+- 
 Deploying applications on Kubernetes typically involves creating and managing numerous YAML files (for Deployments, Services, ConfigMaps, Secrets, Ingress, etc.). This can quickly become complex and error-prone, especially for multi-component applications or when deploying the same application across different environments (development, staging, production). Helm addresses these challenges by:
 
-  * **Simplifying deployment:** Packages complex applications into a single, manageable unit called a "Chart."
-  * **Enabling reusability:** Charts can be shared and reused, promoting consistency and reducing duplication of effort.
-  * **Streamlining configuration:** Allows for easy customization of application deployments using templating and values.
-  * **Managing application lifecycle:** Provides features for versioning, upgrading, rolling back, and uninstalling applications.
-  * **Dependency management:** Handles dependencies between different application components.
+- **Simplifying deployment:** Packages complex applications into a single, manageable unit called a "Chart."
+- **Enabling reusability:** Charts can be shared and reused, promoting consistency and reducing duplication of effort.
+- **Streamlining configuration:** Allows for easy customization of application deployments using templating and values.
+- **Managing application lifecycle:** Provides features for versioning, upgrading, rolling back, and uninstalling applications.
+- **Dependency management:** Handles dependencies between different application components.
 
 **Key Concepts:**
 
