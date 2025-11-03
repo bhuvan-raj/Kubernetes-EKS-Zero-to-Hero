@@ -67,11 +67,11 @@ spec:
   replicas: 3 # Desired number of Pods
   selector: # VERY IMPORTANT: How the ReplicaSet finds its Pods
     matchLabels:
-      app: my-app
+      hi: hello
   template: # This is the blueprint for new Pods the ReplicaSet creates
     metadata:
       labels:
-        app: my-app
+        hi: hello
     spec:
       containers:
       - name: my-app-container
