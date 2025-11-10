@@ -302,6 +302,197 @@ spec:
 ```
 
 
+## 💥 Lab Objective
+
+* Create 3 pods: `pod1`, `pod2`, and `pod3`
+* Apply a **NetworkPolicy** so that:
+
+  * ✅ pod1 can talk to pod3
+  * ✅ pod2 can talk to pod3
+  * 🚫 pod1 and pod2 **cannot** talk to each other
+
+---
+
+## ⚙️ Prerequisites
+
+* A working Kubernetes cluster (like `kind`, `minikube`, or cloud-based)
+* `kubectl` installed and configured
+* CNI plugin that supports NetworkPolicies (e.g., **Calico**, **Cilium**, **Weave Net**)
+
+---
+
+## 🧱 Step 1: Create the Pods
+
+Let’s deploy three simple pods that run **busybox**, which can ping or curl others.
+
+**File:** `pods.yaml`
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  labels:
+    app: pod1
+spec:
+  containers:
+  - name: pod1
+    image: busybox
+    command: ["sleep", "3600"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod2
+  labels:
+    app: pod2
+spec:
+  containers:
+  - name: pod2
+    image: busybox
+    command: ["sleep", "3600"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod3
+  labels:
+    app: pod3
+spec:
+  containers:
+  - name: pod3
+    image: busybox
+    command: ["sleep", "3600"]
+```
+
+Apply it:
+
+```bash
+kubectl apply -f pods.yaml
+```
+
+Verify:
+
+```bash
+kubectl get pods -o wide
+```
+
+---
+
+## 🧠 Step 2: Test Communication (Before Policy)
+
+Let’s test pod-to-pod connectivity before applying the NetworkPolicy.
+All should be able to talk freely right now.
+
+Get pod IPs:
+
+```bash
+kubectl get pods -o wide
+```
+
+Test from `pod1`:
+
+```bash
+kubectl exec -it pod1 -- ping <pod2-IP> -c 2
+kubectl exec -it pod1 -- ping <pod3-IP> -c 2
+```
+
+Test from `pod2`:
+
+```bash
+kubectl exec -it pod2 -- ping <pod3-IP> -c 2
+```
+
+✅ You’ll see successful replies — all communication is open by default.
+
+---
+
+## 🚧 Step 3: Apply the NetworkPolicy
+
+**File:** `networkpolicy.yaml`
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-pod1-pod2-to-communicate-with-pod3
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: pod3
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: pod1
+    - podSelector:
+        matchLabels:
+          app: pod2
+```
+
+Apply it:
+
+```bash
+kubectl apply -f networkpolicy.yaml
+```
+
+Check it’s active:
+
+```bash
+kubectl get networkpolicy
+```
+
+---
+
+## 🧪 Step 4: Test Communication (After Policy)
+
+Now that the policy is applied — time for the truth test 😏
+
+### 1️⃣ pod1 → pod3 ✅ should work
+
+```bash
+kubectl exec -it pod1 -- ping <pod3-IP> -c 2
+```
+
+### 2️⃣ pod2 → pod3 ✅ should work
+
+```bash
+kubectl exec -it pod2 -- ping <pod3-IP> -c 2
+```
+
+### 3️⃣ pod1 → pod2 ❌ should fail
+
+```bash
+kubectl exec -it pod1 -- ping <pod2-IP> -c 2
+```
+
+You should see **no replies / 100% packet loss** — success!
+That’s your NetworkPolicy doing its job.
+
+---
+
+## 🧹 Step 5: Cleanup (optional)
+
+```bash
+kubectl delete -f networkpolicy.yaml
+kubectl delete -f pods.yaml
+```
+
+---
+
+## 🧭 Summary
+
+| Communication | Allowed | Reason                   |
+| ------------- | ------- | ------------------------ |
+| pod1 → pod3   | ✅       | Explicitly allowed       |
+| pod2 → pod3   | ✅       | Explicitly allowed       |
+| pod1 → pod2   | 🚫      | No policy rule allows it |
+
+
+
 
 ## Conclusion
 
