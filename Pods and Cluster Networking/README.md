@@ -405,9 +405,23 @@ kubectl exec -it pod2 -- ping <pod3-IP> -c 2
 
 ✅ You’ll see successful replies — all communication is open by default.
 
+## step 3: Restrict the entire pod traffic
+
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: default
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+```
+
 ---
 
-## 🚧 Step 3: Apply the NetworkPolicy
+## 🚧 Step 4: Apply the NetworkPolicy
 
 **File:** `networkpolicy.yaml`
 
@@ -447,7 +461,7 @@ kubectl get networkpolicy
 
 ---
 
-## 🧪 Step 4: Test Communication (After Policy)
+## 🧪 Step 3: Test Communication (After Policy)
 
 Now that the policy is applied — time for the truth test 😏
 
@@ -474,7 +488,7 @@ That’s your NetworkPolicy doing its job.
 
 ---
 
-## 🧹 Step 5: Cleanup (optional)
+## 🧹 Step 6: Cleanup (optional)
 
 ```bash
 kubectl delete -f networkpolicy.yaml
