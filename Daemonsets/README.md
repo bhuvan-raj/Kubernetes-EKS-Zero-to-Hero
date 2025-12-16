@@ -41,7 +41,7 @@ kind: DaemonSet
 metadata:
   name: nginx-test-daemonset
   labels:
-    app: nginx-test
+    name: irfan-daemonset
 spec:
   selector:
     matchLabels:
