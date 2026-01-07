@@ -298,267 +298,164 @@ Kubernetes provides a set of predefined `ClusterRole`s for common use cases. The
 You can inspect these built-in roles using `kubectl get clusterroles`.
 
 ---
+# Lab
 
-## 7. Practical Application: A Step-by-Step Scenario with Service Accounts
+## 🎯 Lab Objective
 
-Let's illustrate with a scenario involving human teams and an automated deployment process.
+Demonstrate how **RBAC restricts access** in Kubernetes using:
 
-**Scenario Goals:**
-1.  `dev-team` (a group of human users) can manage (create, update, delete) deployments and pods in the `dev` namespace.
-2.  `prod-team` (another group of human users) can only view resources in the `prod` namespace.
-3.  A `jenkins-deployer-sa` (a Service Account) can create/update Deployments in the `prod` namespace (for automated deployments).
+* Namespace
+* ServiceAccount
+* Role
+* RoleBinding
+  …and validate permissions using a Pod.
 
-**Step 1: Create Namespaces (if they don't exist)**
+---
+
+## 🧪 Lab Scenario
+
+* Create a namespace: `rbac-lab`
+* Create a ServiceAccount: `pod-reader-sa`
+* Allow **read-only access to Pods**
+* Verify access **from inside a Pod**
+* Prove **denied access** for other resources
+
+---
+
+## 🧱 Step 1: Create Namespace
+
 ```bash
-kubectl create namespace dev
-kubectl create namespace prod
-````
+kubectl create namespace rbac-lab
+```
 
-**Step 2: Create the Service Account for Jenkins**
-This provides the identity for our automated deployment tool.
+---
+
+## 🧱 Step 2: Create ServiceAccount
 
 ```yaml
-# jenkins-deployer-sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: jenkins-deployer-sa
-  namespace: prod # The ServiceAccount lives in the 'prod' namespace
+  name: pod-reader-sa
+  namespace: rbac-lab
 ```
 
 ```bash
-kubectl apply -f jenkins-deployer-sa.yaml
+kubectl apply -f serviceaccount.yaml
 ```
 
-**Step 3: Define Roles (The "What" permissions)**
+---
 
-  * **For `dev-team` in `dev` namespace (`dev-manager-role.yaml`):**
-
-    ```yaml
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: Role
-    metadata:
-      namespace: dev # This Role is specific to 'dev'
-      name: dev-manager
-    rules:
-    - apiGroups: ["", "apps"] # Core API group (pods, services) and 'apps' group (deployments, replicasets)
-      resources: ["pods", "deployments", "replicasets", "services", "configmaps"]
-      verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-    ```
-
-    ```bash
-    kubectl apply -f dev-manager-role.yaml -n dev
-    ```
-
-  * **For `prod-team` (read-only in `prod` namespace):**
-    We'll use the built-in `view` `ClusterRole` (which provides read-only access to most namespaced objects). No need to define a new `Role` here.
-
-  * **For `jenkins-deployer-sa` in `prod` namespace (`prod-deployer-role.yaml`):**
-
-    ```yaml
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: Role
-    metadata:
-      namespace: prod # This Role is specific to 'prod'
-      name: prod-deployer
-    rules:
-    - apiGroups: ["apps"] # Only needs access to Deployments in the 'apps' group
-      resources: ["deployments"]
-      verbs: ["get", "list", "watch", "create", "update", "patch"] # Permissions to manage deployments
-    - apiGroups: [""] # Also needs to see pods for status checks
-      resources: ["pods", "pods/log"]
-      verbs: ["get", "list", "watch"]
-    ```
-
-    ```bash
-    kubectl apply -f prod-deployer-role.yaml -n prod
-    ```
-
-**Step 4: Create RoleBindings (Connecting "Who" to "What" in a "Where")**
-
-  * **Bind `dev-manager` Role to `dev-team` group in `dev` namespace (`dev-team-binding.yaml`):**
-
-    ```yaml
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: dev-team-access
-      namespace: dev # This RoleBinding is in 'dev'
-    subjects:
-    - kind: Group
-      name: dev-team # Assuming your authentication system provides this group
-      apiGroup: rbac.authorization.k8s.io
-    roleRef:
-      kind: Role # We are binding to a Role
-      name: dev-manager # The Role defined above
-      apiGroup: rbac.authorization.k8s.io
-    ```
-
-    ```bash
-    kubectl apply -f dev-team-binding.yaml -n dev
-    ```
-
-  * **Bind `view` ClusterRole to `prod-team` group in `prod` namespace (`prod-team-binding.yaml`):**
-
-    ```yaml
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: prod-team-view-access
-      namespace: prod # This RoleBinding is in 'prod', making permissions local
-    subjects:
-    - kind: Group
-      name: prod-team # Group for production team
-      apiGroup: rbac.authorization.k8s.io
-    roleRef:
-      kind: ClusterRole # IMPORTANT: We are binding a ClusterRole here
-      name: view        # The built-in 'view' ClusterRole
-      apiGroup: rbac.authorization.k8s.io
-    ```
-
-    ```bash
-    kubectl apply -f prod-team-binding.yaml -n prod
-    ```
-
-    *Note: Even though `view` is a `ClusterRole`, binding it via a `RoleBinding` in a specific namespace limits its effect to that namespace.*
-
-  * **Bind `prod-deployer` Role to `jenkins-deployer-sa` in `prod` namespace (`jenkins-sa-binding.yaml`):**
-
-    ```yaml
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-      name: jenkins-deployer-binding
-      namespace: prod # This RoleBinding is in 'prod'
-    subjects:
-    - kind: ServiceAccount # This is how we link it to the Service Account
-      name: jenkins-deployer-sa # The Service Account name
-      namespace: prod # The Service Account's namespace
-    roleRef:
-      kind: Role
-      name: prod-deployer # The Role defined specifically for deployers
-      apiGroup: rbac.authorization.k8s.io
-    ```
-
-    ```bash
-    kubectl apply -f jenkins-sa-binding.yaml -n prod
-    ```
-
-**Step 5: Assign Service Account to a Pod (for the application)**
-Finally, any pod performing deployments in `prod` would be configured to use this `ServiceAccount`.
-
-```yaml
-# my-app-pod.yaml (example pod that would use the SA)
-apiVersion: v1
-kind: Pod
-metadata:
-  name: my-app-pod-to-deploy
-  namespace: prod
-spec:
-  serviceAccountName: jenkins-deployer-sa # CRUCIAL: Pod uses this SA
-  containers:
-  - name: deployment-tool
-    image: some-image-that-deploys-to-k8s
-    # ... other container configurations ...
-```
-
-```bash
-kubectl apply -f my-app-pod.yaml -n prod
-```
-
-Now, any process running inside `my-app-pod-to-deploy` will authenticate as `jenkins-deployer-sa` and be authorized by the `prod-deployer-binding`.
-
-**Verification (using `kubectl auth can-i`):**
-
-  * `kubectl auth can-i get pods --as=user:alice -n dev` (Yes)
-  * `kubectl auth can-i delete deployment myapp --as=user:dev-team -n dev` (Yes)
-  * `kubectl auth can-i get pods --as=user:alice -n prod` (No)
-  * `kubectl auth can-i get deployments --as=user:prod-team -n prod` (Yes)
-  * `kubectl auth can-i create deployment nginx --image=nginx --as=user:prod-team -n prod` (No)
-  * `kubectl auth can-i create deployment myapp --as=system:serviceaccount:prod:jenkins-deployer-sa -n prod` (Yes)
-  * `kubectl auth can-i delete pod some-pod --as=system:serviceaccount:prod:jenkins-deployer-sa -n prod` (No)
-
------
-
-## 8\. Advanced RBAC Concepts
-
-### 8.1. `resourceNames`
-
-Provides granular control by restricting permissions to specific named instances of a resource, rather than all resources of that type.
+## 🧱 Step 3: Create Role (Read Pods Only)
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: myapp
-  name: specific-secret-reader
+  namespace: rbac-lab
+  name: pod-reader-role
 rules:
 - apiGroups: [""]
-  resources: ["secrets"]
-  resourceNames: ["my-app-db-password", "my-api-key"] # Only these specific secrets
-  verbs: ["get", "watch", "list"]
+  resources: ["pods"]
+  verbs: ["get", "list"]
 ```
 
-### 8.2. Aggregated ClusterRoles (Kubernetes v1.8+)
+```bash
+kubectl apply -f role.yaml
+```
 
-Allows you to extend the permissions of built-in `ClusterRole`s (`admin`, `edit`, `view`) by adding custom rules to them. When you create a `ClusterRole` with an `aggregationRule` that matches a built-in role's label, your custom rules are automatically *added* to that built-in role's permissions.
+---
+
+## 🧱 Step 4: Bind Role to ServiceAccount
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+kind: RoleBinding
 metadata:
-  name: edit-cronjobs
-  labels:
-    kubernetes.io/aggregate-to-edit: "true" # This makes it an aggregate role
-rules:
-- apiGroups: ["batch"]
-  resources: ["cronjobs"]
-  verbs: ["create", "delete", "get", "list", "patch", "update", "watch"]
+  name: pod-reader-binding
+  namespace: rbac-lab
+subjects:
+- kind: ServiceAccount
+  name: pod-reader-sa
+  namespace: rbac-lab
+roleRef:
+  kind: Role
+  name: pod-reader-role
+  apiGroup: rbac.authorization.k8s.io
 ```
 
-Any `RoleBinding` or `ClusterRoleBinding` referring to the built-in `edit` `ClusterRole` will now also automatically grant permissions for `cronjobs`.
+```bash
+kubectl apply -f rolebinding.yaml
+```
 
-### 8.3. Impersonation
+---
 
-The `impersonate` verb allows a user to temporarily act as another user, group, or service account. This is a powerful feature for debugging, auditing, or building tools that operate on behalf of others.
+## 🧱 Step 5: Create Test Pod Using ServiceAccount
 
 ```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+apiVersion: v1
+kind: Pod
 metadata:
-  name: impersonator
-rules:
-- apiGroups: [""]
-  resources: ["users", "serviceaccounts", "groups"]
-  verbs: ["impersonate"]
-  resourceNames: ["developer-alice", "system:serviceaccount:default:my-app-sa"]
-```
-How to use Impersonation with kubectl
-
-Once a user (e.g., admin-user) is granted this impersonator ClusterRole via a ClusterRoleBinding, they can use kubectl's impersonation flags:
-
-**Impersonate a User:**
-```
-kubectl get pods --as=developer-alice -n my-namespace
-```
-**Impersonate a ServiceAccount:**
-```
-kubectl get deployments --as=system:serviceaccount:default:my-app-sa -n another-namespace
+  name: test-pod
+  namespace: rbac-lab
+spec:
+  serviceAccountName: pod-reader-sa
+  containers:
+  - name: kubectl
+    image: bitnami/kubectl
+    command: ["sleep", "3600"]
 ```
 
+```bash
+kubectl apply -f pod.yaml
+```
 
------
+---
 
-## 9\. Common Pitfalls & Best Practices for RBAC
+## 🧪 Step 6: Verify Access (Inside Pod)
 
-### Common Pitfalls:
+```bash
+kubectl exec -n rbac-lab -it test-pod -- /bin/sh
+```
 
-1.  **Over-privileging:** Granting `cluster-admin` or overly broad `edit` permissions (especially with `ClusterRoleBinding`) when fine-grained access is sufficient. Always strive for **least privilege**.
-2.  **Confusing Role vs. ClusterRole / RoleBinding vs. ClusterRoleBinding:** Understand the scope (namespaced vs. cluster-wide) for each object.
-3.  **Forgetting `apiGroups` for Core Resources:** Accidentally omitting `apiGroups: [""]` when trying to grant access to `pods`, `services`, `configmaps`, etc.
-4.  **Misunderstanding Service Account scope:** A `ServiceAccount` is namespaced. If a pod uses a `ServiceAccount` in `namespaceA`, it cannot directly leverage a `RoleBinding` defined in `namespaceB` unless that `RoleBinding` binds a `ClusterRole` with broader permissions.
-5.  **Lack of Verification:** Assuming permissions are correct after applying RBAC manifests without verifying them.
-6.  **Directly Modifying System Roles:** Never modify `system:` prefixed `ClusterRoles`.
+### ✅ Allowed
+
+```bash
+kubectl get pods -n rbac-lab
+```
+
+### ❌ Denied
+
+```bash
+kubectl get secrets -n rbac-lab
+```
+
+Expected error:
+
+```
+Error from server (Forbidden): secrets is forbidden
+```
+
+---
+
+## 🧠 Key Learning Points
+
+* **ServiceAccount** provides identity to Pods
+* **Role** defines *what* actions are allowed
+* **RoleBinding** defines *who* gets those permissions
+* RBAC is **namespace-scoped** here
+* kind fully supports RBAC without extra configuration
+
+---
+
+## 💡 Interview One-Liner
+
+> “In Kubernetes, RBAC permissions are granted to ServiceAccounts using Roles and RoleBindings. Pods inherit permissions through the ServiceAccount they run with.”
+
+
+
+
+
 
 ### Best Practices:
 
