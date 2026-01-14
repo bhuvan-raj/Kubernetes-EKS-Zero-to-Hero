@@ -4,7 +4,7 @@
 
 ## 1\. Introduction to Helm
 
-## What is Helm?**
+## What is Helm?
 
 Helm is often referred to as "the package manager for Kubernetes." Just as package managers like `apt` (Debian/Ubuntu) or `yum` (Red Hat/CentOS) simplify installing and managing software on operating systems, Helm simplifies the deployment and management of applications on Kubernetes clusters.
 
