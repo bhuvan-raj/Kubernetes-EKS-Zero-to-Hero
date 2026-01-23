@@ -3,7 +3,6 @@
 
 This lab demonstrates how to deploy an application in an Amazon EKS cluster and expose it using a **NodePort Service**.
 
----
 
 ## **Prerequisites**
 
@@ -11,12 +10,9 @@ This lab demonstrates how to deploy an application in an Amazon EKS cluster and 
 - `kubectl` configured for your cluster:
   ```bash
   aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>
-````
 
 * AWS CLI installed and configured
 * Ports `30000–32767` allowed in your **EC2 security group** for inbound access (needed to reach the NodePort service from the internet)
-
----
 
 ## **1. Create the Namespace**
 
