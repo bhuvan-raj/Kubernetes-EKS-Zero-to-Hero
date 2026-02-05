@@ -121,6 +121,10 @@ This repository is meticulously organized into key sections, progressing from br
 
 
 ---
+## ARGOCD Integration with Kubernetes Cluster
+
+Argo CD integration with a Kubernetes cluster enables GitOps-based deployment, where applications are automatically synchronized from Git to the cluster, ensuring consistency and reliable continuous delivery.
+
 
 ## MONITORING INTEGRATION WITH PROMETHEUS AND GRAFANA
 <img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/pg.png" width="400" height="150" alt="Banner" />
