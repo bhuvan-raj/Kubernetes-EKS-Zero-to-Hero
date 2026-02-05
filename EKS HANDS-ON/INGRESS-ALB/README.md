@@ -1,8 +1,8 @@
-# **AWS EKS + ALB Ingress Lab **
+# AWS EKS + ALB Ingress Lab
 
 ---
 
-## **Step 0 — Prerequisites**
+## Prerequisites
 
 * AWS CLI configured
 * kubectl installed
@@ -15,7 +15,7 @@
 
 ---
 
-## **Step 1 — Create EKS Cluster**
+## Step 1 — Create EKS Cluster
 
 ```bash
 eksctl create cluster \
@@ -35,7 +35,7 @@ kubectl get nodes
 
 ---
 
-## **Step 2 — Configure kubectl**
+## Step 2 — Configure kubectl
 
 ```bash
 aws eks update-kubeconfig \
@@ -45,7 +45,7 @@ aws eks update-kubeconfig \
 
 ---
 
-## **Step 3 — Associate OIDC & create IAM policy for ALB**
+## Step 3 — Associate OIDC & create IAM policy for ALB
 
 ```bash
 eksctl utils associate-iam-oidc-provider \
@@ -63,7 +63,7 @@ aws iam create-policy \
 
 ---
 
-## **Step 4 — Create IAM Service Account for ALB Controller**
+## Step 4 — Create IAM Service Account for ALB Controller
 
 ```bash
 eksctl create iamserviceaccount \
@@ -76,7 +76,7 @@ eksctl create iamserviceaccount \
 
 ---
 
-## **Step 5 — Install AWS Load Balancer Controller using Helm**
+## Step 5 — Install AWS Load Balancer Controller using Helm
 
 ```bash
 helm repo add eks https://aws.github.io/eks-charts
@@ -100,7 +100,7 @@ kubectl get pods -n kube-system | grep load
 
 ---
 
-## **Step 6 — Create namespace for apps**
+## Step 6 — Create namespace for apps
 
 ```bash
 kubectl create namespace ingress-demo
@@ -108,9 +108,9 @@ kubectl create namespace ingress-demo
 
 ---
 
-## **Step 7 — Deploy Applications Using Docker Hub Images**
+## Step 7 — Deploy Applications Using Docker Hub Images
 
-### **app1-deployment.yaml**
+### app1-deployment.yaml
 
 ```yaml
 apiVersion: apps/v1
@@ -135,7 +135,7 @@ spec:
         - containerPort: 80
 ```
 
-### **app2-deployment.yaml**
+### app2-deployment.yaml
 
 ```yaml
 apiVersion: apps/v1
@@ -169,9 +169,9 @@ kubectl apply -f app2-deployment.yaml
 
 ---
 
-## **Step 8 — Create Services**
+## Step 8 — Create Services
 
-### **app1-service.yaml**
+### app1-service.yaml
 
 ```yaml
 apiVersion: v1
@@ -188,7 +188,7 @@ spec:
       targetPort: 80
 ```
 
-### **app2-service.yaml**
+### app2-service.yaml
 
 ```yaml
 apiVersion: v1
@@ -214,9 +214,9 @@ kubectl apply -f app2-service.yaml
 
 ---
 
-## **Step 9 — Create Ingress**
+## Step 9 — Create Ingress
 
-### **ingress.yaml**
+### ingress.yaml
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -257,7 +257,7 @@ kubectl apply -f ingress.yaml
 
 ---
 
-## **Step 10 — Wait for ALB**
+## Step 10 — Wait for ALB
 
 ```bash
 kubectl get ingress -n ingress-demo
@@ -271,7 +271,7 @@ k8s-ingressd-albingre-xxxxxxxx.us-east-1.elb.amazonaws.com
 
 ---
 
-## **Step 11 — Test Applications**
+## Step 11 — Test Applications
 
 ### Path-based routing:
 
@@ -284,7 +284,7 @@ http://<ALB-DNS>/app2
 
 ---
 
-## **Step 12 — Verification Commands**
+## Step 12 — Verification Commands
 
 ```bash
 kubectl get pods -n ingress-demo
