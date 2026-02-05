@@ -1,5 +1,8 @@
 # Kubernetes-Zero-to-Hero
 ![Learning](https://img.shields.io/badge/Level-Beginner%20to%20Advanced-purple.svg)
+![Domain](https://img.shields.io/badge/Domain-AI%20Engineering-orange.svg)
+![Focus](https://img.shields.io/badge/Focus-DevOps-informational.svg)
+![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/assets/k8s.jpg" alt="Banner" />
 
 This repository is a comprehensive learning resource for students and professionals learning Kubernetes.
