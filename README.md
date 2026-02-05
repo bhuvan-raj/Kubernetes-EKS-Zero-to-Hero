@@ -123,7 +123,7 @@ This repository is meticulously organized into key sections, progressing from br
 ---
 ## ARGOCD Integration with Kubernetes Cluster
 
-<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/argo.png" width="200" height="210" alt="Banner" />
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/argo.png" width="200" height="200" alt="Banner" />
 
 Argo CD integration with a Kubernetes cluster enables GitOps-based deployment, where applications are automatically synchronized from Git to the cluster, ensuring consistency and reliable continuous delivery.
 
