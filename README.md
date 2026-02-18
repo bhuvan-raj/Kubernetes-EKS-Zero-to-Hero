@@ -2,6 +2,7 @@
 ![Learning](https://img.shields.io/badge/Level-Beginner%20to%20Advanced-purple.svg)
 ![Focus](https://img.shields.io/badge/Focus-DevOps-informational.svg)
 ![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)
+[![README Grammar Check](https://github.com/bhuvan-raj/Kubernetes-EKS-Zero-to-Hero/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/bhuvan-raj/Kubernetes-EKS-Zero-to-Hero/actions/workflows/main.yml)
 <img src="https://github.com/bhuvan-raj/Kubernetes-Openshift-Zero-to-Hero/blob/main/assets/k8s.jpg" alt="Banner" />
 
 This repository is a comprehensive learning resource for students and professionals learning Kubernetes.
