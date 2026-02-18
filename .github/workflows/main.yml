@@ -22,15 +22,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install textlint
+      - name: Install textlint and rules
         run: |
-          npm install -g textlint
-          npm install -g textlint-rule-common-misspellings
-
+             npm init -y
+             npm install textlint textlint-rule-common-misspellings
+             
       - name: Run grammar check and generate report
         run: |
-          textlint README.md -f json > report.json || true
-        continue-on-error: true
+            npx textlint README.md -f json > report.json || true
+
 
       - name: Upload report
         uses: actions/upload-artifact@v4
