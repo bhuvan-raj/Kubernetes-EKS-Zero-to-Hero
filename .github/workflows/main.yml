@@ -1,6 +1,7 @@
 name: README Grammar Check
 
 on:
+  workflow_dispatch: 
   push:
     paths:
       - "README.md"
