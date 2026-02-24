@@ -302,30 +302,95 @@ spec:
 ```
 
 
-## 💥 Lab Objective
+#  Lab: Kubernetes Bidirectional NetworkPolicy (Kind + Calico)
 
-* Create 3 pods: `pod1`, `pod2`, and `pod3`
-* Apply a **NetworkPolicy** so that:
-
-  * ✅ pod1 can talk to pod3
-  * ✅ pod2 can talk to pod3
-  * 🚫 pod1 and pod2 **cannot** talk to each other
+Goal: Achieve zero-trust pod communication where only explicitly allowed pods can talk to each other.
 
 ---
 
-## ⚙️ Prerequisites
+# 🎯 Lab Objective
 
-* A working Kubernetes cluster (like `kind`, `minikube`, or cloud-based)
-* `kubectl` installed and configured
-* CNI plugin that supports NetworkPolicies (e.g., **Calico**, **Cilium**, **Weave Net**)
+You will:
+
+1. Create a Kind cluster with no default CNI
+2. Install Calico for NetworkPolicy enforcement
+3. Deploy 3 pods
+4. Verify unrestricted communication
+5. Apply bidirectional NetworkPolicies
+6. Verify selective isolation
 
 ---
 
-## 🧱 Step 1: Create the Pods
 
-Let’s deploy three simple pods that run **busybox**, which can ping or curl others.
+Traffic Flow:
 
-**File:** `pods.yaml`
+Pod → Node → Calico → iptables/eBPF → Destination Pod
+
+Without Calico → No enforcement
+With Calico → Policy-based filtering
+
+---
+
+# 🔹 Phase 1 — Cluster Setup
+
+## Step 1: Create Cluster Without Default CNI
+
+Create config:
+
+```yaml
+# kind-config.yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  disableDefaultCNI: true
+```
+
+Create cluster:
+
+```bash
+kind create cluster --name np-lab --config kind-config.yaml
+```
+
+Verify:
+
+```bash
+kubectl get nodes
+```
+
+Expected:
+
+```
+np-lab-control-plane   Ready
+```
+
+---
+
+# 🔹 Phase 2 — Install Calico
+
+Install:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml
+```
+
+Wait:
+
+```bash
+kubectl get pods -n kube-system
+```
+
+Ensure:
+
+* calico-node → Running
+* calico-kube-controllers → Running
+
+🚨 Do NOT continue until all are ready.
+
+---
+
+# 🔹 Phase 3 — Deploy Application Pods
+
+Create `pods.yaml`:
 
 ```yaml
 apiVersion: v1
@@ -336,9 +401,8 @@ metadata:
     app: pod1
 spec:
   containers:
-  - name: pod1
-    image: busybox
-    command: ["sleep", "3600"]
+  - name: nginx
+    image: nginx
 ---
 apiVersion: v1
 kind: Pod
@@ -348,9 +412,8 @@ metadata:
     app: pod2
 spec:
   containers:
-  - name: pod2
-    image: busybox
-    command: ["sleep", "3600"]
+  - name: nginx
+    image: nginx
 ---
 apiVersion: v1
 kind: Pod
@@ -360,12 +423,11 @@ metadata:
     app: pod3
 spec:
   containers:
-  - name: pod3
-    image: busybox
-    command: ["sleep", "3600"]
+  - name: nginx
+    image: nginx
 ```
 
-Apply it:
+Apply:
 
 ```bash
 kubectl apply -f pods.yaml
@@ -377,83 +439,99 @@ Verify:
 kubectl get pods -o wide
 ```
 
----
-
-## 🧠 Step 2: Test Communication (Before Policy)
-
-Let’s test pod-to-pod connectivity before applying the NetworkPolicy.
-All should be able to talk freely right now.
-
-Get pod IPs:
-
-```bash
-kubectl get pods -o wide
-```
-
-Test from `pod1`:
-
-```bash
-kubectl exec -it pod1 -- ping <pod2-IP> -c 2
-kubectl exec -it pod1 -- ping <pod3-IP> -c 2
-```
-
-Test from `pod2`:
-
-```bash
-kubectl exec -it pod2 -- ping <pod3-IP> -c 2
-```
-
-✅ You’ll see successful replies — all communication is open by default.
-
-## step 3: Restrict the entire pod traffic
-
-```
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: default-deny-ingress
-  namespace: default
-spec:
-  podSelector: {}
-  policyTypes:
-  - Ingress
-```
+Note pod IPs.
 
 ---
 
-## 🚧 Step 4: Apply the NetworkPolicy
+# 🔹 Phase 4 — Baseline Connectivity Test (Before Policy)
 
-**File:** `networkpolicy.yaml`
+Test from pod2 → pod1:
+
+```bash
+kubectl exec -it pod2 -- curl <pod1-ip>
+```
+
+Expected:
+
+```
+<!DOCTYPE html>
+<html>
+...
+```
+
+Test from pod3 → pod1:
+
+```bash
+kubectl exec -it pod3 -- curl <pod1-ip>
+```
+
+Expected:
+
+```
+HTML response
+```
+
+✅ All pods can communicate freely.
+
+---
+
+# 🔹 Phase 5 — Apply Bidirectional NetworkPolicies
+
+Create `networkpolicy.yaml`:
 
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-pod1-pod2-to-communicate-with-pod3
-  namespace: default
+  name: pod1-policy
 spec:
   podSelector:
     matchLabels:
-      app: pod3
+      app: pod1
   policyTypes:
-  - Ingress
+    - Ingress
+    - Egress
   ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: pod1
-    - podSelector:
-        matchLabels:
-          app: pod2
+    - from:
+        - podSelector:
+            matchLabels:
+              app: pod2
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: pod2
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: pod2-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: pod2
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: pod1
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: pod1
 ```
 
-Apply it:
+Apply:
 
 ```bash
 kubectl apply -f networkpolicy.yaml
 ```
 
-Check it’s active:
+Verify:
 
 ```bash
 kubectl get networkpolicy
@@ -461,49 +539,116 @@ kubectl get networkpolicy
 
 ---
 
-## 🧪 Step 3: Test Communication (After Policy)
+# 🔹 Phase 6 — Post-Policy Testing
 
-Now that the policy is applied — time for the truth test 😏
-
-### 1️⃣ pod1 → pod3 ✅ should work
+## ✅ Allowed Traffic
 
 ```bash
-kubectl exec -it pod1 -- ping <pod3-IP> -c 2
+kubectl exec -it pod2 -- curl <pod1-ip>
 ```
 
-### 2️⃣ pod2 → pod3 ✅ should work
+Expected:
 
-```bash
-kubectl exec -it pod2 -- ping <pod3-IP> -c 2
+```
+HTML response
 ```
 
-### 3️⃣ pod1 → pod2 ❌ should fail
-
 ```bash
-kubectl exec -it pod1 -- ping <pod2-IP> -c 2
+kubectl exec -it pod1 -- curl <pod2-ip>
 ```
 
-You should see **no replies / 100% packet loss** — success!
-That’s your NetworkPolicy doing its job.
+Expected:
 
----
-
-## 🧹 Step 6: Cleanup (optional)
-
-```bash
-kubectl delete -f networkpolicy.yaml
-kubectl delete -f pods.yaml
+```
+HTML response
 ```
 
 ---
 
-## 🧭 Summary
+## ❌ Blocked Traffic
 
-| Communication | Allowed | Reason                   |
-| ------------- | ------- | ------------------------ |
-| pod1 → pod3   | ✅       | Explicitly allowed       |
-| pod2 → pod3   | ✅       | Explicitly allowed       |
-| pod1 → pod2   | 🚫      | No policy rule allows it |
+From pod3:
+
+```bash
+kubectl exec -it pod3 -- curl <pod1-ip>
+```
+
+Expected:
+
+```
+Connection timed out
+```
+
+From pod3:
+
+```bash
+kubectl exec -it pod3 -- curl <pod2-ip>
+```
+
+Expected:
+
+```
+Connection timed out
+```
+
+---
+
+# 📊 Final Traffic Matrix
+
+| Source      | Destination | Result |
+| ----------- | ----------- | ------ |
+| pod1 ↔ pod2 | Allowed     |        |
+| pod3 → pod1 | Denied      |        |
+| pod3 → pod2 | Denied      |        |
+| pod1 → pod3 | Denied      |        |
+| pod2 → pod3 | Denied      |        |
+
+---
+
+# 🔍 Deep Understanding Section
+
+### Why Did It Work?
+
+1. Applying Ingress automatically isolates selected pods
+2. Adding Egress isolates outgoing traffic
+3. Calico enforces rules at node level
+4. Unspecified traffic is dropped
+
+---
+
+# 🛠️ Troubleshooting Guide
+
+### If traffic is NOT blocked:
+
+Check:
+
+```bash
+kubectl get pods -n kube-system
+```
+
+Ensure Calico is running.
+
+Check policies:
+
+```bash
+kubectl describe networkpolicy
+```
+
+Check labels:
+
+```bash
+kubectl get pods --show-labels
+```
+
+---
+
+# 🔹 Cleanup
+
+```bash
+kind delete cluster --name np-lab
+```
+
+---
 
 
 
