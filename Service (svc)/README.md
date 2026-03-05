@@ -300,7 +300,172 @@ Subsets:
 - kube-dns looks up the my-backend-service record and returns its ClusterIP.
 
 - The requesting Pod then sends traffic to this resolved ClusterIP, and kube-proxy takes over for the actual routing and load balancing.
-    
+
+Bubu, here is a **complete Kubernetes ClusterIP lab using YAML manifests**.
+
+---
+
+# Kubernetes ClusterIP Lab
+
+## 1. Create a Deployment YAML
+
+Create a file called **nginx-deployment.yml**
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+```
+
+Apply the deployment.
+
+```bash
+kubectl apply -f nginx-deployment.yml
+```
+
+Verify the pods.
+
+```bash
+kubectl get pods
+```
+
+You should see **3 nginx pods running**.
+
+---
+
+# 2. Create ClusterIP Service YAML
+
+Create a file called **nginx-service.yml**
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+```
+
+Apply the service.
+
+```bash
+kubectl apply -f nginx-service.yml
+```
+
+Check the service.
+
+```bash
+kubectl get svc
+```
+
+Example output:
+
+```
+NAME                      TYPE        CLUSTER-IP      PORT(S)
+nginx-clusterip-service   ClusterIP   10.96.21.154    80/TCP
+```
+
+The **ClusterIP is only accessible inside the cluster**.
+
+---
+
+# 3. Verify Service Endpoints
+
+Check which pods the service is forwarding traffic to.
+
+```bash
+kubectl get endpoints nginx-clusterip-service
+```
+
+Example:
+
+```
+10.244.0.5:80
+10.244.0.6:80
+10.244.0.7:80
+```
+
+These are the **pod IPs**.
+
+---
+
+# 4. Test the Service from Inside the Cluster
+
+Create a **test pod**.
+
+```bash
+kubectl run test-pod --image=busybox -it --rm -- sh
+```
+
+Inside the pod run:
+
+```bash
+wget -qO- nginx-clusterip-service
+```
+
+You should see the **nginx welcome page HTML output**.
+
+You can also test DNS resolution:
+
+```bash
+nslookup nginx-clusterip-service
+```
+
+Kubernetes DNS will resolve it to the **ClusterIP**.
+
+---
+
+# 5. Architecture
+
+```
+Test Pod
+   │
+   ▼
+ClusterIP Service
+   │
+   ▼
+Nginx Pod 1
+Nginx Pod 2
+Nginx Pod 3
+```
+
+The service **load balances traffic across all pods**.
+
+---
+
+# 6. Cleanup
+
+```bash
+kubectl delete -f nginx-service.yml
+kubectl delete -f nginx-deployment.yml
+```
+
+---
+
+
 
 # 2. Introduction to NodePort Service
 
@@ -751,3 +916,4 @@ externalIPs:
 ```
 
 Kubernetes will forward traffic for **both IPs** to the same service.
+
