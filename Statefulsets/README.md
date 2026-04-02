@@ -163,11 +163,6 @@ spec:
         volumeMounts:
         - name: data-volume
           mountPath: /var/lib/my-app/data
-      # Optional: Define update strategy (default is RollingUpdate)
-      updateStrategy:
-        type: RollingUpdate
-        rollingUpdate:
-          partition: 0 # All pods will be updated during a rolling update
   volumeClaimTemplates:
   - metadata:
       name: data-volume # This name is referenced in volumeMounts
