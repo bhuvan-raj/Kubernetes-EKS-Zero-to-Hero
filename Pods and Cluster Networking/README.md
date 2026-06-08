@@ -442,7 +442,6 @@ kubectl get pods -o wide
 Note pod IPs.
 
 ---
-
 # 🔹 Phase 4 — Baseline Connectivity Test (Before Policy)
 
 Test from pod2 → pod1:
@@ -474,8 +473,19 @@ HTML response
 ✅ All pods can communicate freely.
 
 ---
-
-# 🔹 Phase 5 — Apply Bidirectional NetworkPolicies
+# Phase 5 - Aplly Deny-all Policy
+```
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+```
+# 🔹 Phase 6 — Apply Bidirectional NetworkPolicies
 
 Create `networkpolicy.yaml`:
 
