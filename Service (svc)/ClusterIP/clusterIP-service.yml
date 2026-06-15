@@ -7,7 +7,7 @@ metadata:
 spec:
   type: ClusterIP  # This is optional as ClusterIP is the default
   selector:
-    app: myapp      # Must match the Deployment's Pod label
+    app: backend      # Must match the Deployment's Pod label
   ports:
     - port: 80              # Port exposed by the Service
       targetPort: 80        # Port on the container
