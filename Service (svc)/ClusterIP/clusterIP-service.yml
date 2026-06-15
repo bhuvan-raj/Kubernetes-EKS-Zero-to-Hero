@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: myapp-service
   labels:
-    name: saravana
+    name: backend
 spec:
   type: ClusterIP  # This is optional as ClusterIP is the default
   selector:
