@@ -10,11 +10,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: backend
   template:
     metadata:
       labels:
-        app: myapp
+        app: backend
     spec:
       containers:
         - name: myapp-container
