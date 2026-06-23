@@ -53,7 +53,7 @@ By the end of this course, you will be able to:
 | 10 | [PV, PVC & StorageClass](./Persistant%20Volume%20and%20PVC/) | Persistent storage, volume claims, and dynamic provisioning |
 | 11 | [Resource Management & ResourceQuota](./Resource%20Management%20and%20Resource%20Quota/) | Controlling pod resource usage and namespace-level allocation limits |
 | 12 | [Node Selector & Node Affinity](./Node%20Selector%20and%20Node%20Affinity/) | Controlling where Pods are scheduled based on node labels and rules |
-| 13 | [Node Anti-Affinity](./Node%20Anti-Affinity/) | Spreading Pods across nodes to avoid co-location and improve resilience |
+| 13 | [ Pod Affinity and Antiaffinity](./Pod Affinity%20&%20AntiAffinity/) | Spreading Pods across nodes to avoid co-location and improve resilience |
 | 14 | [Taints & Tolerations](./Taint%20and%20Tolerations/) | Advanced node-level access control — restricting which Pods can run on which nodes |
 | 15 | [Horizontal Pod Autoscaler (HPA)](./HPA/) | Automatically scaling Pod count based on CPU, memory, or custom metrics |
 | 16 | [Vertical Pod Autoscaler (VPA)](./VPA/) | Automatically adjusting container resource requests and limits based on usage |
