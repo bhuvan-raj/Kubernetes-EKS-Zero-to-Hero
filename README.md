@@ -60,9 +60,10 @@ By the end of this course, you will be able to:
 | 17 | [DaemonSets](./Daemonsets/) | Ensuring a Pod runs on every node — ideal for logging, monitoring, and networking agents |
 | 18 | [StatefulSets](./Statefulsets/) | Managing stateful applications with stable identities and persistent storage per Pod |
 | 19 | [RBAC](./RBAC/) | Role-Based Access Control — defining who can perform what actions on which resources |
-| 20 | [Admission Controllers](./Admission%20Controller/) | API server gatekeepers that enforce policies before objects are persisted |
-| 21 | [Jobs & CronJobs](./Jobs%20and%20Cronjobs/) | Running finite tasks to completion and scheduling recurring workloads |
-| 22 | [HELM](./HELM/) | Kubernetes package manager — templating, packaging, and managing application releases |
+| 20 | [CertManager and Certification management](./Certification%20Management/) | Certmanager integration ,types of cluster certificates and their uses |
+| 21 | [Admission Controllers](./Admission%20Controller/) | API server gatekeepers that enforce policies before objects are persisted |
+| 22 | [Jobs & CronJobs](./Jobs%20and%20Cronjobs/) | Running finite tasks to completion and scheduling recurring workloads |
+| 23 | [HELM](./HELM/) | Kubernetes package manager — templating, packaging, and managing application releases |
 
 ---
 
