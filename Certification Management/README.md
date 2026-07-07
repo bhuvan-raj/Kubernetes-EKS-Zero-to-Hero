@@ -78,10 +78,10 @@ Kubernetes uses mTLS almost everywhere.
                   (Certificate Authority)
                          |
  -------------------------------------------------------
- |          |           |           |                  |
+ |         |            |            |             |
 API      ETCD       Kubelet     Scheduler      Controller
 Server     |            |            |             |
- |          |            |            |             |
+ |         |            |            |             |
 Clients   Peers      API Server    API Server   API Server
 ```
 
