@@ -1,4 +1,5 @@
 # Kubernetes Certificate Management & cert-manager
+<img width="1983" height="793" alt="ca" src="https://github.com/user-attachments/assets/ab593758-fb9d-4e8d-9936-c0e86736b3db" />
 
 ---
 
