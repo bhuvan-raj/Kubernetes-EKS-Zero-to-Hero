@@ -104,6 +104,15 @@ Learn how to implement **production-grade monitoring** using Prometheus for metr
 📦 **[Prometheus and Grafana →](https://github.com/bhuvan-raj/Prometheus-and-Grafana.git)**
 
 ---
+### Kyverno — Policy as Code for Kubernetes
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/kyverno.png" width="120" alt="Kyverno" />
+
+Kyverno enables **Policy as Code for Kubernetes** — policies can be used to validate, mutate, and enforce security and compliance rules across Kubernetes resources without requiring a separate policy language.
+
+📦 **[Kyverno Zero to Hero →](https://github.com/bhuvan-raj/Kyverno-Zero-to-Hero.git)**
+
+---
 
 ## 🛠️ Prerequisites
 
