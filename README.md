@@ -112,7 +112,7 @@ Learn how to implement centralized logging using Grafana Alloy for log collectio
 
 📦 **[Loki and Grafana Alloy →](https://github.com/bhuvan-raj/Grafana-Loki-and-Alloy-Zero-to-Hero.git)**
 
-——
+---
 
 ### Kyverno — Policy as Code for Kubernetes
 
