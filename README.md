@@ -104,6 +104,16 @@ Learn how to implement **production-grade monitoring** using Prometheus for metr
 📦 **[Prometheus and Grafana →](https://github.com/bhuvan-raj/Prometheus-and-Grafana.git)**
 
 ---
+### Grafana Loki & Alloy — Centralized Logging
+
+<img src="https://github.com/bhuvan-raj/Grafana-Loki-and-Alloy-Zero-to-Hero/blob/main/assets/loki-alloy.png" width="220" alt="Grafana Loki and Alloy" />
+
+Learn how to implement centralized logging using Grafana Alloy for log collection and processing, Grafana Loki for scalable log aggregation, and Grafana for log visualization and analysis across your infrastructure and Kubernetes workloads.
+
+📦 **[Loki and Grafana Alloy →](https://github.com/bhuvan-raj/Grafana-Loki-and-Alloy-Zero-to-Hero.git)**
+
+——
+
 ### Kyverno — Policy as Code for Kubernetes
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/kyverno.png" width="220" alt="Kyverno" />
