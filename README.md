@@ -113,6 +113,15 @@ Learn how to implement centralized logging using Grafana Alloy for log collectio
 📦 **[Loki and Grafana Alloy →](https://github.com/bhuvan-raj/Grafana-Loki-and-Alloy-Zero-to-Hero.git)**
 
 ---
+### PagerDuty — Incident Management for DevOps
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/pd.png" width="220" alt="Kyverno" />
+
+
+PagerDuty enables **real-time incident management and on-call automation** — helping DevOps teams manage alerts, incidents, on-call schedules, escalation policies, and production incident response workflows.
+
+📦 **[PagerDuty Zero to Hero →](https://github.com/bhuvan-raj/PagerDuty-Zero-to-Hero.git)**
+
 
 ### Kyverno — Policy as Code for Kubernetes
 
