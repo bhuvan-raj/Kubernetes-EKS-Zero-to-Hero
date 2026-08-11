@@ -147,6 +147,14 @@ Before getting started, make sure you have the following:
 | `oc` CLI | Required only for OpenShift examples in the Distributions section |
 
 ---
+### KubeArmor — Runtime Security for Kubernetes
+
+<img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/kubearmor.png" width="220" alt="KubeArmor" />
+
+KubeArmor provides **runtime security enforcement for Kubernetes** — helping protect workloads and nodes by controlling process execution, file access, networking operations, and other runtime behaviors using Linux security mechanisms.
+
+📦 **[KubeArmor Zero to Hero →](https://github.com/bhuvan-raj/KubeArmor-Zero-to-Hero.git)**
+
 
 ## 🚦 Getting Started
 
