@@ -119,6 +119,18 @@ Learn how to implement centralized logging using Grafana Alloy for log collectio
 
 
 PagerDuty enables **real-time incident management and on-call automation** — helping DevOps teams manage alerts, incidents, on-call schedules, escalation policies, and production incident response workflows.
+---
+---
+
+### Istio — Service Mesh for Kubernetes
+
+<img src="https://istio.io/latest/img/istio-whitelogo-bluebackground.svg" width="220" alt="Istio" />
+
+Istio provides **service mesh capabilities for Kubernetes** — enabling secure service-to-service communication, traffic management, observability, and policy enforcement through features such as mutual TLS (mTLS), traffic routing, telemetry, and authorization.
+
+📦 **[Istio Zero to Hero →](https://github.com/bhuvan-raj/Istio-Zero-to-Hero)**
+
+---
 
 📦 **[PagerDuty Zero to Hero →](https://github.com/bhuvan-raj/PagerDuty-Zero-to-Hero.git)**
 
