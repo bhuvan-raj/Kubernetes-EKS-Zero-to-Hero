@@ -124,7 +124,7 @@ PagerDuty enables **real-time incident management and on-call automation** — h
 
 ### Istio — Service Mesh for Kubernetes
 
-<img src="https://github.com/bhuvan-raj/Istio-Zero-to-Hero/assets/istio.png" alt="Istio Zero to Hero" width="220"/>
+<img src="https://github.com/bhuvan-raj/Istio-Zero-to-Hero/blob/8351dce35acb88e55647c6ae79174fb46d54d69f/assets/istio.png" alt="Istio Zero to Hero" width="220"/>
 
 
 Istio provides **service mesh capabilities for Kubernetes** — enabling secure service-to-service communication, traffic management, observability, and policy enforcement through features such as mutual TLS (mTLS), traffic routing, telemetry, and authorization.
