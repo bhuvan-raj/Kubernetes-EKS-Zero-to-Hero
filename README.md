@@ -117,9 +117,10 @@ Learn how to implement centralized logging using Grafana Alloy for log collectio
 
 <img src="https://github.com/bhuvan-raj/Kubernetes-EKS-FROM-SCRATCH/blob/main/assets/pd.png" width="220" alt="Kyverno" />
 
+PagerDuty enables **real-time incident management and on-call automation** — helping DevOps teams manage alerts, incidents, on-call schedules,escalation policies, and production incident response workflows.
 
-PagerDuty enables **real-time incident management and on-call automation** — helping DevOps teams manage alerts, incidents, on-call schedules, escalation policies, and production incident response workflows.
----
+📦 **[PagerDuty Zero to Hero →](https://github.com/bhuvan-raj/PagerDuty-Zero-to-Hero.git)**
+
 ---
 
 ### Istio — Service Mesh for Kubernetes
@@ -133,7 +134,7 @@ Istio provides **service mesh capabilities for Kubernetes** — enabling secure 
 
 ---
 
-📦 **[PagerDuty Zero to Hero →](https://github.com/bhuvan-raj/PagerDuty-Zero-to-Hero.git)**
+
 
 
 ### Kyverno — Policy as Code for Kubernetes
